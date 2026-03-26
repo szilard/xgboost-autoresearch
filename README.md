@@ -8,9 +8,9 @@ The idea: give an AI agent a small but real XGBoost training setup and let it ex
 
 The repo is deliberately kept small and only really has three files that matter:
 
-- **`prepare.py`** -- download the data. Not modified.
-- **`train.py`** — the single file the agent edits. Contains the full XGBoost model, optimizer, and training loop. Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training (with possibly adding cross validation and/or early stopping etc.) **This file is edited and iterated on by the agent**.
-- **`program.md`** — baseline instructions for one agent. Point your agent here and let it go. **This file is edited and iterated on by the human**.
+- **`prepare.py`** - download the data. Not modified.
+- **`train.py`** - the single file the agent edits. Contains the full XGBoost model, optimizer, and training loop. Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training (with possibly adding cross validation and/or early stopping etc.) **This file is edited and iterated on by the agent**.
+- **`program.md`** - baseline instructions for one agent. Point your agent here and let it go. **This file is edited and iterated on by the human**.
 
 ## Quick start
 
@@ -41,9 +41,9 @@ The `program.md` file is essentially a super lightweight "skill".
 ## Project structure
 
 ```
-prepare.py      — downloads the data
-train.py        — XGBoost training (agent modifies this)
-program.md      — agent instructions
+prepare.py      - downloads the data
+train.py        - XGBoost training (agent modifies this)
+program.md      - agent instructions
 ```
 
 ## Design choices
