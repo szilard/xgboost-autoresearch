@@ -6,7 +6,7 @@ This is an experiment to have an AI/LLM agent conduct autonomous research in opt
 
 To set up a new experiment, work with the user to:
 
-1. **Agree on a run tag**: propose a tag based on today's date (e.g. `mar5`). The branch `<tag>` must not already exist - this is a fresh run.
+1. **Agree on a run tag**: propose a tag based on today's date (e.g. `mar5-exp<i>` with `<i>` an integer). The branch `<tag>` must not already exist - this is a fresh run.
 2. **Create the branch**: `git checkout -b <tag>` from current master.
 3. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `README.md` - repository context.
@@ -24,8 +24,8 @@ Once you get confirmation, kick off the experimentation.
 You launch it simply as: `python3 train.py`.
 
 **What you CAN do:**
-- Modify `train.py` - this is the only file you edit. Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training (with possible cross validation and/or early stopping etc.).
-- Read XGBoost documentation online, search the web for how to tune XGBoost hyperparameters etc. and use that information for your experiments.
+- Modify `train.py` - this is the only file you edit. Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training. You can also add new features such as cross validation or early stopping etc.
+- Read XGBoost documentation online, search the web for how to tune XGBoost hyperparameters and read that information etc. and use all that for your experiments.
 
 **What you CANNOT do:**
 - Modify `prepare.py`. It is read-only. It contains downloading the data. 
@@ -33,7 +33,7 @@ You launch it simply as: `python3 train.py`.
 - Modify the evaluation harness. The code in `evaluate.py` is the ground truth metric.
 - Don't use any of the data files other than `airline-1m-slice100k-1.csv` for training and `airline-1m-slice100k-2.csv` for evaluating (only via the `evaluate.py` script).
 
-**The goal is simple: get the highest test AUC.** Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training (with possibly adding cross validation and/or early stopping etc.). The only constraint is that the code runs without crashing and finishes in reasonable time.
+**The goal is simple: get the highest test AUC.** Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training. Read XGBoost documentation online, search the web for how to tune XGBoost. Try out adding new elements such as cross validation or early stopping. Be creative! The only constraint is that the code runs without crashing and finishes in reasonable time.
 
 **Simplicity criterion**: All else being equal, simpler is better. A small improvement that adds ugly complexity is not worth it. Conversely, removing something and getting equal or better results is a great outcome - that's a simplification win. When evaluating whether to keep a change, weigh the complexity cost against the improvement magnitude. A 0.001 AUC improvement that adds 20 lines of hacky code? Probably not worth it. A 0.001 AUC improvement from deleting code? Definitely keep. An improvement of ~0 but much simpler code? Keep.
 
@@ -51,7 +51,7 @@ Test AUC: 0.7300
 You can extract the key metric from the log file:
 
 ```
-grep "Test AUC:" run.log
+grep "^Test AUC:" run.log
 ```
 
 ## Logging results
@@ -95,7 +95,7 @@ LOOP FOREVER:
 9. If test AUC is equal or worse, you git reset back to where you started
 The idea is that you are a completely autonomous researcher trying things out. If they work, keep. If they don't, discard. And you're advancing the branch so that you can iterate. If you feel like you're getting stuck in some way, you can rewind but you should probably do this very very sparingly (if ever).
 
-**Timeout**: Each experiment should take <1 minute total (+ a few seconds for startup and eval overhead). If a run exceeds 2 minutes, kill it and treat it as a failure (discard and revert).
+**Timeout**: Each experiment should take <1 minute total (+ a few seconds for startup and eval overhead). If a run exceeds 1 minute, kill it and treat it as a failure (discard and revert).
 
 **Crashes**: If a run crashes (OOM, or a bug, or etc.), use your judgment: If it's something dumb and easy to fix (e.g. a typo, a missing import), fix it and re-run. If the idea itself is fundamentally broken, just skip it, log "crash" as the status in the tsv, and move on.
 
