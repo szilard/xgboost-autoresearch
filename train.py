@@ -24,14 +24,13 @@ def prepare(df):
     dep = pd.to_numeric(X["DepTime"], errors="coerce").fillna(1200)
     X["DepHour"] = (dep // 100).clip(0, 23).astype(int)
     X["DepMinute"] = (dep % 100).clip(0, 59).astype(int)
-    # Binary indicators help the tree find useful split boundaries faster
     y = (df[target] == "Y").astype(int).to_numpy()
     return X, y
 
 X_train, y_train = prepare(train)
 
 # Split for early stopping
-X_tr, X_val, y_tr, y_val = train_test_split(X_train, y_train, test_size=0.15, random_state=42)
+X_tr, X_val, y_tr, y_val = train_test_split(X_train, y_train, test_size=0.10, random_state=42)
 
 model = xgb.XGBClassifier(
     n_estimators=5000,
