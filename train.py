@@ -20,6 +20,10 @@ def prepare(df):
             X[col].where(X[col].isin(cat_levels[col])),
             categories=cat_levels[col],
         )
+    # Feature engineering
+    X["DepHour"] = pd.to_numeric(X["DepTime"], errors="coerce") // 100
+    X["DepHour"] = X["DepHour"].clip(0, 23).fillna(12).astype(int)
+    X["IsWeekend"] = X["DayOfWeek"].cat.codes.isin([5, 6]).astype(int)
     y = (df[target] == "Y").astype(int).to_numpy()
     return X, y
 
