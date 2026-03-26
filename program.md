@@ -31,6 +31,7 @@ You launch it simply as: `python3 train.py`.
 - Modify `prepare.py`. It is read-only. It contains downloading the data. 
 - Install new packages or add dependencies. You can only use what's already installed.
 - Modify the evaluation harness. The code in `evaluate.py` is the ground truth metric.
+- Don't use any of the data files other than `airline-1m-slice100k-1.csv` for training and `airline-1m-slice100k-2.csv` for evaluating (only via the `evaluate.py` script).
 
 **The goal is simple: get the highest test AUC.** Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training (with possibly adding cross validation and/or early stopping etc.). The only constraint is that the code runs without crashing and finishes in reasonable time.
 
