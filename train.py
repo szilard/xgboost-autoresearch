@@ -24,10 +24,7 @@ def prepare(df):
     dep = pd.to_numeric(X["DepTime"], errors="coerce").fillna(1200)
     X["DepHour"] = (dep // 100).clip(0, 23).astype(int)
     X["DepMinute"] = (dep % 100).clip(0, 59).astype(int)
-    X["IsWeekend"] = X["DayOfWeek"].cat.codes.isin([5, 6]).astype(int)
-    X["IsLateNight"] = ((X["DepHour"] >= 21) | (X["DepHour"] <= 5)).astype(int)
-    X["IsMorningRush"] = ((X["DepHour"] >= 6) & (X["DepHour"] <= 9)).astype(int)
-    X["IsEveningRush"] = ((X["DepHour"] >= 16) & (X["DepHour"] <= 19)).astype(int)
+    # Binary indicators help the tree find useful split boundaries faster
     y = (df[target] == "Y").astype(int).to_numpy()
     return X, y
 
