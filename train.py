@@ -25,12 +25,15 @@ def prepare(df):
 X_train, y_train = prepare(train)
 
 model = xgb.XGBClassifier(
-    n_estimators=500,
-    max_depth=8,
-    learning_rate=0.05,
+    n_estimators=1000,
+    max_depth=7,
+    learning_rate=0.03,
     subsample=0.8,
     colsample_bytree=0.8,
-    min_child_weight=3,
+    min_child_weight=5,
+    reg_alpha=0.1,
+    reg_lambda=1.0,
+    gamma=0.1,
     enable_categorical=True,
     random_state=42,
     n_jobs=-1,
