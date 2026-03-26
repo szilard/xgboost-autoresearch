@@ -33,11 +33,12 @@ X_train, y_train = prepare(train)
 X_tr, X_val, y_tr, y_val = train_test_split(X_train, y_train, test_size=0.15, random_state=42)
 
 model = xgb.XGBClassifier(
-    n_estimators=2000,
+    n_estimators=3000,
     max_depth=7,
-    learning_rate=0.02,
+    learning_rate=0.01,
     subsample=0.8,
-    colsample_bytree=0.8,
+    colsample_bytree=0.7,
+    colsample_bylevel=0.7,
     min_child_weight=5,
     reg_alpha=0.1,
     reg_lambda=1.0,
@@ -45,7 +46,7 @@ model = xgb.XGBClassifier(
     enable_categorical=True,
     random_state=42,
     n_jobs=-1,
-    early_stopping_rounds=50,
+    early_stopping_rounds=80,
 )
 model.fit(X_tr, y_tr, eval_set=[(X_val, y_val)], verbose=False)
 
@@ -55,9 +56,10 @@ best_n = model.best_iteration + 1
 model2 = xgb.XGBClassifier(
     n_estimators=best_n,
     max_depth=7,
-    learning_rate=0.02,
+    learning_rate=0.01,
     subsample=0.8,
-    colsample_bytree=0.8,
+    colsample_bytree=0.7,
+    colsample_bylevel=0.7,
     min_child_weight=5,
     reg_alpha=0.1,
     reg_lambda=1.0,
