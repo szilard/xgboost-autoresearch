@@ -24,6 +24,7 @@ def prepare(df):
     dep = pd.to_numeric(X["DepTime"], errors="coerce").fillna(1200)
     X["DepHour"] = (dep // 100).clip(0, 23).astype(int)
     X["DepMinute"] = (dep % 100).clip(0, 59).astype(int)
+    X["DepTimeMin"] = (X["DepHour"] * 60 + X["DepMinute"]).astype(int)
     y = (df[target] == "Y").astype(int).to_numpy()
     return X, y
 
