@@ -73,4 +73,5 @@ model = model2
 print(f"Best n_estimators: {best_n}")
 print(f"Training time: {time.time() - t0:.1f}s")
 
+## run evaluation
 exec(open(__file__.replace("train.py", "evaluate.py")).read())
