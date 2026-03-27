@@ -38,7 +38,7 @@ X_tr, X_val, y_tr, y_val = train_test_split(X_train, y_train, test_size=0.10, ra
 model = xgb.XGBClassifier(
     n_estimators=5000,
     max_depth=7,
-    learning_rate=0.008,
+    learning_rate=0.01,
     subsample=0.80,
     colsample_bytree=0.5,
     colsample_bylevel=0.7,
@@ -60,7 +60,7 @@ best_n = model.best_iteration + 1
 model2 = xgb.XGBClassifier(
     n_estimators=best_n,
     max_depth=7,
-    learning_rate=0.008,
+    learning_rate=0.01,
     subsample=0.80,
     colsample_bytree=0.5,
     colsample_bylevel=0.7,
