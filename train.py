@@ -33,7 +33,7 @@ def prepare(df):
 X_train, y_train = prepare(train)
 
 # Split for early stopping
-X_tr, X_val, y_tr, y_val = train_test_split(X_train, y_train, test_size=0.10, random_state=42)
+X_tr, X_val, y_tr, y_val = train_test_split(X_train, y_train, test_size=0.10, random_state=42, stratify=y_train)
 
 model = xgb.XGBClassifier(
     n_estimators=5000,
