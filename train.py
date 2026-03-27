@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import time
 import xgboost as xgb
 from pathlib import Path
@@ -24,29 +25,36 @@ def prepare(df):
     dep = pd.to_numeric(X["DepTime"], errors="coerce").fillna(1200)
     X["DepHour"] = (dep // 100).clip(0, 23).astype(int)
     X["DepMinute"] = (dep % 100).clip(0, 59).astype(int)
+    X["DepTimeMin"] = (X["DepHour"] * 60 + X["DepMinute"]).astype(int)
+    X["DepTimeFrac"] = X["DepTimeMin"] / 1440.0
+    X["DepTimeSin"] = np.sin(2 * np.pi * X["DepTimeFrac"])
+    X["DepTimeCos"] = np.cos(2 * np.pi * X["DepTimeFrac"])
+    X["DepHourSin"] = np.sin(2 * np.pi * X["DepHour"] / 24)
+    X["DepHourCos"] = np.cos(2 * np.pi * X["DepHour"] / 24)
+    X["DepMinSin"] = np.sin(2 * np.pi * X["DepMinute"] / 60)
+    X["DepMinCos"] = np.cos(2 * np.pi * X["DepMinute"] / 60)
     y = (df[target] == "Y").astype(int).to_numpy()
     return X, y
 
 X_train, y_train = prepare(train)
 
 # Split for early stopping
-X_tr, X_val, y_tr, y_val = train_test_split(X_train, y_train, test_size=0.10, random_state=42)
+X_tr, X_val, y_tr, y_val = train_test_split(X_train, y_train, test_size=0.10, random_state=42, stratify=y_train)
 
 model = xgb.XGBClassifier(
     n_estimators=5000,
     max_depth=7,
-    learning_rate=0.008,
-    subsample=0.75,
-    colsample_bytree=0.4,
+    learning_rate=0.01,
+    subsample=0.80,
+    colsample_bytree=0.5,
     colsample_bylevel=0.7,
-    min_child_weight=20,
-    reg_alpha=0.3,
-    reg_lambda=1.5,
-    gamma=0.0,
+    min_child_weight=30,
+    reg_alpha=0.4,
+    reg_lambda=1.3,
     enable_categorical=True,
     random_state=42,
     n_jobs=-1,
-    early_stopping_rounds=150,
+    early_stopping_rounds=75,
 )
 model.fit(X_tr, y_tr, eval_set=[(X_val, y_val)], verbose=False)
 
@@ -56,14 +64,13 @@ best_n = model.best_iteration + 1
 model2 = xgb.XGBClassifier(
     n_estimators=best_n,
     max_depth=7,
-    learning_rate=0.008,
-    subsample=0.75,
-    colsample_bytree=0.4,
+    learning_rate=0.01,
+    subsample=0.80,
+    colsample_bytree=0.5,
     colsample_bylevel=0.7,
-    min_child_weight=20,
-    reg_alpha=0.3,
-    reg_lambda=1.5,
-    gamma=0.0,
+    min_child_weight=30,
+    reg_alpha=0.4,
+    reg_lambda=1.3,
     enable_categorical=True,
     random_state=42,
     n_jobs=-1,
