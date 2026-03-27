@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import time
 import xgboost as xgb
 from pathlib import Path
@@ -27,6 +28,8 @@ def prepare(df):
     X["DepTimeMin"] = (X["DepHour"] * 60 + X["DepMinute"]).astype(int)
     X["DepTimeFrac"] = X["DepTimeMin"] / 1440.0
     X["DepHourSq"] = (X["DepHour"] ** 2).astype(int)
+    X["DepTimeSin"] = np.sin(2 * np.pi * X["DepTimeFrac"])
+    X["DepTimeCos"] = np.cos(2 * np.pi * X["DepTimeFrac"])
     y = (df[target] == "Y").astype(int).to_numpy()
     return X, y
 
