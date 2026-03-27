@@ -85,14 +85,20 @@ The experiment runs on a dedicated branch (e.g. `mar5`).
 LOOP FOREVER:
 
 1. Look at the git state: the current branch/commit we're on
-2. Tune `train.py` with an experimental idea by directly hacking the code.
-3. git commit
-4. Run the experiment: `python3 train.py > run.log 2>&1` (redirect everything - do NOT use tee or let output flood your context)
-5. Read out the results: `grep "^Test AUC:" run.log`
-6. If the grep output is empty, the run crashed. Run `tail -n 50 run.log` to read the Python stack trace and attempt a fix. If you can't get things to work after more than a few attempts, give up.
-7. Record the results in the tsv (NOTE: do not commit the results.tsv file, leave it untracked by git)
-8. If test AUC improved (higher), you "advance" the branch, keeping the git commit
-9. If test AUC is equal or worse, you git reset back to where you started
+2. **Choose your next experiment deliberately.** Before touching any code:
+   - Review `results.tsv` and recent commits.
+   - State a short **hypothesis**: what you are changing, why you think it will help, and (if applicable) which prior result motivates this step.
+   - Classify the experiment as one of: *follow-up* to a promising result, *ablation/simplification* of a promising result, or *exploration* of a meaningfully different direction.
+   - **Do not** run near-duplicate experiments unless you can state exactly what is different and why it matters. Avoid random-walk behavior and cosmetic variations of the same idea.
+3. Tune `train.py` with that experimental idea by directly hacking the code.
+4. git commit
+5. Run the experiment: `python3 train.py > run.log 2>&1` (redirect everything - do NOT use tee or let output flood your context)
+6. Read out the results: `grep "^Test AUC:" run.log`
+7. If the grep output is empty, the run crashed. Run `tail -n 50 run.log` to read the Python stack trace and attempt a fix. If you can't get things to work after more than a few attempts, give up.
+8. Record the results in the tsv (NOTE: do not commit the results.tsv file, leave it untracked by git)
+9. If test AUC improved (higher), you "advance" the branch, keeping the git commit
+10. If test AUC is equal or worse, you git reset back to where you started
+11. **Every 10 experiments**, pause and briefly synthesize what you have learned so far: what kinds of changes help, what kinds do not, what your current best theory is about what matters on this dataset, and what direction to try next. Write this synthesis as a short note in your context (not a file) to inform subsequent experiments.
 The idea is that you are a completely autonomous researcher trying things out. If they work, keep. If they don't, discard. And you're advancing the branch so that you can iterate. If you feel like you're getting stuck in some way, you can rewind but you should probably do this very very sparingly (if ever).
 
 **Timeout**: Each experiment should take <1 minute total (+ a few seconds for startup and eval overhead). If a run exceeds 1 minute, kill it and treat it as a failure (discard and revert).
