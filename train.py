@@ -27,7 +27,6 @@ def prepare(df):
     X["DepMinute"] = (dep % 100).clip(0, 59).astype(int)
     X["DepTimeMin"] = (X["DepHour"] * 60 + X["DepMinute"]).astype(int)
     X["DepTimeFrac"] = X["DepTimeMin"] / 1440.0
-    X["DepHourSq"] = (X["DepHour"] ** 2).astype(int)
     X["DepTimeSin"] = np.sin(2 * np.pi * X["DepTimeFrac"])
     X["DepTimeCos"] = np.cos(2 * np.pi * X["DepTimeFrac"])
     X["DepHourSin"] = np.sin(2 * np.pi * X["DepHour"] / 24)
