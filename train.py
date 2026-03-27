@@ -31,6 +31,8 @@ def prepare(df):
     X["DepTimeCos"] = np.cos(2 * np.pi * X["DepTimeFrac"])
     X["DepHourSin"] = np.sin(2 * np.pi * X["DepHour"] / 24)
     X["DepHourCos"] = np.cos(2 * np.pi * X["DepHour"] / 24)
+    X["DepMinSin"] = np.sin(2 * np.pi * X["DepMinute"] / 60)
+    X["DepMinCos"] = np.cos(2 * np.pi * X["DepMinute"] / 60)
     y = (df[target] == "Y").astype(int).to_numpy()
     return X, y
 
