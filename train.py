@@ -48,7 +48,7 @@ model = xgb.XGBClassifier(
     enable_categorical=True,
     random_state=42,
     n_jobs=-1,
-    early_stopping_rounds=100,
+    early_stopping_rounds=75,
 )
 model.fit(X_tr, y_tr, eval_set=[(X_val, y_val)], verbose=False)
 
