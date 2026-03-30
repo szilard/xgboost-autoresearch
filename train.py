@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import time
 import xgboost as xgb
 from pathlib import Path
@@ -23,6 +24,16 @@ def prepare(df):
     X["DepMinute"] = X["DepTime"] % 100
     X["DepHour"] = pd.Categorical((X["DepTime"] // 100).clip(0, 23).astype(int))
     X["DepTime_x_Dist"] = X["DepTime"] * X["Distance"]
+    # Cyclical encoding
+    hour = (X["DepTime"] // 100).clip(0, 23)
+    X["DepHour_sin"] = np.sin(2 * np.pi * hour / 24)
+    X["DepHour_cos"] = np.cos(2 * np.pi * hour / 24)
+    dow = pd.to_numeric(df["DayOfWeek"], errors="coerce")
+    X["DayOfWeek_sin"] = np.sin(2 * np.pi * dow / 7)
+    X["DayOfWeek_cos"] = np.cos(2 * np.pi * dow / 7)
+    month = pd.to_numeric(df["Month"], errors="coerce")
+    X["Month_sin"] = np.sin(2 * np.pi * month / 12)
+    X["Month_cos"] = np.cos(2 * np.pi * month / 12)
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
