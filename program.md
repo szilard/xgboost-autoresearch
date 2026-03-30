@@ -11,8 +11,8 @@ To set up a new experiment, work with the user to:
 3. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `README.md` - repository context.
    - `prepare.py` - downloading the data. Do not modify.
-   - `train.py` - the file you modify. Data preparation, feature engineering, choosing hyperparameters and model training (with possible cross validation and/or early stopping etc.).
-   - `evaluate.py` - reads the test dataset and runs the evaluation
+   - `train.py` - the file you modify. Data preparation, feature engineering, choosing hyperparameters and model training (with possible early stopping etc.).
+   - `check_groundtruth.py` - script to check the "ground truth" AUC by the human. Do not access this file.
 4. **Verify data exists**: Check that `data-cache/` contains data. If not, tell the human to run `python3 prepare.py`.
 5. **Initialize results.tsv**: Create `results.tsv` with just the header row. The baseline will be recorded after the first run.
 6. **Confirm and go**: Confirm setup looks good.
@@ -24,16 +24,16 @@ Once you get confirmation, kick off the experimentation.
 You launch it simply as: `python3 train.py`.
 
 **What you CAN do:**
-- Modify `train.py` - this is the only file you edit. Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training. You can also add new features such as cross validation or early stopping etc.
+- Modify `train.py` - this is the only file you edit. Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training. You can also implement new features such as early stopping etc.
 - Read XGBoost documentation online, search the web for how to tune XGBoost hyperparameters and read that information etc. and use all that for your experiments.
 
 **What you CANNOT do:**
 - Modify `prepare.py`. It is read-only. It contains downloading the data. 
 - Install new packages or add dependencies. You can only use what's already installed.
-- Modify the evaluation harness. The code in `evaluate.py` is the ground truth metric.
-- Don't use any of the data files other than `airline-1m-slice100k-1.csv` for training and `airline-1m-slice100k-2.csv` for evaluating (only via the `evaluate.py` script).
+- Modify the evaluation harness. The code in `check_groundtruth.py` is the ground truth metric.
+- Don't use any of the data files other than `airline-10m-slice1-100k.csv` for training and CV.
 
-**The goal is simple: get the highest test AUC.** Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training. Read XGBoost documentation online, search the web for how to tune XGBoost. Try out adding new elements such as cross validation or early stopping. Be creative! The only constraint is that the code runs without crashing and finishes in reasonable time.
+**The goal is simple: get the highest AUC.** Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training. Read XGBoost documentation online, search the web for how to tune XGBoost. Try out adding new elements such early stopping. Be creative! The only constraint is that the code runs without crashing and finishes in reasonable time.
 
 **Simplicity criterion**: All else being equal, simpler is better. A small improvement that adds ugly complexity is not worth it. Conversely, removing something and getting equal or better results is a great outcome - that's a simplification win. When evaluating whether to keep a change, weigh the complexity cost against the improvement magnitude. A 0.001 AUC improvement that adds 20 lines of hacky code? Probably not worth it. A 0.001 AUC improvement from deleting code? Definitely keep. An improvement of ~0 but much simpler code? Keep.
 
@@ -44,14 +44,15 @@ You launch it simply as: `python3 train.py`.
 Once the script finishes it prints a summary like this:
 
 ```
-Training time: 0.3s
-Test AUC: 0.7300
+CV time: 3.0s
+CV AUC: 0.7256 ± 0.0045
+Final model training time: 0.2s
 ```
 
 You can extract the key metric from the log file:
 
 ```
-grep "^Test AUC:" run.log
+grep "^CV AUC:" run.log
 ```
 
 ## Logging results
@@ -61,11 +62,11 @@ When an experiment is done, log it to `results.tsv` (tab-separated, NOT comma-se
 The TSV has a header row and 4 columns:
 
 ```
-commit	test_AUC	status	description
+commit	CV_AUC	status	description
 ```
 
 1. git commit hash (short, 7 chars)
-2. test AUC achieved (e.g. 0.7300) - use 0.0000 for crashes
+2. CV AUC achieved (e.g. 0.7300) - use 0.0000 for crashes
 3. status: `keep`, `discard`, or `crash`
 4. short text description of what this experiment tried
 
@@ -93,11 +94,11 @@ LOOP FOREVER:
 3. Tune `train.py` with that experimental idea by directly hacking the code.
 4. git commit
 5. Run the experiment: `python3 train.py > run.log 2>&1` (redirect everything - do NOT use tee or let output flood your context)
-6. Read out the results: `grep "^Test AUC:" run.log`
+6. Read out the results: `grep "^CV AUC:" run.log`
 7. If the grep output is empty, the run crashed. Run `tail -n 50 run.log` to read the Python stack trace and attempt a fix. If you can't get things to work after more than a few attempts, give up.
 8. Record the results in the tsv (NOTE: do not commit the results.tsv file, leave it untracked by git)
-9. If test AUC improved (higher), you "advance" the branch, keeping the git commit
-10. If test AUC is equal or worse, you git reset back to where you started
+9. If CV AUC improved (higher), you "advance" the branch, keeping the git commit
+10. If CV AUC is equal or worse, you git reset back to where you started
 11. **Every 10 experiments**, pause and briefly synthesize what you have learned so far: what kinds of changes help, what kinds do not, what your current best theory is about what matters on this dataset, and what direction to try next. Write this synthesis as a short note in your context (not a file) to inform subsequent experiments.
 The idea is that you are a completely autonomous researcher trying things out. If they work, keep. If they don't, discard. And you're advancing the branch so that you can iterate. If you feel like you're getting stuck in some way, you can rewind but you should probably do this very very sparingly (if ever).
 
