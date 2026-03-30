@@ -24,16 +24,17 @@ Once you get confirmation, kick off the experimentation.
 You launch it simply as: `python3 train.py`.
 
 **What you CAN do:**
-- Modify `train.py` - this is the only file you edit. Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training. You can also implement new features such as early stopping etc.
+- Modify `train.py` - this is the only file you edit. Everything is fair game that will lead to a model that generalizes on unseen data: data preparation, feature engineering, choosing hyperparameters, and model training. You can also implement new features such as early stopping etc.
 - Read XGBoost documentation online, search the web for how to tune XGBoost hyperparameters and read that information etc. and use all that for your experiments.
 
 **What you CANNOT do:**
 - Modify `prepare.py`. It is read-only. It contains downloading the data. 
 - Install new packages or add dependencies. You can only use what's already installed.
+- Change the evaluation. Keep using 5-fold cross validation in `train.py` to get the evaluation metric (AUC).
 - Modify the evaluation harness. The code in `check_groundtruth.py` is the ground truth metric.
 - Don't use any of the data files other than `airline-10m-slice1-100k.csv` for training and CV.
 
-**The goal is simple: get the highest AUC.** Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training. Read XGBoost documentation online, search the web for how to tune XGBoost. Try out adding new elements such early stopping. Be creative! The only constraint is that the code runs without crashing and finishes in reasonable time.
+**The goal is simple: get the highest AUC.** Everything is fair game that will lead to a model that generalizes on unseen data: data preparation, feature engineering, choosing hyperparameters, and model training. Read XGBoost documentation online, search the web for how to tune XGBoost. Try out adding new elements such early stopping. Be creative! The only constraint is that the code runs without crashing and finishes in reasonable time.
 
 **Simplicity criterion**: All else being equal, simpler is better. A small improvement that adds ugly complexity is not worth it. Conversely, removing something and getting equal or better results is a great outcome - that's a simplification win. When evaluating whether to keep a change, weigh the complexity cost against the improvement magnitude. A 0.001 AUC improvement that adds 20 lines of hacky code? Probably not worth it. A 0.001 AUC improvement from deleting code? Definitely keep. An improvement of ~0 but much simpler code? Keep.
 

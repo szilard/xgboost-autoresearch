@@ -9,7 +9,7 @@ The idea: give an AI agent a small but real XGBoost training setup and let it ex
 The repo is deliberately kept small and only really has three files that matter:
 
 - **`prepare.py`** - downloads the data. Not modified by the AI agent.
-- **`train.py`** - the single file the agent edits. Contains the XGBoost model training. Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training. **This file is edited and iterated on by the agent**.
+- **`train.py`** - the single file the agent edits. Contains the XGBoost model training. Everything is fair game that will lead to a model that generalizes on unseen data: data preparation, feature engineering, choosing hyperparameters, and model training. **This file is edited and iterated on by the agent**.
 - **`program.md`** - baseline instructions for one agent. Point your agent here and let it go. **This file is edited and iterated on by the human**.
 - **`check_groundtruth.py`** - script to check the "ground truth" AUC by the human. AI should not access this file.
 
