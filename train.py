@@ -19,6 +19,7 @@ def prepare(df):
     X = df[num_cols + cat_cols].copy()
     X["DepTime2"] = X["DepTime"] ** 2
     X["DepTime3"] = X["DepTime"] ** 3
+    X["DepTime4"] = X["DepTime"] ** 4
     X["DepMinute"] = X["DepTime"] % 100
     for col in cat_cols:
         X[col] = pd.Categorical(
