@@ -22,6 +22,7 @@ def prepare(df):
     X["DepTime4"] = X["DepTime"] ** 4
     X["DepMinute"] = X["DepTime"] % 100
     X["DepHour"] = pd.Categorical((X["DepTime"] // 100).clip(0, 23).astype(int))
+    X["DepTime_x_Dist"] = X["DepTime"] * X["Distance"]
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
