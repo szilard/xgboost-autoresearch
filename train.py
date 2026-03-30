@@ -30,7 +30,7 @@ X_train, y_train = prepare(train)
 
 model = xgb.XGBClassifier(
     n_estimators=500,
-    max_depth=6,
+    max_depth=8,
     learning_rate=0.02,
     reg_alpha=1,
     reg_lambda=5,
