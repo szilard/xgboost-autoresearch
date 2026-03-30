@@ -13,13 +13,13 @@ def download_with_progress(url, dest):
     urllib.request.urlretrieve(url, dest, reporthook=reporthook)
     print()
 
-url = "https://s3.amazonaws.com/benchm-ml--main/train-10m.csv"
-download_with_progress(url, f"{data_dir}/train-10m.csv")
+url = "https://s3.amazonaws.com/benchm-ml--main/train-1m.csv"
+download_with_progress(url, f"{data_dir}/train-1m.csv")
 
-df = pl.read_csv(f"{data_dir}/train-10m.csv")
+df = pl.read_csv(f"{data_dir}/train-1m.csv")
 
 df_shuffled = df.sample(fraction=1.0, shuffle=True, seed=42)
 
-df_shuffled[:100_000].write_csv(f"{data_dir}/airline-10m-slice1-100k.csv")
-df_shuffled[100_000:1_100_000].write_csv(f"{data_dir}/airline-10m-slice2-1m.csv")
-df_shuffled[1_100_000:2_100_000].write_csv(f"{data_dir}/airline-10m-slice3-1m.csv")
+df_shuffled[:100_000].write_csv(f"{data_dir}/airline-1m-slice100k-1.csv")
+df_shuffled[100_000:200_000].write_csv(f"{data_dir}/airline-1m-slice100k-2.csv")
+df_shuffled[200_000:300_000].write_csv(f"{data_dir}/airline-1m-slice100k-3.csv")

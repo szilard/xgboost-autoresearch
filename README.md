@@ -2,16 +2,15 @@
 
 an adaptation of A. Karpathy's [autoresearch](https://github.com/karpathy/autoresearch) project to XGBoost
 
-The idea: give an AI agent a small but real XGBoost training setup and let it experiment autonomously overnight. It modifies the code, trains, checks if the result improved, keeps or discards, and repeats. You wake up in the morning to a log of experiments and (hopefully) a better model. The training code here is a simplified implementation of XGBoost. The core idea is that you're not touching any of the Python files like you normally would as a researcher. Instead, you are programming the `program.md` markdown files that provide context to the AI agents and set up your autonomous research org. 
+The idea: give an AI agent a small but real XGBoost training setup and let it experiment autonomously overnight. It modifies the code, trains, checks if the result improved, keeps or discards, and repeats. You wake up in the morning to a log of experiments and (hopefully) a better model. The training code here is a simplified implementation of XGBoost. The core idea is that you're not touching any of the Python files like you normally would as a researcher. Instead, you are programming the `program.md` Markdown files that provide context to the AI agents and set up your autonomous research org. 
 
 ## How it works
 
 The repo is deliberately kept small and only really has three files that matter:
 
-- **`prepare.py`** - downloads the data. Not modified by the AI agent.
+- **`prepare.py`** - downloads the data. Not modified.
 - **`train.py`** - the single file the agent edits. Contains the XGBoost model training. Everything is fair game: data preparation, feature engineering, choosing hyperparameters, and model training. **This file is edited and iterated on by the agent**.
 - **`program.md`** - baseline instructions for one agent. Point your agent here and let it go. **This file is edited and iterated on by the human**.
-- **`check_groundtruth.py`** - script to check the "ground truth" AUC by the human. AI should not access this file.
 
 ## Quick start
 
@@ -43,7 +42,8 @@ The `program.md` file is essentially a super lightweight "skill".
 
 ```
 prepare.py      - downloads the data
-train.py        - XGBoost training (AI agent modifies this)
+train.py        - XGBoost training (agent modifies this)
+evaluate.py     - evaluates the model on the test dataset
 program.md      - agent instructions
 ```
 
