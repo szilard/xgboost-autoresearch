@@ -59,6 +59,7 @@ model = xgb.XGBClassifier(
     max_bin=2048,
     max_cat_threshold=40,
     enable_categorical=True,
+    max_delta_step=1,
     scale_pos_weight=2.0,
     random_state=42,
     n_jobs=-1,
