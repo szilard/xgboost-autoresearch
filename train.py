@@ -17,6 +17,7 @@ cat_levels = {col: sorted(train[col].unique()) for col in cat_cols}
 
 def prepare(df):
     X = df[num_cols + cat_cols].copy()
+    X["DepTime2"] = X["DepTime"] ** 2
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
