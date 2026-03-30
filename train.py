@@ -40,6 +40,7 @@ model = xgb.XGBClassifier(
     colsample_bytree=0.6,
     tree_method="hist",
     max_bin=1024,
+    max_cat_threshold=32,
     enable_categorical=True,
     random_state=42,
     n_jobs=-1,
