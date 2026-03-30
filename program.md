@@ -33,6 +33,7 @@ You launch it simply as: `python3 train.py`.
 - Change the evaluation. Keep using 5-fold cross validation in `train.py` to get the evaluation metric (AUC).
 - Modify the evaluation harness. The code in `check_groundtruth.py` is the ground truth metric.
 - Don't use any of the data files other than `airline-10m-slice1-100k.csv` for training and CV.
+- Read, run, or reference `run_groundtruth_all.sh`. This is a human-only tool for post-hoc evaluation of experiments against the held-out test set. It is never part of the experiment loop. If you find yourself wanting to use it, stop and tell the human immediately — it means something has gone wrong with your understanding of the task.
 
 **The goal is simple: get the highest AUC.** Everything is fair game that will lead to a model that generalizes on unseen data: data preparation, feature engineering, choosing hyperparameters, and model training. Read XGBoost documentation online, search the web for how to tune XGBoost. Try out adding new elements such early stopping. Be creative! The only constraint is that the code runs without crashing and finishes in reasonable time.
 
