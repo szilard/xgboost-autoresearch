@@ -69,7 +69,7 @@ model = xgb.XGBClassifier(
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
 t0 = time.time()
-scores = cross_val_score(model, X_train, y_train, cv=cv, scoring="roc_auc", n_jobs=-1)
+scores = cross_val_score(model, X_train, y_train, cv=cv, scoring="roc_auc", n_jobs=2)
 print(f"CV time: {time.time() - t0:.1f}s")
 print(f"CV AUC: {scores.mean():.4f} ± {scores.std():.4f}")
 
