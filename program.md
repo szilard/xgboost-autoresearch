@@ -25,7 +25,7 @@ You launch it simply as: `python3 train.py`.
 
 **What you CAN do:**
 - Modify `train.py` - this is the only file you edit. Everything is fair game that will lead to a model that generalizes on unseen data: data preparation, feature engineering, choosing hyperparameters, and model training. You can also implement new features such as early stopping etc.
-- Read XGBoost documentation online, search the web for how to tune XGBoost hyperparameters and read that information etc. and use all that for your experiments.
+- Search the web and read external resources. This is not optional — you MUST do research before relying solely on your own intuition. See the **Research** section below.
 
 **What you CANNOT do:**
 - Modify `prepare.py`. It is read-only. It contains downloading the data. 
@@ -34,6 +34,31 @@ You launch it simply as: `python3 train.py`.
 - Modify the evaluation harness. The code in `check_groundtruth.py` is the ground truth metric.
 - Don't use any of the data files other than `airline-10m-slice1-100k.csv` for training and CV.
 - Read, run, or reference `run_groundtruth_all.sh`. This is a human-only tool for post-hoc evaluation of experiments against the held-out test set. It is never part of the experiment loop. If you find yourself wanting to use it, stop and tell the human immediately — it means something has gone wrong with your understanding of the task.
+
+## Research
+
+You are expected to actively search the web and read external resources throughout the experiment. Do not treat this as a fallback for when you're stuck — treat it as a primary input to your experiment design.
+
+**When to research:**
+- Before your very first non-baseline experiment: search for best practices on tuning XGBoost for binary classification, common feature engineering techniques for tabular data, and known good hyperparameter ranges.
+- Every 10 experiments (aligned with your synthesis pause): search for new ideas you haven't tried yet. Look for Kaggle competition write-ups, blog posts, papers, or documentation pages relevant to what you're working on.
+- Whenever you hit a plateau (3+ consecutive discards with <0.001 movement): stop and research before trying another random tweak. Look for techniques specifically designed to break through plateaus — different feature transformations, interaction terms, encoding strategies, or XGBoost parameters you haven't explored.
+- When trying a new category of change (e.g., first time doing feature engineering, first time tuning categorical handling): read about that specific topic first.
+
+**What to search for:**
+- XGBoost documentation for parameters you haven't tried
+- "XGBoost tuning guide" / "XGBoost best practices"
+- "feature engineering for airline delay prediction" or similar domain-specific resources
+- "categorical feature handling XGBoost"
+- Kaggle notebooks and competition solutions for similar tabular classification problems
+- Academic papers or blog posts on gradient boosting optimization
+
+**How to use what you find:**
+- Cite your source when proposing an experiment (e.g., "Based on [XGBoost docs on monotonic constraints], trying...")
+- Don't blindly copy — adapt what you read to this specific dataset and problem
+- If a source suggests a technique, understand *why* it works before implementing it
+
+**Important:** Research time does not count against the experiment timeout. Take as long as you need to read and understand a resource before designing your next experiment. A well-researched experiment is worth more than three random ones.
 
 **The goal is simple: get the highest AUC.** Everything is fair game that will lead to a model that generalizes on unseen data: data preparation, feature engineering, choosing hyperparameters, and model training. Read XGBoost documentation online, search the web for how to tune XGBoost. Try out adding new elements such early stopping. Be creative! The only constraint is that the code runs without crashing and finishes in reasonable time.
 
@@ -93,6 +118,7 @@ LOOP FOREVER:
    - State a short **hypothesis**: what you are changing, why you think it will help, and (if applicable) which prior result motivates this step.
    - Classify the experiment as one of: *follow-up* to a promising result, *ablation/simplification* of a promising result, or *exploration* of a meaningfully different direction.
    - **Do not** run near-duplicate experiments unless you can state exactly what is different and why it matters. Avoid random-walk behavior and cosmetic variations of the same idea.
+   - If you haven't done web research in the last 10 experiments, or if your last 3+ experiments were discards, do research now before proposing your next change. See the **Research** section.
 3. Tune `train.py` with that experimental idea by directly hacking the code.
 4. git commit
 5. Run the experiment: `python3 train.py > run.log 2>&1` (redirect everything - do NOT use tee or let output flood your context)
