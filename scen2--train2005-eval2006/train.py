@@ -5,7 +5,7 @@ from pathlib import Path
 from sklearn.model_selection import cross_val_score, StratifiedKFold
 
 
-data_dir = Path(__file__).parent / ".." / "data-cache"
+data_dir = Path(__file__).parent / "data-cache"
 train = pd.read_csv(f"{data_dir}/2005-slice1-100k.csv")
 
 cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest"]
