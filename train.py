@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import time
 import xgboost as xgb
 from pathlib import Path
@@ -23,6 +24,16 @@ def prepare(df):
     X["DepMinute"] = X["DepTime"] % 100
     X["DepHour"] = pd.Categorical((X["DepTime"] // 100).clip(0, 23).astype(int))
     X["DepTime_x_Dist"] = X["DepTime"] * X["Distance"]
+    # Cyclical encoding
+    hour = (X["DepTime"] // 100).clip(0, 23)
+    X["DepHour_sin"] = np.sin(2 * np.pi * hour / 24)
+    X["DepHour_cos"] = np.cos(2 * np.pi * hour / 24)
+    dow = pd.to_numeric(df["DayOfWeek"], errors="coerce")
+    X["DayOfWeek_sin"] = np.sin(2 * np.pi * dow / 7)
+    X["DayOfWeek_cos"] = np.cos(2 * np.pi * dow / 7)
+    month = pd.to_numeric(df["Month"], errors="coerce")
+    X["Month_sin"] = np.sin(2 * np.pi * month / 12)
+    X["Month_cos"] = np.cos(2 * np.pi * month / 12)
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
@@ -35,9 +46,9 @@ X_train, y_train = prepare(train)
 
 
 model = xgb.XGBClassifier(
-    n_estimators=2000,
-    max_depth=11,
-    learning_rate=0.015,
+    n_estimators=2500,
+    max_depth=12,
+    learning_rate=0.01,
     min_child_weight=20,
     gamma=0.4,
     reg_alpha=0.5,
@@ -48,6 +59,8 @@ model = xgb.XGBClassifier(
     max_bin=2048,
     max_cat_threshold=40,
     enable_categorical=True,
+    max_delta_step=1,
+    scale_pos_weight=2.0,
     random_state=42,
     n_jobs=-1,
 )
@@ -56,7 +69,7 @@ model = xgb.XGBClassifier(
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
 t0 = time.time()
-scores = cross_val_score(model, X_train, y_train, cv=cv, scoring="roc_auc", n_jobs=-1)
+scores = cross_val_score(model, X_train, y_train, cv=cv, scoring="roc_auc", n_jobs=2)
 print(f"CV time: {time.time() - t0:.1f}s")
 print(f"CV AUC: {scores.mean():.4f} ± {scores.std():.4f}")
 
