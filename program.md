@@ -7,7 +7,7 @@ This is an experiment to have an AI/LLM agent conduct autonomous research in opt
 To set up a new experiment, work with the user to:
 
 1. **Agree on a run tag**: propose a tag based on today's date (e.g. `mar5`). The branch `<tag>` must not already exist - this is a fresh run.
-2. **Create the branch**: `git checkout -b <tag>` from current master.
+2. **Create the branch**: `git checkout -b <tag>`.
 3. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `README.md` - repository context.
    - `prepare.py` - downloading the data. Do not modify.
