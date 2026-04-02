@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import time
 import xgboost as xgb
 from pathlib import Path
@@ -20,6 +21,8 @@ def prepare(df):
     # Convert HHMM to minutes since midnight
     X["DepMinutes"] = (df["DepTime"] // 100) * 60 + (df["DepTime"] % 100)
     X["DepMinuteOfHour"] = df["DepTime"] % 100
+    X["DepTime_sin"] = np.sin(2 * np.pi * X["DepMinutes"] / 1440)
+    X["DepTime_cos"] = np.cos(2 * np.pi * X["DepMinutes"] / 1440)
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
