@@ -39,7 +39,7 @@ X_train, y_train = prepare(train)
 
 
 model = xgb.XGBClassifier(
-    n_estimators=1700,
+    n_estimators=2000,
     max_depth=24,
     learning_rate=0.03,
     subsample=0.95,
@@ -48,10 +48,10 @@ model = xgb.XGBClassifier(
     gamma=0.07,
     enable_categorical=True,
     tree_method="hist",
-    max_bin=2048,
+    max_bin=1536,
     eval_metric="auc",
     random_state=42,
-    n_jobs=-1,
+    n_jobs=1,
 )
 
 
