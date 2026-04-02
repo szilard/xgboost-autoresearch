@@ -23,6 +23,7 @@ def prepare(df):
     X["DepMinuteOfHour"] = df["DepTime"] % 100
     X["DepTime_sin"] = np.sin(2 * np.pi * X["DepMinutes"] / 1440)
     X["DepTime_cos"] = np.cos(2 * np.pi * X["DepMinutes"] / 1440)
+    X["LogDistance"] = np.log1p(df["Distance"])
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
