@@ -37,6 +37,7 @@ model = xgb.XGBClassifier(
     min_child_weight=3,
     enable_categorical=True,
     tree_method="hist",
+    max_bin=512,
     eval_metric="auc",
     random_state=42,
     n_jobs=-1,
