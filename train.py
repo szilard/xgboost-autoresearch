@@ -19,6 +19,7 @@ def prepare(df):
     X = df[num_cols + cat_cols].copy()
     # Convert HHMM to minutes since midnight
     X["DepMinutes"] = (df["DepTime"] // 100) * 60 + (df["DepTime"] % 100)
+    X["DepMinuteOfHour"] = df["DepTime"] % 100
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
