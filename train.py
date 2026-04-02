@@ -29,10 +29,15 @@ X_train, y_train = prepare(train)
 
 
 model = xgb.XGBClassifier(
-    n_estimators=30,
+    n_estimators=500,
     max_depth=6,
-    learning_rate=0.1,
+    learning_rate=0.05,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    min_child_weight=5,
     enable_categorical=True,
+    tree_method="hist",
+    eval_metric="auc",
     random_state=42,
     n_jobs=-1,
 )
