@@ -26,6 +26,7 @@ def prepare(df):
     X["LogDistance"] = np.log1p(df["Distance"])
     X["DepHour"] = pd.Categorical((df["DepTime"] // 100).clip(0, 23))
     X["DistBin"] = pd.Categorical(pd.cut(df["Distance"], bins=[0, 300, 700, 1500, 5000], labels=["short", "medium", "long", "xlong"]))
+    X["DepTimeFloat"] = df["DepTime"] / 100.0
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
