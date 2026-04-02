@@ -47,7 +47,7 @@ model = xgb.XGBClassifier(
     max_bin=2048,
     eval_metric="auc",
     random_state=42,
-    n_jobs=2,
+    n_jobs=-1,
 )
 
 
