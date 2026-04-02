@@ -30,7 +30,7 @@ X_train, y_train = prepare(train)
 
 model = xgb.XGBClassifier(
     n_estimators=1000,
-    max_depth=10,
+    max_depth=12,
     learning_rate=0.03,
     subsample=0.8,
     colsample_bytree=0.8,
@@ -46,7 +46,7 @@ model = xgb.XGBClassifier(
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
 t0 = time.time()
-scores = cross_val_score(model, X_train, y_train, cv=cv, scoring="roc_auc", n_jobs=-1)
+scores = cross_val_score(model, X_train, y_train, cv=cv, scoring="roc_auc", n_jobs=2)
 print(f"CV time: {time.time() - t0:.1f}s")
 print(f"CV AUC: {scores.mean():.4f} ± {scores.std():.4f}")
 
