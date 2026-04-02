@@ -42,6 +42,7 @@ model = xgb.XGBClassifier(
     subsample=0.7,
     colsample_bytree=0.5,
     min_child_weight=3,
+    gamma=0.05,
     enable_categorical=True,
     tree_method="hist",
     max_bin=2048,
