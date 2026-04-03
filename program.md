@@ -7,7 +7,7 @@ This is an experiment to have an AI/LLM agent conduct autonomous research in opt
 To set up a new experiment, work with the user to:
 
 1. **Agree on a run tag**: propose a tag based on today's date (e.g. `mar5`). The branch `<tag>` must not already exist - this is a fresh run.
-2. **Create the branch**: `git checkout -b <tag>` from current master.
+2. **Create the branch**: `git checkout -b <tag>`. Do this directly — do NOT run git checkout main or switch branches first. Branch from whatever HEAD is currently at.
 3. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `README.md` - repository context.
    - `prepare.py` - downloading the data. Do not modify.
@@ -30,9 +30,9 @@ You launch it simply as: `python3 train.py`.
 **What you CANNOT do:**
 - Modify `prepare.py`. It is read-only. It contains downloading the data. 
 - Install new packages or add dependencies. You can only use what's already installed.
-- Change the evaluation. Keep using 5-fold cross validation in `train.py` to get the evaluation metric (AUC).
+- Change the evaluation. Keep using either (1) the 5-fold cross validation or (2) the evaluation on the given separate dataset (slice) in `train.py` (whichever given) to get the evaluation metric (AUC).
 - Modify the evaluation harness. The code in `check_groundtruth.py` is the ground truth metric.
-- Don't use any of the data files other than `airline-10m-slice1-100k.csv` for training and CV.
+- Don't use any of the data files other than `2005-slice1-100k.csv` for training, and (1) the same dataset for cross-validation or (2) `2006-slice1-100k.csv` for evaluation (whichever is the case).
 - Read, run, or reference `run_groundtruth_all.sh`. This is a human-only tool for post-hoc evaluation of experiments against the held-out test set. It is never part of the experiment loop. If you find yourself wanting to use it, stop and tell the human immediately — it means something has gone wrong with your understanding of the task.
 
 ## Research
@@ -72,15 +72,33 @@ Once the script finishes it prints a summary like this:
 
 ```
 CV time: 3.0s
-CV AUC: 0.7256 ± 0.0045
-Final model training time: 0.2s
+CV AUC: 0.7445 ± 0.0043
+Final model training time: 0.3s
+4/5 model training time: 0.2s
 ```
+
+or 
+
+```
+Training time: 0.3s
+Eval time: 0.1s
+Eval AUC: 0.7152
+```
+
+depending on the case (cross-validation or separate evaluation dataset).
 
 You can extract the key metric from the log file:
 
 ```
 grep "^CV AUC:" run.log
 ```
+
+or
+
+```
+grep "^Eval AUC:" run.log
+```
+
 
 ## Logging results
 
@@ -92,8 +110,14 @@ The TSV has a header row and 4 columns:
 commit	CV_AUC	status	description
 ```
 
+or
+
+```
+commit	Eval_AUC	status	description
+```
+
 1. git commit hash (short, 7 chars)
-2. CV AUC achieved (e.g. 0.7300) - use 0.0000 for crashes
+2. CV/Eval AUC achieved (e.g. 0.7300) - use 0.0000 for crashes
 3. status: `keep`, `discard`, or `crash`
 4. short text description of what this experiment tried
 
@@ -122,11 +146,11 @@ LOOP FOREVER:
 3. Tune `train.py` with that experimental idea by directly hacking the code.
 4. git commit
 5. Run the experiment: `python3 train.py > run.log 2>&1` (redirect everything - do NOT use tee or let output flood your context)
-6. Read out the results: `grep "^CV AUC:" run.log`
+6. Read out the results: `grep "^CV AUC:" run.log` or `grep "^Eval AUC:" run.log`
 7. If the grep output is empty, the run crashed. Run `tail -n 50 run.log` to read the Python stack trace and attempt a fix. If you can't get things to work after more than a few attempts, give up.
 8. Record the results in the tsv (NOTE: do not commit the results.tsv file, leave it untracked by git)
-9. If CV AUC improved (higher), you "advance" the branch, keeping the git commit
-10. If CV AUC is equal or worse, you git reset back to where you started
+9. If CV/Eval AUC improved (higher), you "advance" the branch, keeping the git commit
+10. If CV/Eval AUC is equal or worse, you git reset back to where you started
 11. **Every 10 experiments**, pause and briefly synthesize what you have learned so far: what kinds of changes help, what kinds do not, what your current best theory is about what matters on this dataset, and what direction to try next. Write this synthesis as a short note in your context (not a file) to inform subsequent experiments.
 The idea is that you are a completely autonomous researcher trying things out. If they work, keep. If they don't, discard. And you're advancing the branch so that you can iterate. If you feel like you're getting stuck in some way, you can rewind but you should probably do this very very sparingly (if ever).
 
