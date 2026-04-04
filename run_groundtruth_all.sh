@@ -11,7 +11,7 @@
 # Defaults:
 #   results.tsv      -> results.tsv in the repo root
 #   output.tsv       -> groundtruth_all.tsv in the repo root
-#   timeout_seconds  -> 300
+#   timeout_seconds  -> 3000
 #
 # Prerequisites:
 #   - results.tsv must exist with columns: commit, CV_AUC, status, description
@@ -29,7 +29,7 @@ case "$OUTPUT_ARG" in
   /*) OUTPUT_FILE="$OUTPUT_ARG" ;;
   *)  OUTPUT_FILE="$REPO_ROOT/$OUTPUT_ARG" ;;
 esac
-TIMEOUT="${3:-300}"
+TIMEOUT="${3:-3000}"
 
 if [ ! -f "$RESULTS_INPUT" ]; then
   echo "ERROR: $RESULTS_INPUT not found. Run experiments first."

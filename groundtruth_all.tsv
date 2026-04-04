@@ -29,16 +29,16 @@ f55d352	crash	exp24: n_estimators=2000 lr=0.01 depth=16 OOM	0.0000	N/A	N/A	N/A
 22ed896	keep	exp27: max_bin=1024	0.7945	0.8053	0.7957	0.7209
 d669493	keep	exp28: max_bin=2048	0.7949	0.8058	0.7960	0.7215
 a92fbf9	discard	exp29: max_cat_threshold=128	0.7937	N/A	N/A	N/A
-fae6b25	keep	exp30: n_estimators=1500 lr=0.02 n_jobs=2/1	0.7953	CRASH	CRASH	CRASH
+fae6b25	keep	exp30: n_estimators=1500 lr=0.02 n_jobs=2/1	0.7953	0.8063	0.7970	0.7227
 bf1d04b	discard	exp31: subsample=0.5 colsample_bytree=0.5	0.7927	N/A	N/A	N/A
 06f1dd6	crash	exp32: min_child_weight=2 n_jobs=2 OOM	0.0000	N/A	N/A	N/A
 8094360	crash	exp33: min_child_weight=2 n_jobs=1 still OOM	0.0000	N/A	N/A	N/A
 83c411e	discard	exp34: 1000 trees lr=0.03 reg_lambda=1.5	0.7943	N/A	N/A	N/A
 171e5fa	discard	exp35: max_depth=20 with 1500/0.02	0.7945	N/A	N/A	N/A
 76f5396	discard	exp36: target encoding for Carrier/Origin/Dest	0.7908	N/A	N/A	N/A
-cbf1c4b	keep	exp37: subsample=0.65 colsample_bytree=0.55	0.7962	CRASH	CRASH	CRASH
+cbf1c4b	keep	exp37: subsample=0.65 colsample_bytree=0.55	0.7962	0.8078	0.7979	0.7239
 49568b0	discard	exp38: colsample_bytree=0.5 (tied)	0.7962	N/A	N/A	N/A
-3242767	keep	exp39: subsample=0.7 colsample_bytree=0.5	0.7971	CRASH	CRASH	CRASH
+3242767	keep	exp39: subsample=0.7 colsample_bytree=0.5	0.7971	0.8089	0.7992	0.7251
 5daf877	crash	exp40: subsample=0.75 colsample=0.45 OOM	0.0000	N/A	N/A	N/A
 c1d0503	discard	exp41: subsample=0.75 colsample=0.45 max_bin=1024	0.7947	N/A	N/A	N/A
 dfa82f3	crash	exp42: lr=0.015 OOM	0.0000	N/A	N/A	N/A
@@ -49,28 +49,28 @@ d8afabe	discard	exp46: frequency encoding Origin/Dest/Carrier	0.7946	N/A	N/A	N/A
 c1df72e	discard	exp47: lossguide max_leaves=512	0.7901	N/A	N/A	N/A
 ad46623	discard	exp48: cosine LR decay 0.05->0.005	0.7957	N/A	N/A	N/A
 16b434b	discard	exp49: min_child_weight=5	0.7957	N/A	N/A	N/A
-1b64291	keep	exp50: n_estimators=1200 lr=0.025	0.7975	CRASH	CRASH	CRASH
+1b64291	keep	exp50: n_estimators=1200 lr=0.025	0.7975	0.8086	0.7988	0.7246
 d395e79	discard	exp51: n_estimators=1300 lr=0.023	0.7970	N/A	N/A	N/A
 bb82033	discard	exp52: n_estimators=1100 lr=0.028	0.7974	N/A	N/A	N/A
 362c5c9	discard	exp53: reg_lambda=2	0.7964	N/A	N/A	N/A
-b879298	keep	exp54: DepMinutes (HHMM->minutes since midnight)	0.8031	CRASH	CRASH	CRASH
+b879298	keep	exp54: DepMinutes (HHMM->minutes since midnight)	0.8031	0.8151	0.8048	0.7326
 c2e83e3	discard	exp55: remove DepTime keep only DepMinutes (worse)	0.7941	N/A	N/A	N/A
 630b4c9	discard	exp56: add DepHour (redundant with DepMinutes)	0.8011	N/A	N/A	N/A
-30df30a	keep	exp57: add DepMinuteOfHour	0.8078	CRASH	CRASH	CRASH
-1668ee6	keep	exp58: sin/cos cyclic encoding of DepMinutes	0.8100	CRASH	CRASH	CRASH
+30df30a	keep	exp57: add DepMinuteOfHour	0.8078	0.8190	0.8093	0.7350
+1668ee6	keep	exp58: sin/cos cyclic encoding of DepMinutes	0.8100	0.8208	0.8109	0.7380
 99c2eb7	discard	exp59: sin/cos cyclic DepMinuteOfHour	0.8092	N/A	N/A	N/A
-4b10cf7	keep	exp60: add LogDistance	0.8112	CRASH	CRASH	CRASH
+4b10cf7	keep	exp60: add LogDistance	0.8112	0.8233	0.8128	0.7404
 88a8a82	discard	exp61: IsWeekend (redundant with DayOfWeek)	0.8096	N/A	N/A	N/A
 5299fbb	discard	exp62: DepMinutes squared	0.8094	N/A	N/A	N/A
 47b8f0a	discard	exp63: Distance*DepMinutes interaction	0.8107	N/A	N/A	N/A
 17cdfc1	discard	exp64: max_depth=20 (tied)	0.8109	N/A	N/A	N/A
 58003df	discard	exp65: colsample_bytree=0.6	0.8097	N/A	N/A	N/A
 73ca72e	discard	exp66: 1000 trees lr=0.03 (simpler)	0.8104	N/A	N/A	N/A
-57d4efb	keep	exp67: n_jobs=-1 (faster same AUC)	0.8112	CRASH	CRASH	CRASH
+57d4efb	keep	exp67: n_jobs=-1 (faster same AUC)	0.8112	0.8233	0.8128	0.7404
 7223737	discard	exp68: MilesPerMin feature	0.8103	N/A	N/A	N/A
 b6d0b2d	discard	exp69: IsAfternoon feature	0.8094	N/A	N/A	N/A
 39e7184	discard	exp70: max_bin=4096 (tied)	0.8112	N/A	N/A	N/A
-41ea98c	keep	exp71: gamma=0.05	0.8114	CRASH	CRASH	CRASH
+41ea98c	keep	exp71: gamma=0.05	0.8114	0.8232	0.8133	0.7400
 6ddcd28	discard	exp72: gamma=0.1	0.8113	N/A	N/A	N/A
 13558fe	discard	exp73: n_estimators=1400 lr=0.022	0.8113	N/A	N/A	N/A
 d83188a	discard	exp74: subsample=0.65 colsample=0.55	0.8095	N/A	N/A	N/A
@@ -88,11 +88,11 @@ cb6a895	keep	exp85: DistBin categorical (short/medium/long/xlong)	0.8135	0.8255	
 b3404a0	discard	exp86: DayNum numeric	0.8109	N/A	N/A	N/A
 e4e2092	discard	exp87: remove LogDistance (still helpful)	0.8122	N/A	N/A	N/A
 0e7b4b2	discard	exp88: colsample_bytree=0.55	0.8119	N/A	N/A	N/A
-5c5945c	keep	exp89: subsample=0.75	0.8140	CRASH	CRASH	CRASH
-c5a8b4d	keep	exp90: subsample=0.8	0.8143	CRASH	CRASH	CRASH
-d4c318c	keep	exp91: subsample=0.85	0.8151	CRASH	CRASH	CRASH
-7559c0a	keep	exp92: subsample=0.9	0.8155	CRASH	CRASH	CRASH
-6b718ef	keep	exp93: subsample=1.0	0.8157	CRASH	CRASH	CRASH
+5c5945c	keep	exp89: subsample=0.75	0.8140	0.8260	0.8156	0.7420
+c5a8b4d	keep	exp90: subsample=0.8	0.8143	0.8268	0.8164	0.7430
+d4c318c	keep	exp91: subsample=0.85	0.8151	0.8276	0.8166	0.7434
+7559c0a	keep	exp92: subsample=0.9	0.8155	0.8281	0.8170	0.7436
+6b718ef	keep	exp93: subsample=1.0	0.8157	0.8277	0.8168	0.7430
 364d32e	discard	exp94: colsample_bytree=0.6	0.8111	N/A	N/A	N/A
 1879682	discard	exp95: colsample_bytree=0.45 (tied)	0.8157	N/A	N/A	N/A
 87a955c	crash	exp96: gamma=0 OOM	0.0000	N/A	N/A	N/A
@@ -109,11 +109,11 @@ e947819	discard	exp106: max_depth=26	0.8152	N/A	N/A	N/A
 d6d6200	discard	exp107: reg_lambda=1.5	0.8147	N/A	N/A	N/A
 95a742f	discard	exp108: colsample_bylevel=0.9	0.8152	N/A	N/A	N/A
 01630de	discard	exp109: subsample=0.95 (tied)	0.8156	N/A	N/A	N/A
-0f207e6	keep	exp110: lr=0.03 with 1200 trees	0.8158	CRASH	CRASH	CRASH
+0f207e6	keep	exp110: lr=0.03 with 1200 trees	0.8158	0.8278	0.8173	0.7426
 ec8c4e1	discard	exp111: lr=0.035	0.8152	N/A	N/A	N/A
 7214e6f	discard	exp112: min_child_weight=4	0.8142	N/A	N/A	N/A
 b20a52c	discard	exp113: gamma=0.03	0.8152	N/A	N/A	N/A
-1ec1e97	keep	exp114: DepTimeFloat (DepTime/100)	0.8163	CRASH	CRASH	CRASH
+1ec1e97	keep	exp114: DepTimeFloat (DepTime/100)	0.8163	0.8291	0.8181	0.7424
 1e7a87b	discard	exp115: n_estimators=1300 (tied)	0.8163	N/A	N/A	N/A
 2547463	crash	exp116: InvDist OOM	0.0000	N/A	N/A	N/A
 aa51b5c	crash	exp117: replace sin/cos with InvDist OOM	0.0000	N/A	N/A	N/A
@@ -125,3 +125,61 @@ e984550	crash	exp122: lr=0.028 OOM	0.0000	N/A	N/A	N/A
 78f214c	discard	exp123: max_depth=20	0.8156	N/A	N/A	N/A
 91b96b4	discard	exp124: SqrtDistance instead of LogDistance (tied)	0.8163	N/A	N/A	N/A
 4d1b1bd	discard	exp125: DepTimeNorm instead of DepTimeFloat (tied)	0.8163	N/A	N/A	N/A
+3059f61	keep	exp126: colsample_bytree=0.4	0.8171	0.8298	0.8189	0.7436
+56c1e8f	crash	exp127: colsample_bytree=0.35 OOM	0.0000	N/A	N/A	N/A
+f46951c	keep	exp128: subsample=0.95 colsample=0.4	0.8177	0.8302	0.8193	0.7442
+bbe684e	discard	exp129: subsample=0.9	0.8171	N/A	N/A	N/A
+7c94499	discard	exp130: gamma=0.03	0.8174	N/A	N/A	N/A
+13aafe6	crash	exp131: lr=0.025 OOM	0.0000	N/A	N/A	N/A
+60aea0a	discard	exp132: lr=0.025 n_jobs=2 (tied)	0.8177	N/A	N/A	N/A
+15e0cc8	discard	exp133: colsample_bynode=0.9	0.8159	N/A	N/A	N/A
+bdfc636	discard	exp134: max_delta_step=1	0.8172	N/A	N/A	N/A
+8df0bd0	discard	exp135: max_depth=16	0.8158	N/A	N/A	N/A
+e52f8fb	discard	exp136: 1000 trees lr=0.04	0.8172	N/A	N/A	N/A
+0074871	discard	exp137: colsample_bytree=0.45 (tied)	0.8177	N/A	N/A	N/A
+a9badb3	discard	exp138: DepTimeSqScaled (tied - tree invariant)	0.8177	N/A	N/A	N/A
+30ee289	crash	exp139: DistRank OOM	0.0000	N/A	N/A	N/A
+45ec565	discard	exp140: remove DepTimeFloat (hurts with colsample=0.4)	0.8159	N/A	N/A	N/A
+cf49d2b	discard	exp141: 1100 trees lr=0.032	0.8174	N/A	N/A	N/A
+fc5b426	keep	exp142: gamma=0.07	0.8180	0.8306	0.8192	0.7440
+ce2eb78	discard	exp143: gamma=0.08	0.8178	N/A	N/A	N/A
+aa1dfdf	keep	exp144: n_estimators=1300	0.8182	0.8308	0.8194	0.7440
+cdca991	keep	exp145: n_estimators=1400	0.8185	0.8310	0.8197	0.7439
+6d7f58a	keep	exp146: n_estimators=1500	0.8186	0.8312	0.8198	0.7438
+d85764c	keep	exp147: n_estimators=1600	0.8187	0.8313	0.8199	0.7436
+9114525	crash	exp148: n_estimators=1800 OOM	0.0000	N/A	N/A	N/A
+da284a4	keep	exp149: n_estimators=1700	0.8189	0.8315	0.8200	0.7436
+4bb747e	discard	exp150: n_estimators=1750 (tied)	0.8189	N/A	N/A	N/A
+32e1a8e	discard	exp151: lr=0.025 n_jobs=2 (tied)	0.8189	N/A	N/A	N/A
+9aef065	discard	exp152: gamma=0.1	0.8186	N/A	N/A	N/A
+60293de	discard	exp153: max_depth=20	0.8184	N/A	N/A	N/A
+eb02431	discard	exp154: colsample_bytree=0.35	0.8186	N/A	N/A	N/A
+8224075	crash	exp155: subsample=0.97 OOM	0.0000	N/A	N/A	N/A
+041519d	discard	exp156: 2000 trees max_bin=1024	0.8184	N/A	N/A	N/A
+aadbda8	discard	exp157: lr=0.035 (tied)	0.8189	N/A	N/A	N/A
+d6624b5	discard	exp158: gamma=0.1 1800 trees	0.8186	N/A	N/A	N/A
+97409a6	discard	exp159: min_child_weight=4	0.8177	N/A	N/A	N/A
+2dc75a8	discard	exp160: reg_lambda=1.2	0.8186	N/A	N/A	N/A
+8c04059	crash	exp161: gamma=0.06 OOM	0.0000	N/A	N/A	N/A
+5526160	discard	exp162: max_depth=22	0.8185	N/A	N/A	N/A
+0c45835	discard	exp163: subsample=0.93	0.8184	N/A	N/A	N/A
+f946c8a	discard	exp164: colsample_bytree=0.42 (tied)	0.8189	N/A	N/A	N/A
+f0f9208	crash	exp165: 1650 trees lr=0.028 OOM	0.0000	N/A	N/A	N/A
+adc68d8	discard	exp166: lr=0.025 n_jobs=1 (tied)	0.8189	N/A	N/A	N/A
+9206755	keep	exp167: n_estimators=2000 max_bin=1536 n_jobs=1	0.8190	CRASH	CRASH	CRASH
+a4829c6	discard	exp168: 2500 trees max_bin=1024	0.8185	N/A	N/A	N/A
+f7c3e2e	discard	exp169: 2200 trees max_bin=1280	0.8186	N/A	N/A	N/A
+a386acc	crash	exp170: lr=0.025 with 2000 trees OOM	0.0000	N/A	N/A	N/A
+6a25bcb	discard	exp171: gamma=0.08 with 2000 trees	0.8187	N/A	N/A	N/A
+4555dc6	discard	exp172: colsample_bytree=0.38 (tied)	0.8190	N/A	N/A	N/A
+adc806b	discard	exp173: max_depth=22 with 2000 trees	0.8185	N/A	N/A	N/A
+3743588	discard	exp174: subsample=0.9 with 2000 trees	0.8182	N/A	N/A	N/A
+d1d64ba	crash	exp175: min_child_weight=2 OOM	0.0000	N/A	N/A	N/A
+7d5b150	discard	exp176: reg_lambda=0.8	0.8187	N/A	N/A	N/A
+baddd47	discard	exp177: max_bin=1792 (tied)	0.8190	N/A	N/A	N/A
+29a77f4	discard	exp178: lr=0.035 with 2000 trees	0.8189	N/A	N/A	N/A
+a1eb30d	discard	exp179: n_estimators=2100 (tied)	0.8190	N/A	N/A	N/A
+e7b05c6	discard	exp180: remove DepTime (still helpful with colsample=0.4)	0.8186	N/A	N/A	N/A
+b7c3f53	discard	exp181: colsample_bytree=0.43 (tied)	0.8190	N/A	N/A	N/A
+e93ac68	discard	exp182: 2500 trees depth=20	0.8185	N/A	N/A	N/A
+f82f64d	discard	exp183: max_depth=26	0.8188	N/A	N/A	N/A
