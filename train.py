@@ -51,6 +51,7 @@ model = xgb.XGBClassifier(
     max_depth=25,
     learning_rate=0.015,
     min_child_weight=3,
+    reg_alpha=0.1,
     subsample=0.9,
     colsample_bytree=0.35,
     max_bin=2048,
