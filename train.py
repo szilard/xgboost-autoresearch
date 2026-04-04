@@ -21,6 +21,8 @@ global_mean = y_train_raw.mean()
 origin_te = y_train_raw.groupby(train["Origin"]).mean()
 dest_te = y_train_raw.groupby(train["Dest"]).mean()
 carrier_te = y_train_raw.groupby(train["UniqueCarrier"]).mean()
+origin_freq = train["Origin"].value_counts(normalize=True)
+dest_freq = train["Dest"].value_counts(normalize=True)
 
 def prepare(df):
     X = df[num_cols + cat_cols].copy()
@@ -29,6 +31,8 @@ def prepare(df):
     X["Origin_te"] = df["Origin"].map(origin_te).fillna(global_mean)
     X["Dest_te"] = df["Dest"].map(dest_te).fillna(global_mean)
     X["Carrier_te"] = df["UniqueCarrier"].map(carrier_te).fillna(global_mean)
+    X["Origin_freq"] = df["Origin"].map(origin_freq).fillna(0)
+    X["Dest_freq"] = df["Dest"].map(dest_freq).fillna(0)
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
