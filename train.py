@@ -20,6 +20,7 @@ y_train_raw = (train[target] == "Y").astype(int)
 global_mean = y_train_raw.mean()
 origin_te = y_train_raw.groupby(train["Origin"]).mean()
 dest_te = y_train_raw.groupby(train["Dest"]).mean()
+carrier_te = y_train_raw.groupby(train["UniqueCarrier"]).mean()
 
 def prepare(df):
     X = df[num_cols + cat_cols].copy()
@@ -27,6 +28,7 @@ def prepare(df):
     X["DepMinute"] = X["DepTime"] % 100
     X["Origin_te"] = df["Origin"].map(origin_te).fillna(global_mean)
     X["Dest_te"] = df["Dest"].map(dest_te).fillna(global_mean)
+    X["Carrier_te"] = df["UniqueCarrier"].map(carrier_te).fillna(global_mean)
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
