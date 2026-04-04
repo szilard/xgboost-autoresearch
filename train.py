@@ -36,6 +36,7 @@ model = xgb.XGBClassifier(
     learning_rate=0.01,
     min_child_weight=10,
     subsample=0.8,
+    max_bin=512,
     enable_categorical=True,
     random_state=42,
     n_jobs=-1,
