@@ -18,6 +18,7 @@ cat_levels = {col: sorted(train[col].unique()) for col in cat_cols}
 def prepare(df):
     X = df[num_cols + cat_cols].copy()
     X["DepHour"] = (X["DepTime"] // 100).clip(0, 23)
+    X["DepMinute"] = X["DepTime"] % 100
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
@@ -33,6 +34,7 @@ model = xgb.XGBClassifier(
     n_estimators=30,
     max_depth=6,
     learning_rate=0.1,
+    min_child_weight=3,
     enable_categorical=True,
     random_state=42,
     n_jobs=-1,
