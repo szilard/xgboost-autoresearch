@@ -28,3 +28,7 @@ plt.legend()
 plt.tight_layout()
 plt.savefig("auc_history.png", dpi=150)
 plt.show()
+
+for col in ["cv_auc", "test_auc_2005s2_full", "test_auc_2005s2_4_5", "test_auc_2006_full"]:
+    idx = df[col].idxmax()
+    print(f"{col}: max={df.loc[idx, col]:.4f} at n={df.loc[idx, 'n']}")
