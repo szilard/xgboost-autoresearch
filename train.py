@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import time
 import xgboost as xgb
 from pathlib import Path
@@ -18,15 +17,6 @@ cat_levels = {col: sorted(train[col].unique()) for col in cat_cols}
 
 def prepare(df):
     X = df[num_cols + cat_cols].copy()
-    # Convert HHMM to minutes since midnight
-    X["DepMinutes"] = (df["DepTime"] // 100) * 60 + (df["DepTime"] % 100)
-    X["DepMinuteOfHour"] = df["DepTime"] % 100
-    X["DepTime_sin"] = np.sin(2 * np.pi * X["DepMinutes"] / 1440)
-    X["DepTime_cos"] = np.cos(2 * np.pi * X["DepMinutes"] / 1440)
-    X["LogDistance"] = np.log1p(df["Distance"])
-    X["DepHour"] = pd.Categorical((df["DepTime"] // 100).clip(0, 23))
-    X["DistBin"] = pd.Categorical(pd.cut(df["Distance"], bins=[0, 300, 700, 1500, 5000], labels=["short", "medium", "long", "xlong"]))
-    X["DepTimeFloat"] = df["DepTime"] / 100.0
     for col in cat_cols:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
@@ -39,42 +29,27 @@ X_train, y_train = prepare(train)
 
 
 model = xgb.XGBClassifier(
-    n_estimators=2000,
-    max_depth=24,
-    learning_rate=0.03,
-    subsample=0.95,
-    colsample_bytree=0.4,
-    min_child_weight=3,
-    gamma=0.07,
+    n_estimators=30,
+    max_depth=6,
+    learning_rate=0.1,
     enable_categorical=True,
-    tree_method="hist",
-    max_bin=1536,
-    eval_metric="auc",
     random_state=42,
-    n_jobs=1,
+    n_jobs=-1,
 )
 
 
-cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
-t0 = time.time()
-scores = cross_val_score(model, X_train, y_train, cv=cv, scoring="roc_auc", n_jobs=1)
-print(f"CV time: {time.time() - t0:.1f}s")
-print(f"CV AUC: {scores.mean():.4f} ± {scores.std():.4f}")
-
 t0 = time.time()
 model.fit(X_train, y_train)
-print(f"Final model training time: {time.time() - t0:.1f}s")
+print(f"Training time: {time.time() - t0:.1f}s")
 
 
-# 4/5 model: train on the first fold's training split (same as one CV fold)
-train_idx_4_5 = list(cv.split(X_train, y_train))[0][0]
-X_4_5 = X_train.iloc[train_idx_4_5]
-y_4_5 = y_train[train_idx_4_5]
+from sklearn.metrics import roc_auc_score
 
-from sklearn.base import clone
+eval = pd.read_csv(f"{data_dir}/2006-slice1-100k.csv")
 
-model_4_5 = clone(model)
+X_eval, y_eval = prepare(eval)
+
 t0 = time.time()
-model_4_5.fit(X_4_5, y_4_5)
-print(f"4/5 model training time: {time.time() - t0:.1f}s")
+eval_auc  = roc_auc_score(y_eval,  model.predict_proba(X_eval)[:, 1])
+print(f"Eval time: {time.time() - t0:.1f}s")
+print(f"Eval AUC: {eval_auc:.4f}")
