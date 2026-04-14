@@ -1,4 +1,5 @@
 exec(open(__file__.replace("check_groundtruth.py", "train.py")).read())
+import math
 print()
 
 from sklearn.metrics import roc_auc_score
@@ -18,3 +19,14 @@ for label, m, csv in combos:
     print(f"Test time ({label}): {time.time() - t0:.1f}s")
     print(f"Test AUC ({label}): {test_auc:.4f}")
 
+
+
+booster = model.get_booster()
+trees = booster.get_dump()
+n_trees = len(trees)
+n_leaves = sum(tree.count('leaf=') for tree in trees)
+n_datapoints = len(X_train)
+eff_depth = math.log2(n_leaves / n_trees)
+print(f"\nModel numb_trees: {n_trees}")
+print(f"Model eff_depth: {eff_depth:.4f}")
+print(f"Model leaves_per_data: {n_leaves / n_datapoints:.4f}")

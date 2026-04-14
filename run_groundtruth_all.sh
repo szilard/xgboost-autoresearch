@@ -65,7 +65,7 @@ if [ -d "$REPO_ROOT/data-cache" ]; then
 fi
 
 # Write header
-echo -e "commit\tstatus\tdescription\teval_auc\ttest_auc_2006s2\ttest_auc_2007s2" > "$OUTPUT_FILE"
+echo -e "commit\tstatus\tdescription\teval_auc\ttest_auc_2006s2\ttest_auc_2007s2\tnumb_trees\teff_depth\tleaves_per_data" > "$OUTPUT_FILE"
 
 # Read results.tsv into an array first (avoid pipe + while issues)
 LINE_NUM=0
@@ -83,28 +83,28 @@ while IFS=$'\t' read -r commit eval_auc status description; do
   # Skip crashed experiments
   if [ "$eval_auc" = "0.0000" ]; then
     echo "  SKIP: crashed experiment (Eval AUC=0.0000)"
-    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
+    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
     continue
   fi
 
   # Skip discarded experiments (commits were reverted, won't exist in git)
   if [ "$status" = "discard" ]; then
     echo "  SKIP: discarded experiment"
-    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
+    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
     continue
   fi
 
   # Check if commit exists in git
   if ! git cat-file -e "$commit" 2>/dev/null; then
     echo "  SKIP: commit $commit not found in git (discarded experiment)"
-    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
+    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
     continue
   fi
 
   # Extract that commit's train.py into the worktree
   if ! git show "$commit:train.py" > "$WORKTREE_DIR/train.py" 2>/dev/null; then
     echo "  SKIP: could not extract train.py from $commit"
-    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
+    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
     continue
   fi
 
@@ -123,7 +123,7 @@ while IFS=$'\t' read -r commit eval_auc status description; do
       echo "  CRASH: exit code $EXIT_CODE"
       tail -5 "$GT_LOG" 2>/dev/null || true
     fi
-    echo -e "$commit\t$status\t$description\tCRASH\tCRASH\tCRASH" >> "$OUTPUT_FILE"
+    echo -e "$commit\t$status\t$description\tCRASH\tCRASH\tCRASH\tCRASH\tCRASH\tCRASH" >> "$OUTPUT_FILE"
     continue
   fi
 
@@ -131,9 +131,12 @@ while IFS=$'\t' read -r commit eval_auc status description; do
   EVAL_AUC=$(grep "^Eval AUC:" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
   AUC_2006S2=$(grep "^Test AUC (eval 2006 slice 2):" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
   AUC_2007S2=$(grep "^Test AUC (eval 2007 slice 2):" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
+  NUMB_TREES=$(grep "^Model numb_trees:" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
+  EFF_DEPTH=$(grep "^Model eff_depth:" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
+  LEAVES_PER_DATA=$(grep "^Model leaves_per_data:" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
 
-  echo "  eval=$EVAL_AUC  2006s2=$AUC_2006S2  2007s2=$AUC_2007S2"
-  echo -e "$commit\t$status\t$description\t$EVAL_AUC\t$AUC_2006S2\t$AUC_2007S2" >> "$OUTPUT_FILE"
+  echo "  eval=$EVAL_AUC  2006s2=$AUC_2006S2  2007s2=$AUC_2007S2  numb_trees=$NUMB_TREES  eff_depth=$EFF_DEPTH  leaves_per_data=$LEAVES_PER_DATA"
+  echo -e "$commit\t$status\t$description\t$EVAL_AUC\t$AUC_2006S2\t$AUC_2007S2\t$NUMB_TREES\t$EFF_DEPTH\t$LEAVES_PER_DATA" >> "$OUTPUT_FILE"
 done < "$RESULTS_INPUT"
 
 echo ""

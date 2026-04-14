@@ -1,107 +1,107 @@
-commit	status	description	eval_auc	test_auc_2006s2	test_auc_2007s2
-45d1b0a	keep	baseline: n_estimators=30 max_depth=6 lr=0.1	0.7152	0.7155	0.7184
-5f61e41	discard	n_estimators=300 learning_rate=0.05	0.7145	N/A	N/A
-ebc8e54	discard	n_estimators=300 learning_rate=0.1	0.7094	N/A	N/A
-c944ce1	discard	n_estimators=100 subsample=0.8 colsample_bytree=0.8	0.7152	N/A	N/A
-213497a	keep	feature engineering: extract DepHour from DepTime	0.7158	0.7159	0.7190
-e703cd7	discard	n_estimators=100 subsample=0.8 colsample_bytree=0.8 with DepHour	0.7139	N/A	N/A
-c9ecb5d	discard	max_depth=4 (shallower trees)	0.7154	N/A	N/A
-d031baa	discard	max_depth=8 (deeper trees - overfits)	0.7127	N/A	N/A
-18b3948	discard	add Route (Origin_Dest) categorical - too high cardinality	0.7082	N/A	N/A
-8c72a0d	keep	add DepMinute + min_child_weight=3	0.7165	0.7168	0.7201
-a0ecd3d	discard	ablation: remove DepMinute keep min_child_weight=3	0.7164	N/A	N/A
-b7c151d	keep	min_child_weight=5	0.7173	0.7171	0.7209
-3ae476d	keep	min_child_weight=10	0.7184	0.7181	0.7220
-0a2bcbb	discard	min_child_weight=20 (slightly worse)	0.7182	N/A	N/A
-470c7b1	discard	reg_lambda=3 (too much L2)	0.7171	N/A	N/A
-4d38d0b	discard	add DepTimeMin (no improvement over best)	0.7184	N/A	N/A
-a188319	discard	gamma=0.1 (too much pruning)	0.7180	N/A	N/A
-df8c0d1	keep	n_estimators=50 subsample=0.8	0.7191	0.7190	0.7231
-0ededbd	discard	n_estimators=80 colsample_bytree=0.8 (too much)	0.7180	N/A	N/A
-0710987	discard	colsample_bytree=0.8 with n_estimators=50	0.7178	N/A	N/A
-18f1157	keep	n_estimators=100 lr=0.05 with regularization	0.7199	0.7199	0.7235
-251848a	keep	n_estimators=200 lr=0.03	0.7211	0.7211	0.7250
-b12f7bd	keep	n_estimators=500 lr=0.01	0.7214	0.7213	0.7252
-405e730	keep	n_estimators=1000 lr=0.01 (7.1s)	0.7216	0.7219	0.7252
-ff35ded	discard	n_estimators=2000 lr=0.01 (overfits)	0.7183	N/A	N/A
-6802a9c	discard	max_depth=5 with 1000 trees	0.7210	N/A	N/A
-6c9a780	discard	subsample=0.7 (too aggressive)	0.7211	N/A	N/A
-ecd17de	discard	grow_policy=lossguide max_leaves=63	0.7208	N/A	N/A
-d0134a2	keep	max_bin=512	0.7217	0.7220	0.7251
-903d5a9	keep	max_bin=1024	0.7220	0.7222	0.7254
-6fb9300	keep	target encoding for Origin and Dest	0.7221	0.7222	0.7258
-ba4ae35	keep	also target encode UniqueCarrier	0.7224	0.7224	0.7260
-e5d8c6b	discard	n_estimators=1500 (overfits with target encoding)	0.7210	N/A	N/A
-6442e64	discard	learning_rate=0.005 (undertrained)	0.7218	N/A	N/A
-3ceca7a	keep	frequency encoding for Origin and Dest	0.7225	0.7225	0.7260
-9d10832	discard	remove DepMinute (it matters!)	0.7201	N/A	N/A
-4f693f0	discard	cyclical sin/cos for DepHour (no help for trees)	0.7223	N/A	N/A
-ee5b946	keep	n_estimators=800 (fewer trees with richer features)	0.7227	0.7226	0.7264
-4547b35	discard	n_estimators=600 (too few)	0.7225	N/A	N/A
-e7000e4	keep	subsample=0.9	0.7229	0.7227	0.7268
-02c980c	discard	learning_rate=0.015	0.7228	N/A	N/A
-911b973	keep	min_child_weight=15	0.7234	0.7234	0.7266
-c77f998	keep	min_child_weight=20	0.7235	0.7237	0.7268
-5781620	discard	min_child_weight=30 (too much)	0.7233	N/A	N/A
-f00bab5	keep	max_bin=2048	0.7236	0.7235	0.7269
-4c7bb92	discard	reg_lambda=1.5	0.7234	N/A	N/A
-2a0fdfb	discard	max_delta_step=1 (no improvement)	0.7236	N/A	N/A
-9788c8b	keep	carrier frequency encoding	0.7240	0.7239	0.7270
-fce55c5	discard	n_estimators=700	0.7236	N/A	N/A
-8253bdc	discard	colsample_bylevel=0.9 (no improvement)	0.7240	N/A	N/A
-e0ada6b	discard	DepHour x DayOfWeek interaction TE (overfits)	0.7203	N/A	N/A
-ad083ac	keep	max_depth=7 (deeper works with strong regularization)	0.7243	0.7248	0.7275
-3484314	keep	max_depth=8 (+0.0013!)	0.7256	0.7258	0.7276
-7843683	keep	max_depth=9 (+0.0010!)	0.7266	0.7268	0.7276
-e51812b	keep	max_depth=10 (11.4s)	0.7272	0.7271	0.7274
-a213cb7	keep	max_depth=12 (14.6s)	0.7279	0.7280	0.7276
-6968db1	keep	max_depth=15 (17.9s)	0.7280	0.7281	0.7276
-4ad635f	keep	max_depth=20 (19.2s)	0.7282	0.7284	0.7278
-c335923	discard	min_child_weight=30 with max_depth=20	0.7275	N/A	N/A
-e44b437	discard	n_estimators=1000 with max_depth=20	0.7275	N/A	N/A
-ade6b20	discard	subsample=0.85	0.7279	N/A	N/A
-094ab21	keep	n_estimators=600 with max_depth=20	0.7287	0.7288	0.7290
-e0c1054	discard	n_estimators=400 (too few)	0.7282	N/A	N/A
-0caab3e	discard	n_estimators=300 lr=0.02	0.7280	N/A	N/A
-960fc6d	keep	colsample_bytree=0.9 with deep trees (+0.0008!)	0.7295	0.7298	0.7297
-03557d0	keep	colsample_bytree=0.8 (+0.0020!!)	0.7315	0.7317	0.7308
-8f48019	keep	colsample_bytree=0.7	0.7319	0.7321	0.7316
-c82fb6b	keep	colsample_bytree=0.6 (+0.0017!)	0.7336	0.7340	0.7324
-127fec1	keep	colsample_bytree=0.5 (+0.0020!)	0.7356	0.7358	0.7331
-c0e6209	keep	colsample_bytree=0.4 (+0.0023!)	0.7379	0.7380	0.7342
-28f48b9	discard	colsample_bytree=0.3 (too aggressive)	0.7363	N/A	N/A
-9b4e1ef	keep	n_estimators=800 with colsample=0.4	0.7381	0.7382	0.7340
-fddb965	discard	n_estimators=1000 (marginal worse)	0.7380	N/A	N/A
-d1b674f	discard	subsample=0.8	0.7368	N/A	N/A
-78462ab	keep	min_child_weight=15 (+0.0017!)	0.7398	0.7399	0.7341
-b7b7b3f	keep	min_child_weight=10 (+0.0014!)	0.7412	0.7416	0.7341
-8d0c3f7	keep	min_child_weight=5 (+0.0027!)	0.7439	0.7445	0.7337
-95bc03f	keep	min_child_weight=3 (+0.0013!)	0.7452	0.7458	0.7329
-f890a02	crash	min_child_weight=1 (OOM/killed with depth=20)	0.0000	N/A	N/A
-bbea3a2	crash	min_child_weight=2 (also OOM)	0.0000	N/A	N/A
-467a268	discard	max_depth=15 min_child_weight=2	0.7424	N/A	N/A
-cd18556	discard	n_estimators=1200 (43s and worse)	0.7436	N/A	N/A
-417d260	keep	colsample_bytree=0.35	0.7459	0.7467	0.7325
-556edd4	discard	colsample_bytree=0.3 (too aggressive)	0.7424	N/A	N/A
-9014ee5	keep	max_depth=25 (34s)	0.7467	0.7472	0.7323
-d7c1f05	keep	n_estimators=600 with max_depth=25	0.7470	0.7474	0.7331
-4a7a64d	discard	colsample_bytree=0.3 (too aggressive again)	0.7421	N/A	N/A
-ebe1df8	keep	n_estimators=400 lr=0.015	0.7473	0.7476	0.7330
-6c52515	discard	n_estimators=300 lr=0.02	0.7464	N/A	N/A
-985a668	discard	n_estimators=500 lr=0.015	0.7462	N/A	N/A
-bb2156f	discard	gamma=0.05	0.7472	N/A	N/A
-3f9d396	discard	max_depth=30	0.7472	N/A	N/A
-beacff3	discard	target encode DayofMonth/DayOfWeek/Month (hurts)	0.7391	N/A	N/A
-37816d3	discard	n_estimators=450	0.7468	N/A	N/A
-09edb19	keep	reg_alpha=0.1	0.7474	0.7477	0.7334
-60996e2	discard	reg_alpha=0.5 (too much)	0.7468	N/A	N/A
-411776b	discard	colsample_bylevel=0.9 (double col sampling hurts)	0.7426	N/A	N/A
-316c4de	discard	n_jobs=1 (same result but slower)	0.7474	N/A	N/A
-817851f	discard	remove raw DepTime (it's critical!)	0.7204	N/A	N/A
-13ac601	discard	subsample=0.95	0.7469	N/A	N/A
-000bf90	discard	reg_lambda=2	0.7468	N/A	N/A
-b38d98c	discard	origin-hour congestion freq (doesn't transfer)	0.7466	N/A	N/A
-8b25e64	discard	min_child_weight=4	0.7461	N/A	N/A
-3a72983	discard	learning_rate=0.012	0.7471	N/A	N/A
-20a7684	discard	smoothed target encoding (no improvement)	0.7472	N/A	N/A
-b92d87a	crash	DART booster (timeout >60s)	0.0000	N/A	N/A
+commit	status	description	eval_auc	test_auc_2006s2	test_auc_2007s2	numb_trees	eff_depth	leaves_per_data
+45d1b0a	keep	baseline: n_estimators=30 max_depth=6 lr=0.1	0.7152	0.7155	0.7184	30	5.9627	0.0187
+5f61e41	discard	n_estimators=300 learning_rate=0.05	N/A	N/A	N/A	N/A	N/A	N/A
+ebc8e54	discard	n_estimators=300 learning_rate=0.1	N/A	N/A	N/A	N/A	N/A	N/A
+c944ce1	discard	n_estimators=100 subsample=0.8 colsample_bytree=0.8	N/A	N/A	N/A	N/A	N/A	N/A
+213497a	keep	feature engineering: extract DepHour from DepTime	0.7158	0.7159	0.7190	30	5.9658	0.0187
+e703cd7	discard	n_estimators=100 subsample=0.8 colsample_bytree=0.8 with DepHour	N/A	N/A	N/A	N/A	N/A	N/A
+c9ecb5d	discard	max_depth=4 (shallower trees)	N/A	N/A	N/A	N/A	N/A	N/A
+d031baa	discard	max_depth=8 (deeper trees - overfits)	N/A	N/A	N/A	N/A	N/A	N/A
+18b3948	discard	add Route (Origin_Dest) categorical - too high cardinality	N/A	N/A	N/A	N/A	N/A	N/A
+8c72a0d	keep	add DepMinute + min_child_weight=3	0.7165	0.7168	0.7201	30	5.9480	0.0185
+a0ecd3d	discard	ablation: remove DepMinute keep min_child_weight=3	N/A	N/A	N/A	N/A	N/A	N/A
+b7c151d	keep	min_child_weight=5	0.7173	0.7171	0.7209	30	5.9386	0.0184
+3ae476d	keep	min_child_weight=10	0.7184	0.7181	0.7220	30	5.9045	0.0180
+0a2bcbb	discard	min_child_weight=20 (slightly worse)	N/A	N/A	N/A	N/A	N/A	N/A
+470c7b1	discard	reg_lambda=3 (too much L2)	N/A	N/A	N/A	N/A	N/A	N/A
+4d38d0b	discard	add DepTimeMin (no improvement over best)	N/A	N/A	N/A	N/A	N/A	N/A
+a188319	discard	gamma=0.1 (too much pruning)	N/A	N/A	N/A	N/A	N/A	N/A
+df8c0d1	keep	n_estimators=50 subsample=0.8	0.7191	0.7190	0.7231	50	5.8709	0.0293
+0ededbd	discard	n_estimators=80 colsample_bytree=0.8 (too much)	N/A	N/A	N/A	N/A	N/A	N/A
+0710987	discard	colsample_bytree=0.8 with n_estimators=50	N/A	N/A	N/A	N/A	N/A	N/A
+18f1157	keep	n_estimators=100 lr=0.05 with regularization	0.7199	0.7199	0.7235	100	5.8605	0.0581
+251848a	keep	n_estimators=200 lr=0.03	0.7211	0.7211	0.7250	200	5.8602	0.1162
+b12f7bd	keep	n_estimators=500 lr=0.01	0.7214	0.7213	0.7252	500	5.8633	0.2911
+405e730	keep	n_estimators=1000 lr=0.01 (7.1s)	0.7216	0.7219	0.7252	1000	5.8881	0.5922
+ff35ded	discard	n_estimators=2000 lr=0.01 (overfits)	N/A	N/A	N/A	N/A	N/A	N/A
+6802a9c	discard	max_depth=5 with 1000 trees	N/A	N/A	N/A	N/A	N/A	N/A
+6c9a780	discard	subsample=0.7 (too aggressive)	N/A	N/A	N/A	N/A	N/A	N/A
+ecd17de	discard	grow_policy=lossguide max_leaves=63	N/A	N/A	N/A	N/A	N/A	N/A
+d0134a2	keep	max_bin=512	0.7217	0.7220	0.7251	1000	5.8866	0.5916
+903d5a9	keep	max_bin=1024	0.7220	0.7222	0.7254	1000	5.8830	0.5901
+6fb9300	keep	target encoding for Origin and Dest	0.7221	0.7222	0.7258	1000	5.8431	0.5740
+ba4ae35	keep	also target encode UniqueCarrier	0.7224	0.7224	0.7260	1000	5.8433	0.5741
+e5d8c6b	discard	n_estimators=1500 (overfits with target encoding)	N/A	N/A	N/A	N/A	N/A	N/A
+6442e64	discard	learning_rate=0.005 (undertrained)	N/A	N/A	N/A	N/A	N/A	N/A
+3ceca7a	keep	frequency encoding for Origin and Dest	0.7225	0.7225	0.7260	1000	5.8426	0.5739
+9d10832	discard	remove DepMinute (it matters!)	N/A	N/A	N/A	N/A	N/A	N/A
+4f693f0	discard	cyclical sin/cos for DepHour (no help for trees)	N/A	N/A	N/A	N/A	N/A	N/A
+ee5b946	keep	n_estimators=800 (fewer trees with richer features)	0.7227	0.7226	0.7264	800	5.8236	0.4531
+4547b35	discard	n_estimators=600 (too few)	N/A	N/A	N/A	N/A	N/A	N/A
+e7000e4	keep	subsample=0.9	0.7229	0.7227	0.7268	800	5.7427	0.4284
+02c980c	discard	learning_rate=0.015	N/A	N/A	N/A	N/A	N/A	N/A
+911b973	keep	min_child_weight=15	0.7234	0.7234	0.7266	800	5.6915	0.4134
+c77f998	keep	min_child_weight=20	0.7235	0.7237	0.7268	800	5.6626	0.4052
+5781620	discard	min_child_weight=30 (too much)	N/A	N/A	N/A	N/A	N/A	N/A
+f00bab5	keep	max_bin=2048	0.7236	0.7235	0.7269	800	5.6528	0.4025
+4c7bb92	discard	reg_lambda=1.5	N/A	N/A	N/A	N/A	N/A	N/A
+2a0fdfb	discard	max_delta_step=1 (no improvement)	N/A	N/A	N/A	N/A	N/A	N/A
+9788c8b	keep	carrier frequency encoding	0.7240	0.7239	0.7270	800	5.6503	0.4018
+fce55c5	discard	n_estimators=700	N/A	N/A	N/A	N/A	N/A	N/A
+8253bdc	discard	colsample_bylevel=0.9 (no improvement)	N/A	N/A	N/A	N/A	N/A	N/A
+e0ada6b	discard	DepHour x DayOfWeek interaction TE (overfits)	N/A	N/A	N/A	N/A	N/A	N/A
+ad083ac	keep	max_depth=7 (deeper works with strong regularization)	0.7243	0.7248	0.7275	800	6.4707	0.7095
+3484314	keep	max_depth=8 (+0.0013!)	0.7256	0.7258	0.7276	800	7.2322	1.2028
+7843683	keep	max_depth=9 (+0.0010!)	0.7266	0.7268	0.7276	800	7.8787	1.8828
+e51812b	keep	max_depth=10 (11.4s)	0.7272	0.7271	0.7274	800	8.3657	2.6389
+a213cb7	keep	max_depth=12 (14.6s)	0.7279	0.7280	0.7276	800	8.9884	4.0633
+6968db1	keep	max_depth=15 (17.9s)	0.7280	0.7281	0.7276	800	9.3312	5.1529
+4ad635f	keep	max_depth=20 (19.2s)	0.7282	0.7284	0.7278	800	9.4137	5.4561
+c335923	discard	min_child_weight=30 with max_depth=20	N/A	N/A	N/A	N/A	N/A	N/A
+e44b437	discard	n_estimators=1000 with max_depth=20	N/A	N/A	N/A	N/A	N/A	N/A
+ade6b20	discard	subsample=0.85	N/A	N/A	N/A	N/A	N/A	N/A
+094ab21	keep	n_estimators=600 with max_depth=20	0.7287	0.7288	0.7290	600	9.4577	4.2190
+e0c1054	discard	n_estimators=400 (too few)	N/A	N/A	N/A	N/A	N/A	N/A
+0caab3e	discard	n_estimators=300 lr=0.02	N/A	N/A	N/A	N/A	N/A	N/A
+960fc6d	keep	colsample_bytree=0.9 with deep trees (+0.0008!)	0.7295	0.7298	0.7297	600	9.4575	4.2184
+03557d0	keep	colsample_bytree=0.8 (+0.0020!!)	0.7315	0.7317	0.7308	600	9.4489	4.1932
+8f48019	keep	colsample_bytree=0.7	0.7319	0.7321	0.7316	600	9.4520	4.2022
+c82fb6b	keep	colsample_bytree=0.6 (+0.0017!)	0.7336	0.7340	0.7324	600	9.4569	4.2165
+127fec1	keep	colsample_bytree=0.5 (+0.0020!)	0.7356	0.7358	0.7331	600	9.4586	4.2216
+c0e6209	keep	colsample_bytree=0.4 (+0.0023!)	0.7379	0.7380	0.7342	600	9.4698	4.2544
+28f48b9	discard	colsample_bytree=0.3 (too aggressive)	N/A	N/A	N/A	N/A	N/A	N/A
+9b4e1ef	keep	n_estimators=800 with colsample=0.4	0.7381	0.7382	0.7340	800	9.4096	5.4409
+fddb965	discard	n_estimators=1000 (marginal worse)	N/A	N/A	N/A	N/A	N/A	N/A
+d1b674f	discard	subsample=0.8	N/A	N/A	N/A	N/A	N/A	N/A
+78462ab	keep	min_child_weight=15 (+0.0017!)	0.7398	0.7399	0.7341	800	9.7889	7.0770
+b7b7b3f	keep	min_child_weight=10 (+0.0014!)	0.7412	0.7416	0.7341	800	10.3037	10.1117
+8d0c3f7	keep	min_child_weight=5 (+0.0027!)	0.7439	0.7445	0.7337	800	11.1222	17.8326
+95bc03f	keep	min_child_weight=3 (+0.0013!)	0.7452	0.7458	0.7329	800	11.6545	25.7904
+f890a02	crash	min_child_weight=1 (OOM/killed with depth=20)	N/A	N/A	N/A	N/A	N/A	N/A
+bbea3a2	crash	min_child_weight=2 (also OOM)	N/A	N/A	N/A	N/A	N/A	N/A
+467a268	discard	max_depth=15 min_child_weight=2	N/A	N/A	N/A	N/A	N/A	N/A
+cd18556	discard	n_estimators=1200 (43s and worse)	N/A	N/A	N/A	N/A	N/A	N/A
+417d260	keep	colsample_bytree=0.35	0.7459	0.7467	0.7325	800	11.6288	25.3341
+556edd4	discard	colsample_bytree=0.3 (too aggressive)	N/A	N/A	N/A	N/A	N/A	N/A
+9014ee5	keep	max_depth=25 (34s)	0.7467	0.7472	0.7323	800	11.7317	27.2071
+d7c1f05	keep	n_estimators=600 with max_depth=25	0.7470	0.7474	0.7331	600	11.8208	21.7057
+4a7a64d	discard	colsample_bytree=0.3 (too aggressive again)	N/A	N/A	N/A	N/A	N/A	N/A
+ebe1df8	keep	n_estimators=400 lr=0.015	0.7473	0.7476	0.7330	400	11.8230	14.4921
+6c52515	discard	n_estimators=300 lr=0.02	N/A	N/A	N/A	N/A	N/A	N/A
+985a668	discard	n_estimators=500 lr=0.015	N/A	N/A	N/A	N/A	N/A	N/A
+bb2156f	discard	gamma=0.05	N/A	N/A	N/A	N/A	N/A	N/A
+3f9d396	discard	max_depth=30	N/A	N/A	N/A	N/A	N/A	N/A
+beacff3	discard	target encode DayofMonth/DayOfWeek/Month (hurts)	N/A	N/A	N/A	N/A	N/A	N/A
+37816d3	discard	n_estimators=450	N/A	N/A	N/A	N/A	N/A	N/A
+09edb19	keep	reg_alpha=0.1	0.7474	0.7477	0.7334	400	11.7760	14.0280
+60996e2	discard	reg_alpha=0.5 (too much)	N/A	N/A	N/A	N/A	N/A	N/A
+411776b	discard	colsample_bylevel=0.9 (double col sampling hurts)	N/A	N/A	N/A	N/A	N/A	N/A
+316c4de	discard	n_jobs=1 (same result but slower)	N/A	N/A	N/A	N/A	N/A	N/A
+817851f	discard	remove raw DepTime (it's critical!)	N/A	N/A	N/A	N/A	N/A	N/A
+13ac601	discard	subsample=0.95	N/A	N/A	N/A	N/A	N/A	N/A
+000bf90	discard	reg_lambda=2	N/A	N/A	N/A	N/A	N/A	N/A
+b38d98c	discard	origin-hour congestion freq (doesn't transfer)	N/A	N/A	N/A	N/A	N/A	N/A
+8b25e64	discard	min_child_weight=4	N/A	N/A	N/A	N/A	N/A	N/A
+3a72983	discard	learning_rate=0.012	N/A	N/A	N/A	N/A	N/A	N/A
+20a7684	discard	smoothed target encoding (no improvement)	N/A	N/A	N/A	N/A	N/A	N/A
+b92d87a	crash	DART booster (timeout >60s)	N/A	N/A	N/A	N/A	N/A	N/A
