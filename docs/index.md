@@ -4,7 +4,7 @@
 
 **TL;DR** In this project, we demonstrate that today's AI coding agents can automate data science tasks such as feature engineering and hyperparameter optimization of machine learning models. AI agents can conduct research, acquire domain knowledge, and make informed decisions about what to try next. They can automate many of the tedious, repetitive tasks a data scientist faces when exploring hundreds of feature engineering and model tuning candidates — and evaluate what has and hasn't worked so far to proceed accordingly. That said, this does not mean the data scientist's role can be replaced by AI today. The data scientist remains in the driver's seat, guiding the AI and monitoring, interpreting, and assessing the results. The AI agent is best understood as a tool that significantly augments the data scientist — automating manual work for a substantial productivity gain.
 
-—----------
+----------
 
 For several decades, the most valuable data in business has been stored in structured, tabular format. Extracting value from such data follows a standard data science pipeline: data preparation, training machine learning models, optimizing model parameters, and combining top-performing models. In most practical applications with tabular data, the models achieving the highest accuracy are gradient boosting machines (GBMs), with popular open-source implementations such as XGBoost or LightGBM. Building such models requires writing code for feature engineering, hyperparameter tuning, and (optionally) model ensembling.
 
