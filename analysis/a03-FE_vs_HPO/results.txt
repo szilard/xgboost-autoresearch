@@ -1,0 +1,51 @@
+config1-016eb99-start:
+
+CV time: 37.8s
+CV AUC: 0.7841 ± 0.0045
+Final model training time: 9.8s
+
+Test time (full model - eval 2005 slice 2): 22.2s
+Test AUC (full model - eval 2005 slice 2): 0.7926
+
+
+config2-da284a4-end:
+
+CV time: 218.5s
+CV AUC: 0.8189 ± 0.0035
+Final model training time: 53.6s
+
+Test time (full model - eval 2005 slice 2): 63.0s
+Test AUC (full model - eval 2005 slice 2): 0.8315
+
+
+config3-FE:
+
+CV time: 58.9s
+CV AUC: 0.8044 ± 0.0037
+Final model training time: 13.5s
+
+Test time (full model - eval 2005 slice 2): 21.7s
+Test AUC (full model - eval 2005 slice 2): 0.8155
+
+
+config4-HPO:
+
+CV time: 143.1s
+CV AUC: 0.7965 ± 0.0033
+Final model training time: 33.9s
+
+Test time (full model - eval 2005 slice 2): 73.7s
+Test AUC (full model - eval 2005 slice 2): 0.8082
+
+
+------
+
+Test AUC:
+
+start: 0.7926       
+end: 0.8315
+FE: 0.8155    FE-start: 0.0229     end-FE: 0.0160
+HPO: 0.8082    HPO-start: 0.0156     end-HPO: 0.0233
+
+FE  ~0.023  ~60%
+HPO ~0.016  ~40%
