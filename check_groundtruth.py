@@ -2,10 +2,12 @@ exec(open(__file__.replace("check_groundtruth.py", "train.py")).read())
 print()
 
 from sklearn.metrics import roc_auc_score
+import numpy as np
 
 combos = [
-    ("eval 2006 slice 2", model,     "2006-slice2-1m.csv"),
-    ("eval 2007 slice 2", model,     "2007-slice2-1m.csv"),
+    ("full model - eval 2005 slice 2", model,     "2005-slice2-1m.csv"),
+    ("4/5 model - eval 2005 slice 2",  model_4_5, "2005-slice2-1m.csv"),
+    ("full model - eval 2006",         model,     "2006-slice2-1m.csv"),
 ]
 
 for label, m, csv in combos:

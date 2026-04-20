@@ -14,7 +14,7 @@
 #   timeout_seconds  -> 3000
 #
 # Prerequisites:
-#   - results.tsv must exist with columns: commit, Eval_AUC, status, description
+#   - results.tsv must exist with columns: commit, CV_AUC, status, description
 #   - check_groundtruth.py must exist in the repo root
 #   - The virtual environment (if any) should be activated before running
 #
@@ -65,11 +65,11 @@ if [ -d "$REPO_ROOT/data-cache" ]; then
 fi
 
 # Write header
-echo -e "commit\tstatus\tdescription\teval_auc\ttest_auc_2006s2\ttest_auc_2007s2" > "$OUTPUT_FILE"
+echo -e "commit\tstatus\tdescription\tcv_auc\ttest_auc_2005s2_full\ttest_auc_2005s2_4_5\ttest_auc_2006_full" > "$OUTPUT_FILE"
 
 # Read results.tsv into an array first (avoid pipe + while issues)
 LINE_NUM=0
-while IFS=$'\t' read -r commit eval_auc status description; do
+while IFS=$'\t' read -r commit cv_auc status description; do
   LINE_NUM=$((LINE_NUM + 1))
 
   # Skip header
@@ -81,30 +81,30 @@ while IFS=$'\t' read -r commit eval_auc status description; do
   echo "=== [$LINE_NUM] $commit | $status | $description ==="
 
   # Skip crashed experiments
-  if [ "$eval_auc" = "0.0000" ]; then
-    echo "  SKIP: crashed experiment (Eval AUC=0.0000)"
-    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
+  if [ "$cv_auc" = "0.0000" ]; then
+    echo "  SKIP: crashed experiment (CV AUC=0.0000)"
+    echo -e "$commit\t$status\t$description\t$cv_auc\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
     continue
   fi
 
   # Skip discarded experiments (commits were reverted, won't exist in git)
   if [ "$status" = "discard" ]; then
     echo "  SKIP: discarded experiment"
-    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
+    echo -e "$commit\t$status\t$description\t$cv_auc\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
     continue
   fi
 
   # Check if commit exists in git
   if ! git cat-file -e "$commit" 2>/dev/null; then
     echo "  SKIP: commit $commit not found in git (discarded experiment)"
-    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
+    echo -e "$commit\t$status\t$description\t$cv_auc\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
     continue
   fi
 
   # Extract that commit's train.py into the worktree
   if ! git show "$commit:train.py" > "$WORKTREE_DIR/train.py" 2>/dev/null; then
     echo "  SKIP: could not extract train.py from $commit"
-    echo -e "$commit\t$status\t$description\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
+    echo -e "$commit\t$status\t$description\t$cv_auc\tN/A\tN/A\tN/A" >> "$OUTPUT_FILE"
     continue
   fi
 
@@ -123,17 +123,17 @@ while IFS=$'\t' read -r commit eval_auc status description; do
       echo "  CRASH: exit code $EXIT_CODE"
       tail -5 "$GT_LOG" 2>/dev/null || true
     fi
-    echo -e "$commit\t$status\t$description\tCRASH\tCRASH\tCRASH" >> "$OUTPUT_FILE"
+    echo -e "$commit\t$status\t$description\t$cv_auc\tCRASH\tCRASH\tCRASH" >> "$OUTPUT_FILE"
     continue
   fi
 
-  # Extract results from log
-  EVAL_AUC=$(grep "^Eval AUC:" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
-  AUC_2006S2=$(grep "^Test AUC (eval 2006 slice 2):" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
-  AUC_2007S2=$(grep "^Test AUC (eval 2007 slice 2):" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
+  # Extract results from log — format is "Test AUC (label): 0.XXXX"
+  AUC_2005S2_FULL=$(grep "^Test AUC (full model - eval 2005 slice 2):" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
+  AUC_2005S2_4_5=$(grep "^Test AUC (4/5 model - eval 2005 slice 2):" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
+  AUC_2006_FULL=$(grep "^Test AUC (full model - eval 2006):" "$GT_LOG" | grep -oP '[\d.]+$' || echo "N/A")
 
-  echo "  eval=$EVAL_AUC  2006s2=$AUC_2006S2  2007s2=$AUC_2007S2"
-  echo -e "$commit\t$status\t$description\t$EVAL_AUC\t$AUC_2006S2\t$AUC_2007S2" >> "$OUTPUT_FILE"
+  echo "  2005s2_full=$AUC_2005S2_FULL  2005s2_4/5=$AUC_2005S2_4_5  2006=$AUC_2006_FULL"
+  echo -e "$commit\t$status\t$description\t$cv_auc\t$AUC_2005S2_FULL\t$AUC_2005S2_4_5\t$AUC_2006_FULL" >> "$OUTPUT_FILE"
 done < "$RESULTS_INPUT"
 
 echo ""
