@@ -49,3 +49,14 @@ HPO: 0.8082    HPO-start: 0.0156     end-HPO: 0.0233
 
 FE  ~0.023  ~60%
 HPO ~0.016  ~40%
+
+
+------
+
+config5-claude-start:
+
+Claude starter setup: 0.7609
+absolute basic starter: 0.7479
+Claude with max_depth=12: 0.7744
+
+
