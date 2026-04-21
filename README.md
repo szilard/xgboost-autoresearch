@@ -6,3 +6,5 @@
 
 
 Full description in the [GitHub Pages here](https://szilard.github.io/xgboost-autoresearch).
+
+**License:** [CC BY 4.0](docs/LICENSE.md)
