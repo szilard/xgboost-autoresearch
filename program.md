@@ -130,6 +130,11 @@ b2c3d4e	0.7411	keep	increase number of trees
 c3d4e5f	0.0000	crash	XGBoost OOM
 ```
 
+## Research log
+
+Also maintain a research log `research-log.md` with details of your thinking, hypotheses, and observations for each experiment. This helps track your reasoning and decisions over time. Make is so that it can be related to `results.tsv` and the corresponding git commits.
+
+
 ## The experiment loop
 
 The experiment runs on a dedicated branch (e.g. `mar5`).
