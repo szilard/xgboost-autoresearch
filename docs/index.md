@@ -22,6 +22,6 @@ In a second scenario, the AI agent trains on 2005 data (100,000 records) but eva
 
 In this project we have demonstrated that AI coding agents can automate data science tasks such as feature engineering and hyperparameter optimization. Such agents can research domain knowledge, make informed decisions about what to try next, evaluate what has and hasn't worked, and iterate accordingly — automating much of the trial-and-error that would otherwise fall to a human data scientist. This does not mean the role of the data scientist can be completely substituted by AI. The data scientist remains essential: defining the problem, setting up the broader project context, driving the agent (in our case via the program.md instruction file), and monitoring and interpreting the results. Today's AI agent is best understood as a powerful productivity tool that significantly augments the data scientist by automating manual tasks — a force multiplier, not a replacement.
 
-**License:** [CC BY 4.0](LICENSE.md)
+License: [CC BY 4.0](https://github.com/szilard/xgboost-autoresearch/blob/main/docs/LICENSE.md)
 
 <script data-goatcounter="https://szilard.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
