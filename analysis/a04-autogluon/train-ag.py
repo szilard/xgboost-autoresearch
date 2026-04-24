@@ -36,7 +36,7 @@ predictor = TabularPredictor(
     path=".autogluon-model",
 ).fit(
     train,
-    presets="high_quality",
+    presets="best_quality",
 )
 print(f"Training time: {time.time() - t0:.1f}s")
 

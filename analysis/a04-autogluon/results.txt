@@ -224,3 +224,44 @@ Training time: 4030.9s
 Test time: 176.3s
 Test AUC: 0.8279
 
+
+
+    presets="best_quality",
+
+Training time: 3602.4s
+                        model  score_val     fit_time
+0         WeightedEnsemble_L3   0.817386  2326.217810
+1             CatBoost_BAG_L2   0.816610  1953.460803
+2        CatBoost_r177_BAG_L2   0.816497  1849.797868
+3          CatBoost_r9_BAG_L2   0.816045  1825.727771
+4        CatBoost_r137_BAG_L2   0.815946  1800.839772
+5              XGBoost_BAG_L2   0.815326  1764.702955
+6   NeuralNetTorch_r79_BAG_L2   0.815092  1836.435250
+7          XGBoost_r33_BAG_L2   0.814972  1792.245627
+8         LightGBM_r96_BAG_L2   0.814257  1768.882213
+9           LightGBMXT_BAG_L2   0.813443  1757.125758
+10  NeuralNetTorch_r22_BAG_L2   0.813136  1866.326243
+11      NeuralNetTorch_BAG_L2   0.812435  1822.590247
+12       LightGBM_r131_BAG_L2   0.811470  1762.512476
+13    RandomForestEntr_BAG_L2   0.811323  1777.902061
+14      ExtraTreesEntr_BAG_L2   0.810672  1756.028596
+15            LightGBM_BAG_L2   0.810656  1755.966117
+16      ExtraTreesGini_BAG_L2   0.810530  1755.964532
+17      ExtraTrees_r42_BAG_L2   0.810312  1760.920688
+18       LightGBMLarge_BAG_L2   0.810119  1758.191045
+19        WeightedEnsemble_L2   0.810044  1564.483971
+20    RandomForestGini_BAG_L2   0.809521  1773.916432
+21            CatBoost_BAG_L1   0.807403  1378.388915
+22             XGBoost_BAG_L1   0.785377   171.251616
+23       CatBoost_r177_BAG_L1   0.778105    43.778490
+24       LightGBMLarge_BAG_L1   0.773979    14.865953
+25          LightGBMXT_BAG_L1   0.772113    13.144041
+26    RandomForestEntr_BAG_L1   0.768313     6.147017
+27    RandomForestGini_BAG_L1   0.767436     5.672937
+28            LightGBM_BAG_L1   0.761610     8.077743
+29      ExtraTreesGini_BAG_L1   0.751688     1.936848
+30      ExtraTreesEntr_BAG_L1   0.750942     1.909891
+31      NeuralNetTorch_BAG_L1   0.735486   100.062832
+32  NeuralNetTorch_r79_BAG_L1   0.715714     7.823922
+Test time: 1093.3s
+Test AUC: 0.8286
