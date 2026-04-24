@@ -1,0 +1,72 @@
+m8i.2xlarge (8 cores, 32GB RAM)
+
+
+
+    presets="medium_quality",
+
+Training time: 355.2s
+                 model  score_val    fit_time
+0  WeightedEnsemble_L2   0.798618  312.964397
+1             CatBoost   0.797832  300.334322
+2              XGBoost   0.771829    6.647854
+3        LightGBMLarge   0.762463    5.333196
+4           LightGBMXT   0.751707    3.862443
+5     RandomForestEntr   0.751534    5.925452
+6     RandomForestGini   0.750958    5.335270
+7             LightGBM   0.745317    2.183285
+8       ExtraTreesGini   0.736153    1.798729
+9       ExtraTreesEntr   0.733181    1.817019
+Test time: 27.3s
+Test AUC: 0.8169
+
+
+
+    presets="good_quality",
+
+Training time: 3279.9s
+                           model  score_val     fit_time
+0            WeightedEnsemble_L3   0.811479  1705.344984
+1                CatBoost_BAG_L2   0.811184  1654.082850
+2                 XGBoost_BAG_L2   0.810279  1463.543451
+3        RandomForestEntr_BAG_L2   0.809211  1471.384235
+4        RandomForestGini_BAG_L2   0.808849  1468.930144
+5              LightGBMXT_BAG_L2   0.808636  1457.103033
+6            WeightedEnsemble_L2   0.807415  1400.328926
+7          ExtraTreesEntr_BAG_L2   0.806844  1455.397640
+8          ExtraTreesGini_BAG_L2   0.806823  1455.422909
+9                LightGBM_BAG_L2   0.806035  1455.892666
+10               CatBoost_BAG_L1   0.805002  1224.983599
+11          LightGBMLarge_BAG_L2   0.804793  1457.946946
+12                XGBoost_BAG_L1   0.785377   173.139526
+13          LightGBMLarge_BAG_L1   0.773979    14.962776
+14             LightGBMXT_BAG_L1   0.772113    16.281755
+15               LightGBM_BAG_L1   0.761610     9.462447
+16       RandomForestGini_BAG_L1   0.752004     5.938352
+17       RandomForestEntr_BAG_L1   0.751023     5.839655
+18         ExtraTreesGini_BAG_L1   0.741429     1.495531
+19         ExtraTreesEntr_BAG_L1   0.741272     1.425690
+20    ExtraTreesGini_BAG_L1_FULL        NaN     1.495531
+21    ExtraTreesEntr_BAG_L1_FULL        NaN     1.425690
+22  RandomForestEntr_BAG_L1_FULL        NaN     5.839655
+23  RandomForestGini_BAG_L1_FULL        NaN     5.938352
+24           XGBoost_BAG_L2_FULL        NaN   265.938505
+25           XGBoost_BAG_L1_FULL        NaN     3.066017
+26      WeightedEnsemble_L3_FULL        NaN   324.074111
+27      WeightedEnsemble_L2_FULL        NaN   243.380842
+28  RandomForestGini_BAG_L2_FULL        NaN   280.949198
+29  RandomForestEntr_BAG_L2_FULL        NaN   283.403290
+30          LightGBM_BAG_L2_FULL        NaN   266.009499
+31          LightGBM_BAG_L1_FULL        NaN     1.739711
+32        LightGBMXT_BAG_L2_FULL        NaN   266.236624
+33        LightGBMXT_BAG_L1_FULL        NaN     3.155888
+34     LightGBMLarge_BAG_L2_FULL        NaN   266.509419
+35     LightGBMLarge_BAG_L1_FULL        NaN     4.778517
+36    ExtraTreesGini_BAG_L2_FULL        NaN   267.441964
+37    ExtraTreesEntr_BAG_L2_FULL        NaN   267.416695
+38          CatBoost_BAG_L2_FULL        NaN   285.321442
+39          CatBoost_BAG_L1_FULL        NaN   238.109025
+Test time: 104.6s
+Test AUC: 0.8239
+
+
+
