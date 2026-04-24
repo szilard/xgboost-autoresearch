@@ -32,7 +32,7 @@ def prepare(df):
 X_train, y_train = prepare(train)
 
 
-model = GeneralizedLinearRegressor(family="binomial")
+model = GeneralizedLinearRegressor(family="binomial", alpha=1e-6)
 
 t0 = time.time()
 model.fit(X_train, y_train)
