@@ -25,8 +25,8 @@ plt.ylabel("AUC")
 plt.ylim(ymin=0.70, ymax=0.85)
 plt.title("AUC vs n")
 plt.grid(True, color="lightgrey", linewidth=0.5)
-plt.axhline(0.8239, color="orange", linewidth=1.2, linestyle="--")
-plt.annotate("autogluon good", xy=(1, 0.8239), xycoords=("axes fraction", "data"),
+plt.axhline(0.8296, color="orange", linewidth=1.2, linestyle="--")
+plt.annotate("autogluon high", xy=(1, 0.8296), xycoords=("axes fraction", "data"),
              xytext=(-4, 4), textcoords="offset points",
              ha="right", va="bottom", color="orange", fontsize=9)
 plt.legend()
