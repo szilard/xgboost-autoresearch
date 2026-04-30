@@ -25,3 +25,18 @@ Test AUC: 0.8203
 real    89m50.598s
 user    683m11.955s
 sys     3m2.291s
+
+
+
+with FE:
+
+Optuna time: 3205.3s
+Best CV AUC: 0.8185
+Best params: {'n_estimators': 1048, 'max_depth': 23, 'learning_rate': 0.0259270033375196, 'subsample': 0.8928278400135289, 'colsample_bytree': 0.4425697408990667, 'min_child_weight': 1, 'gamma': 0.0999170324447562, 'reg_alpha': 2.1018568676174923e-08, 'reg_lambda': 3.5071152543242125e-08, 'max_bin': 128}
+Final model (using all the data) training time: 27.0s
+Test time: 47.9s
+Test AUC: 0.8309
+
+real    54m42.018s
+user    420m45.125s
+sys     1m37.210s

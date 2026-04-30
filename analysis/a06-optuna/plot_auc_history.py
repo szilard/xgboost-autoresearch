@@ -25,22 +25,26 @@ plt.ylabel("AUC")
 plt.ylim(ymin=0.70, ymax=0.90)
 plt.title("AUC vs n")
 plt.grid(True, color="lightgrey", linewidth=0.5)
+plt.axhline(0.7155, color="black", linewidth=1.2, linestyle="--")
+plt.annotate("logreg", xy=(1, 0.7155), xycoords=("axes fraction", "data"),
+             xytext=(-4, 4), textcoords="offset points",
+             ha="right", va="bottom", color="black", fontsize=9)    
 plt.axhline(0.8296, color="orange", linewidth=1.2, linestyle="--")
 plt.annotate("autogluon high", xy=(1, 0.8296), xycoords=("axes fraction", "data"),
              xytext=(-4, 4), textcoords="offset points",
              ha="right", va="bottom", color="orange", fontsize=9)
-plt.axhline(0.7155, color="orange", linewidth=1.2, linestyle="--")
-plt.annotate("logreg", xy=(1, 0.7155), xycoords=("axes fraction", "data"),
-             xytext=(-4, 4), textcoords="offset points",
-             ha="right", va="bottom", color="orange", fontsize=9)    
 plt.axhline(0.8857, color="orange", linewidth=1.2, linestyle="--")
 plt.annotate("FE + autogluon high", xy=(1, 0.8857), xycoords=("axes fraction", "data"),
              xytext=(-4, 4), textcoords="offset points",
              ha="right", va="bottom", color="orange", fontsize=9)      
-plt.axhline(0.8203, color="orange", linewidth=1.2, linestyle="--")
-plt.annotate("optuna", xy=(1, 0.8203), xycoords=("axes fraction", "data"),
-             xytext=(-4, 4), textcoords="offset points",
-             ha="right", va="bottom", color="orange", fontsize=9)                                  
+plt.axhline(0.8203, color="brown", linewidth=1.2, linestyle="--")
+plt.annotate("optuna", xy=(0, 0.8203), xycoords=("axes fraction", "data"),
+             xytext=(4, 4), textcoords="offset points",
+             ha="left", va="bottom", color="brown", fontsize=9)                                  
+plt.axhline(0.8309, color="brown", linewidth=1.2, linestyle="--")
+plt.annotate("FE + optuna", xy=(0, 0.8309), xycoords=("axes fraction", "data"),
+             xytext=(4, 4), textcoords="offset points",
+             ha="left", va="bottom", color="brown", fontsize=9)  
 plt.legend()
 plt.tight_layout()
 plt.savefig(Path(__file__).parent / "auc_history.png", dpi=150)
