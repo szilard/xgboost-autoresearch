@@ -38,6 +38,7 @@ model = xgb.XGBClassifier(
     min_child_weight=1,
     colsample_bytree=0.55,
     max_bin=512,
+    max_cat_to_onehot=32,
     enable_categorical=True,
     random_state=42,
     n_jobs=-1,
