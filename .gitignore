@@ -1,5 +1,6 @@
 data-cache/
 .autogluon-model
+run.log
 
 
 # Python
