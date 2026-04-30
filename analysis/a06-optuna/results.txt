@@ -1,0 +1,42 @@
+
+n_trials = 10
+
+Optuna time: 615.2s
+Best CV AUC: 0.7979
+Best params: {'n_estimators': 1026, 'max_depth': 22, 'learning_rate': 0.023468510579180438, 'subsample': 0.9272262437622524, 'colsample_bytree': 0.6309026867654567, 'min_child_weight': 4, 'gamma': 0.053139701338751774, 'reg_alpha': 2.3369780517650114e-07, 'reg_lambda': 0.042943859771627575, 'max_bin': 4096}
+Final model (using all the data) training time: 29.3s
+Test time: 49.8s
+Test AUC: 0.8088
+
+real    11m36.036s
+user    89m5.275s
+sys     0m16.615s
+
+
+n_trials = 100
+
+Optuna time: 5333.8s
+Best CV AUC: 0.8080
+Best params: {'n_estimators': 286, 'max_depth': 25, 'learning_rate': 0.01678167355888465, 'subsample': 0.8804822471189274, 'colsample_bytree': 0.508407222695362, 'min_child_weight': 1, 'gamma': 0.13867670067716695, 'reg_alpha': 1.469983276353796e-08, 'reg_lambda': 0.014700537258719011, 'max_bin': 2048}
+Final model (using all the data) training time: 27.6s
+Test time: 27.4s
+Test AUC: 0.8203
+
+real    89m50.598s
+user    683m11.955s
+sys     3m2.291s
+
+
+
+with FE:
+
+Optuna time: 3205.3s
+Best CV AUC: 0.8185
+Best params: {'n_estimators': 1048, 'max_depth': 23, 'learning_rate': 0.0259270033375196, 'subsample': 0.8928278400135289, 'colsample_bytree': 0.4425697408990667, 'min_child_weight': 1, 'gamma': 0.0999170324447562, 'reg_alpha': 2.1018568676174923e-08, 'reg_lambda': 3.5071152543242125e-08, 'max_bin': 128}
+Final model (using all the data) training time: 27.0s
+Test time: 47.9s
+Test AUC: 0.8309
+
+real    54m42.018s
+user    420m45.125s
+sys     1m37.210s
