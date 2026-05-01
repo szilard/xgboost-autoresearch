@@ -8,19 +8,21 @@ from sklearn.model_selection import cross_val_score, StratifiedKFold
 data_dir = Path(__file__).parent / "data-cache"
 train = pd.read_csv(f"{data_dir}/2005-slice1-100k.csv")
 
-cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest", "Dep20Min"]
+cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest", "Dep20Min", "CarrierOrigin"]
 num_cols = ["DepTime", "Distance", "DepMinute"]
 target   = "dep_delayed_15min"
 
 
-cat_levels = {col: sorted(train[col].unique()) for col in cat_cols if col != "Dep20Min"}
+cat_levels = {col: sorted(train[col].unique()) for col in cat_cols if col not in ("Dep20Min", "CarrierOrigin")}
 cat_levels["Dep20Min"] = list(range(73))
+cat_levels["CarrierOrigin"] = sorted((train["UniqueCarrier"].astype(str) + "|" + train["Origin"].astype(str)).unique())
 
 def prepare(df):
     df = df.copy()
     dep_minutes = (df["DepTime"] // 100) * 60 + (df["DepTime"] % 100)
     df["Dep20Min"] = dep_minutes // 20
     df["DepMinute"] = df["DepTime"] % 100
+    df["CarrierOrigin"] = df["UniqueCarrier"].astype(str) + "|" + df["Origin"].astype(str)
     X = df[num_cols + cat_cols].copy()
     for col in cat_cols:
         X[col] = pd.Categorical(
@@ -34,7 +36,7 @@ X_train, y_train = prepare(train)
 
 
 model = xgb.XGBClassifier(
-    n_estimators=500,
+    n_estimators=350,
     max_depth=16,
     learning_rate=0.04,
     min_child_weight=10,
