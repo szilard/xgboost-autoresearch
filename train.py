@@ -8,17 +8,18 @@ from sklearn.model_selection import cross_val_score, StratifiedKFold
 data_dir = Path(__file__).parent / "data-cache"
 train = pd.read_csv(f"{data_dir}/2005-slice1-100k.csv")
 
-cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest", "DepHour"]
+cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest", "DepHalfHour"]
 num_cols = ["DepTime", "Distance"]
 target   = "dep_delayed_15min"
 
 
-cat_levels = {col: sorted(train[col].unique()) for col in cat_cols if col != "DepHour"}
-cat_levels["DepHour"] = list(range(25))
+cat_levels = {col: sorted(train[col].unique()) for col in cat_cols if col != "DepHalfHour"}
+cat_levels["DepHalfHour"] = list(range(49))
 
 def prepare(df):
     df = df.copy()
-    df["DepHour"] = df["DepTime"] // 100
+    dep_minutes = (df["DepTime"] // 100) * 60 + (df["DepTime"] % 100)
+    df["DepHalfHour"] = dep_minutes // 30
     X = df[num_cols + cat_cols].copy()
     for col in cat_cols:
         X[col] = pd.Categorical(
