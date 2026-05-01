@@ -72,7 +72,25 @@ You are expected to actively search the web and read external resources througho
 
 ## Feature engineering
 
-**Important:** Keep all the feature engineering/data transformations in the `prepare()` function in `train.py`. This is because during the post-hoc ground gruth evaluation, the human must be able to run the same transformations to ensure consistency between training and evaluation data (the same `prepare()` function will be called by `check_ground_truth.py`).
+**Important:** Keep all the feature engineering/data transformations in the `prepare(df)` function in `train.py`. This is because during the post-hoc ground gruth evaluation, the human must be able to run exactly the same transformations to ensure consistency between training and evaluation data (the same `prepare(df)` function will be called by `check_ground_truth.py`). Do not create any helper functions etc. outside `prepare(df)`, add ALL the feature engineering inside the `prepare(df)` function. The code should be like this:
+```
+train = pd.read_csv(...)
+
+cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest"]
+num_cols = ["DepTime", "Distance"]
+target   = "dep_delayed_15min"
+
+
+cat_levels = {col: sorted(train[col].unique()) for col in cat_cols}
+
+def prepare(df):
+    ...
+    return X, y
+
+X_train, y_train = prepare(train)
+```
+All the additional feauture engineering should be done inside the `prepare(df)` function.
+
 
 If thinking about using counts as derived features, consider the fact that the data has been balanced by undersampling the non-fraud cases, therefore counts may not reflect the true distribution in the original dataset. Therefore it is best to avoid using such features.
 
