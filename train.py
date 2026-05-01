@@ -37,10 +37,10 @@ X_train, y_train = prepare(train)
 
 
 model = xgb.XGBClassifier(
-    n_estimators=410,
+    n_estimators=370,
     max_depth=14,
     learning_rate=0.06,
-    min_child_weight=4,
+    min_child_weight=3,
     colsample_bytree=0.7,
     max_cat_threshold=128,
     enable_categorical=True,
