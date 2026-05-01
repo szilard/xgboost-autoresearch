@@ -8,18 +8,18 @@ from sklearn.model_selection import cross_val_score, StratifiedKFold
 data_dir = Path(__file__).parent / "data-cache"
 train = pd.read_csv(f"{data_dir}/2005-slice1-100k.csv")
 
-cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest", "DepHalfHour"]
+cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest", "Dep15Min"]
 num_cols = ["DepTime", "Distance"]
 target   = "dep_delayed_15min"
 
 
-cat_levels = {col: sorted(train[col].unique()) for col in cat_cols if col != "DepHalfHour"}
-cat_levels["DepHalfHour"] = list(range(49))
+cat_levels = {col: sorted(train[col].unique()) for col in cat_cols if col != "Dep15Min"}
+cat_levels["Dep15Min"] = list(range(97))
 
 def prepare(df):
     df = df.copy()
     dep_minutes = (df["DepTime"] // 100) * 60 + (df["DepTime"] % 100)
-    df["DepHalfHour"] = dep_minutes // 30
+    df["Dep15Min"] = dep_minutes // 15
     X = df[num_cols + cat_cols].copy()
     for col in cat_cols:
         X[col] = pd.Categorical(
@@ -33,7 +33,7 @@ X_train, y_train = prepare(train)
 
 
 model = xgb.XGBClassifier(
-    n_estimators=550,
+    n_estimators=500,
     max_depth=16,
     learning_rate=0.05,
     min_child_weight=10,
