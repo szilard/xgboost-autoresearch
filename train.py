@@ -43,7 +43,6 @@ model = xgb.XGBClassifier(
     max_depth=16,
     learning_rate=0.04,
     min_child_weight=10,
-    subsample=0.95,
     colsample_bytree=0.6,
     gamma=0.01,
     enable_categorical=True,
