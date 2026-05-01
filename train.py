@@ -8,8 +8,8 @@ from sklearn.model_selection import cross_val_score, StratifiedKFold
 data_dir = Path(__file__).parent / "data-cache"
 train = pd.read_csv(f"{data_dir}/2005-slice1-100k.csv")
 
-cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest", "Dep20Min", "CarrierOrigin"]
-num_cols = ["DepTime", "Distance", "DepMinute"]
+cat_cols = ["Month", "DayOfWeek", "UniqueCarrier", "Origin", "Dest", "Dep20Min", "CarrierOrigin"]
+num_cols = ["DepTime", "Distance", "DepMinute", "DayofMonthNum"]
 target   = "dep_delayed_15min"
 
 
@@ -23,6 +23,7 @@ def prepare(df):
     df["Dep20Min"] = dep_minutes // 20
     df["DepMinute"] = df["DepTime"] % 100
     df["CarrierOrigin"] = df["UniqueCarrier"].astype(str) + "|" + df["Origin"].astype(str)
+    df["DayofMonthNum"] = df["DayofMonth"].str[2:].astype(int)
     X = df[num_cols + cat_cols].copy()
     for col in cat_cols:
         X[col] = pd.Categorical(
