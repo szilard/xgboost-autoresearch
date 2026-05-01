@@ -28,12 +28,15 @@ You launch it simply as: `python3 train.py`.
 - Search the web and read external resources. This is not optional — you MUST do research before relying solely on your own intuition. See the **Research** section below.
 
 **What you CANNOT do:**
-- Modify `prepare.py`. It is read-only. It contains downloading the data. 
-- Install new packages or add dependencies. You can only use what's already installed.
-- Change the evaluation. Keep using either (1) the 5-fold cross validation or (2) the evaluation on the given separate dataset (slice) in `train.py` (whichever given) to get the evaluation metric (AUC).
-- Modify the evaluation harness. The code in `check_groundtruth.py` is the ground truth metric.
-- Don't use any of the data files other than `2005-slice1-100k.csv` for training, and (1) the same dataset for cross-validation or (2) `2006-slice1-100k.csv` for evaluation (whichever is the case).
-- Read, run, or reference `run_groundtruth_all.sh`. This is a human-only tool for post-hoc evaluation of experiments against the held-out test set. It is never part of the experiment loop. If you find yourself wanting to use it, stop and tell the human immediately — it means something has gone wrong with your understanding of the task.
+- Do not modify `prepare.py`. It is read-only. It contains downloading the data. 
+- Do not install new packages or add dependencies. You can only use what's already installed.
+- Do not change the evaluation. Keep using either (1) the 5-fold cross validation or (2) the evaluation on the given separate dataset (slice) in `train.py` (whichever given) to get the evaluation metric (AUC).
+- Do not modify the evaluation harness. The code in `check_groundtruth.py` is the ground truth metric.
+- Do not use any of the data files other than `2005-slice1-100k.csv` for training, and (1) the same dataset for cross-validation or (2) `2006-slice1-100k.csv` for evaluation (whichever is the case).
+- Do not read, run, or reference `run_groundtruth_all.sh`. This is a human-only tool for post-hoc evaluation of experiments against the held-out test set. It is never part of the experiment loop. If you find yourself wanting to use it, stop and tell the human immediately — it means something has gone wrong with your understanding of the task.
+- Do not use git to peek at earlier results, especially into earlier versions of `results.tsv`, `groundtruth_all.tsv` or any other .tsv, .txt or .png files with earlier results. 
+- Do not look peek into results in the `analysis` or `docs` folders and their sub-folders.
+
 
 ## Research
 
