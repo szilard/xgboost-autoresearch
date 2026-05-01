@@ -1,0 +1,10 @@
+method, AUC
+Claude FE+xgb HPO, 0.8315
+optuna xgb HPO, 0.8203
+FE + optuna xgb HPO, 0.8309
+autogl ENS, 0.8296
+FE + autogl ENS, 0.8857
+Claude xgb HPO, 0.8319
+logreg, 0.7155
+xgb super basic, 0.7479
+xgb basic, 0.7926
