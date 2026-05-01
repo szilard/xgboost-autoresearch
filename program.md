@@ -11,7 +11,7 @@ To set up a new experiment, work with the user to:
 3. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `README.md` - repository context.
    - `prepare.py` - downloading the data. Do not modify.
-   - `train.py` - the file you modify. Data preparation, feature engineering, choosing hyperparameters and model training (with possible early stopping etc.).
+   - `train.py` - the file you modify. Choosing hyperparameters and model training (with possible early stopping etc.).
    - `check_groundtruth.py` - script to check the "ground truth" AUC by the human. Do not access this file.
 4. **Verify data exists**: Check that `data-cache/` contains data. If not, tell the human to run `python3 prepare.py`.
 5. **Initialize results.tsv**: Create `results.tsv` with just the header row. The baseline will be recorded after the first run.
@@ -24,7 +24,7 @@ Once you get confirmation, kick off the experimentation.
 You launch it simply as: `python3 train.py`.
 
 **What you CAN do:**
-- Modify `train.py` - this is the only file you edit. Everything is fair game that will lead to a model that generalizes on unseen data: data preparation, feature engineering, choosing hyperparameters, and model training. You can also implement new features such as early stopping etc.
+- Modify `train.py` - this is the only file you edit. Everything is fair game that will lead to a model that generalizes on unseen data: choosing hyperparameters, and model training. You can also implement new features such as early stopping etc.
 - Search the web and read external resources. This is not optional — you MUST do research before relying solely on your own intuition. See the **Research** section below.
 
 **What you CANNOT do:**
@@ -34,22 +34,21 @@ You launch it simply as: `python3 train.py`.
 - Modify the evaluation harness. The code in `check_groundtruth.py` is the ground truth metric.
 - Don't use any of the data files other than `2005-slice1-100k.csv` for training, and (1) the same dataset for cross-validation or (2) `2006-slice1-100k.csv` for evaluation (whichever is the case).
 - Read, run, or reference `run_groundtruth_all.sh`. This is a human-only tool for post-hoc evaluation of experiments against the held-out test set. It is never part of the experiment loop. If you find yourself wanting to use it, stop and tell the human immediately — it means something has gone wrong with your understanding of the task.
+- Data transformations/feature engineering. In this experiment we want to know how well XGBoost can perform without any feature engineering.
 
 ## Research
 
 You are expected to actively search the web and read external resources throughout the experiment. Do not treat this as a fallback for when you're stuck — treat it as a primary input to your experiment design.
 
 **When to research:**
-- Before your very first non-baseline experiment: search for best practices on tuning XGBoost for binary classification, common feature engineering techniques for tabular data, and known good hyperparameter ranges.
+- Before your very first non-baseline experiment: search for best practices on tuning XGBoost for binary classification, and known good hyperparameter ranges.
 - Every 10 experiments (aligned with your synthesis pause): search for new ideas you haven't tried yet. Look for Kaggle competition write-ups, blog posts, papers, or documentation pages relevant to what you're working on.
-- Whenever you hit a plateau (3+ consecutive discards with <0.001 movement): stop and research before trying another random tweak. Look for techniques specifically designed to break through plateaus — different feature transformations, interaction terms, encoding strategies, or XGBoost parameters you haven't explored.
-- When trying a new category of change (e.g., first time doing feature engineering, first time tuning categorical handling): read about that specific topic first.
+- Whenever you hit a plateau (3+ consecutive discards with <0.001 movement): stop and research before trying another random tweak. Look for techniques specifically designed to break through plateaus — XGBoost parameters you haven't explored.
+- When trying a new category of change (e.g., first time tuning categorical handling): read about that specific topic first.
 
 **What to search for:**
 - XGBoost documentation for parameters you haven't tried
 - "XGBoost tuning guide" / "XGBoost best practices"
-- "feature engineering for airline delay prediction" or similar domain-specific resources
-- "categorical feature handling XGBoost"
 - Kaggle notebooks and competition solutions for similar tabular classification problems
 - Academic papers or blog posts on gradient boosting optimization
 
@@ -60,7 +59,7 @@ You are expected to actively search the web and read external resources througho
 
 **Important:** Research time does not count against the experiment timeout. Take as long as you need to read and understand a resource before designing your next experiment. A well-researched experiment is worth more than three random ones.
 
-**The goal is simple: get the highest AUC.** Everything is fair game that will lead to a model that generalizes on unseen data: data preparation, feature engineering, choosing hyperparameters, and model training. Read XGBoost documentation online, search the web for how to tune XGBoost. Try out adding new elements such early stopping. Be creative! The only constraint is that the code runs without crashing and finishes in reasonable time.
+**The goal is simple: get the highest AUC.** Everything is fair game that will lead to a model that generalizes on unseen data: choosing hyperparameters, possibly early stopping and model training. Read XGBoost documentation online, search the web for how to tune XGBoost. Try out adding new elements such early stopping. Be creative! The only constraint is that the code runs without crashing and finishes in reasonable time.
 
 **Simplicity criterion**: All else being equal, simpler is better. A small improvement that adds ugly complexity is not worth it. Conversely, removing something and getting equal or better results is a great outcome - that's a simplification win. When evaluating whether to keep a change, weigh the complexity cost against the improvement magnitude. A 0.001 AUC improvement that adds 20 lines of hacky code? Probably not worth it. A 0.001 AUC improvement from deleting code? Definitely keep. An improvement of ~0 but much simpler code? Keep.
 
