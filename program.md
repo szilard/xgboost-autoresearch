@@ -66,6 +66,15 @@ You are expected to actively search the web and read external resources througho
 
 **The first run**: Your very first run should always be to establish the baseline, so you will run the training script as is.
 
+
+## Feature engineering
+
+**Important:** Keep all the feature engineering/data transformations in the `prepare()` function in `train.py`. This is because during the post-hoc ground gruth evaluation, the human must be able to run the same transformations to ensure consistency between training and evaluation data (the same `prepare()` function will be called by `check_ground_truth.py`).
+
+If thinking about using counts as derived features, consider the fact that the data has been balanced by undersampling the non-fraud cases, therefore counts may not reflect the true distribution in the original dataset. Therefore it is best to avoid using such features.
+
+
+
 ## Output format
 
 Once the script finishes it prints a summary like this:
