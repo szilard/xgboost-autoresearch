@@ -9,7 +9,7 @@ data_dir = Path(__file__).parent / "data-cache"
 train = pd.read_csv(f"{data_dir}/2005-slice1-100k.csv")
 
 cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest", "Dep20Min"]
-num_cols = ["DepTime", "Distance"]
+num_cols = ["DepTime", "Distance", "DepMinute"]
 target   = "dep_delayed_15min"
 
 
@@ -20,6 +20,7 @@ def prepare(df):
     df = df.copy()
     dep_minutes = (df["DepTime"] // 100) * 60 + (df["DepTime"] % 100)
     df["Dep20Min"] = dep_minutes // 20
+    df["DepMinute"] = df["DepTime"] % 100
     X = df[num_cols + cat_cols].copy()
     for col in cat_cols:
         X[col] = pd.Categorical(
@@ -33,7 +34,7 @@ X_train, y_train = prepare(train)
 
 
 model = xgb.XGBClassifier(
-    n_estimators=525,
+    n_estimators=475,
     max_depth=16,
     learning_rate=0.04,
     min_child_weight=10,
