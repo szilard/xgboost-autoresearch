@@ -4,6 +4,10 @@ print()
 from sklearn.metrics import roc_auc_score
 import numpy as np
 
+# In some commits the fitted model is `final_model`; in others it's `model`.
+if "final_model" in dir():
+    model = final_model
+
 combos = [
     ("full model - eval 2005 slice 2", model,     "2005-slice2-1m.csv"),
     ("4/5 model - eval 2005 slice 2",  model_4_5, "2005-slice2-1m.csv"),
