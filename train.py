@@ -44,7 +44,6 @@ model = xgb.XGBClassifier(
     learning_rate=0.04,
     min_child_weight=10,
     colsample_bytree=0.6,
-    gamma=0.01,
     enable_categorical=True,
     random_state=42,
     n_jobs=-1,
