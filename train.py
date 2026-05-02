@@ -20,6 +20,7 @@ cat_levels = {col: sorted(train[col].unique()) for col in nominal_cats}
 def prepare(df):
     X = df[num_cols + cat_cols].copy()
     X["DepHour"] = (X["DepTime"] // 100).astype("int16")
+    X["DepMinute"] = (X["DepTime"] % 100).astype("int16")
     for col in ordinal_cats:
         X[col] = X[col].str.removeprefix("c-").astype("int16")
     for col in nominal_cats:
