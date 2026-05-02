@@ -1,0 +1,71 @@
+commit	CV_AUC	status	description
+000331d	0.7445	keep	baseline
+561bd19	0.7538	keep	n_estimators 30 -> 200
+a78819f	0.7563	keep	n_estimators 200 -> 500
+7e5d217	0.7583	keep	n_estimators 500 -> 1000
+d758137	0.7590	keep	add DepHour = DepTime // 100
+4d4d7ca	0.7609	keep	Month/DayofMonth/DayOfWeek ordinal int (not categorical)
+267d59a	0.7694	keep	colsample_bytree=0.8
+861526d	0.7739	keep	colsample_bytree 0.8 -> 0.6
+ec19fe3	0.7732	discard	colsample_bytree 0.6 -> 0.4
+2267e67	0.7858	keep	max_depth 6 -> 8
+6453372	0.7942	keep	max_depth 8 -> 10
+45caf37	0.7989	keep	max_depth 10 -> 12
+24f9aa1	0.8015	discard	max_depth 12 -> 14 (over 60s budget: total ~77s)
+f97a3ab	0.7924	discard	subsample=0.8 (regression and over budget)
+20184d6	0.7963	discard	n_estimators 1000 -> 500 (regression but -27s wall)
+714702d	0.7866	discard	add Route=Origin_Dest (regression, way over budget)
+c3fff6f	0.7960	discard	min_child_weight=5 (regression, but -14s wall)
+5bd9450	0.7814	discard	gamma=1 (too aggressive, prunes most splits)
+b767358	0.7963	discard	max_bin=128 (no speedup, slight regression)
+d06e3e1	0.7999	discard	learning_rate 0.1 -> 0.05 (small AUC gain but over 60s budget)
+a00566d	0.8115	keep	add DepMinute = DepTime % 100
+8681567	0.8287	discard	add Dep20Min cat (huge AUC gain but 90s wall, over budget)
+6428b80	0.8268	keep	Dep20Min cat + n_est 1000->500 (compound to fit budget)
+bb93222	0.8300	keep	add SinHour6h, CosHour6h (period 6h)
+f162c0c	0.8308	discard	n_estimators 500 -> 600 (tiny gain, over 60s budget)
+663095a	0.8287	discard	min_child_weight=2 (slight regression, but -6s wall)
+4451272	0.8299	discard	colsample_bytree 0.6 -> 0.7 (no change, edge of budget)
+0d2bc62	0.8311	keep	max_cat_threshold=128
+946c337	0.8314	keep	max_cat_threshold 128 -> 256
+1beeac7	0.8317	keep	subsample=0.95
+f09c6c3	0.8300	discard	min_child_weight=1.5 (regression)
+9fb3d33	0.8320	discard	learning_rate 0.1 -> 0.075 (tiny gain, over budget)
+c7ec182	0.8312	discard	drop DepHour numeric (slight regression)
+9ce51f9	0.8300	discard	add SinMonth, CosMonth (period 12)
+1942995	0.8318	keep	max_cat_threshold 256 -> 512 (borderline noise)
+97cff9e	0.8320	discard	max_depth 14 + n_est 400 (over budget)
+87292bd	0.8316	discard	learning_rate 0.1 -> 0.08 (regression and over budget)
+b2716ef	0.8311	discard	gamma=0.05 (regression)
+faa4d6e	0.8314	discard	max_depth 12 -> 13 (regression and over budget)
+50f840a	0.8314	discard	drop subsample=0.95 (verify: subsample was a real ~+0.0004 gain)
+939f948	0.8291	discard	add colsample_bylevel=0.8 (too much regularization on top of bytree=0.6)
+6e606e2	0.8310	discard	add SinHour12h, CosHour12h harmonic (regression and over budget)
+e888898	0.8306	discard	reg_lambda 1 -> 3 (regression)
+18e220c	0.8308	discard	drop raw DepTime (regression: not redundant)
+228bbb1	0.8323	discard	min_child_weight=0.5 (real +0.0005 but 67s over budget)
+b166d32	0.8316	discard	min_child_weight=0.7 (regression and over budget)
+6930e1f	0.8317	discard	mcw=0.5 + lr=0.12 (compound, no AUC gain, over budget)
+0b0b743	0.8312	discard	depth=14 + n=320 + lr=0.075 compound
+b531cf4	0.8295	discard	colsample_bytree 0.6 -> 0.5
+250edc1	0.8289	discard	grow_policy=lossguide + max_leaves=512 (way over budget)
+c06cb75	0.8318	discard	min_child_weight=0.8 (equal AUC, over budget)
+adae2a6	0.8314	discard	max_delta_step=1
+31077cf	0.8306	discard	add IsLateNight binary (trees already discover from raw)
+ff66ab4	0.8307	discard	Dep20Min -> Dep30Min cat (Dep20Min granularity confirmed best)
+0bc4f2c	0.8312	discard	tree_method=approx (way over budget at 150s)
+aba9bfc	0.8314	discard	min_child_weight=0.6 (over budget)
+6c3d6da	0.8314	discard	colsample_bytree 0.6 -> 0.65 (over budget)
+911af92	0.8333	discard	add CarrierOrigin cat (real +0.0015 but 92s wall, way over budget)
+0719ef6	0.8301	discard	CarrierOrigin + drop max_cat_threshold (over budget, regression)
+1db8c24	0.8115	discard	add CarrierDoW cat (catastrophic regression and over budget)
+99aae72	0.8323	discard	mcw=0.5 re-test (confirms +0.0005 but 67s over budget)
+5e730aa	0.8320	discard	mcw=0.5 + n_est=460 (compound, over budget)
+e508514	0.8317	discard	mcw=0.5 + n_est=420 compound (slight regression in budget)
+3591311	0.7145	discard	objective=binary:hinge (non-probabilistic output breaks AUC)
+9eaa185	0.8276	discard	colsample_bynode=0.8 (regression)
+2d9f4e7	0.8205	discard	drop Dep20Min cat (verifies it provides +0.0113)
+69e222a	0.8314	discard	colsample_bytree 0.6 -> 0.62
+c1ad65c	0.8319	keep	sin/cos hour period 6h -> 4h (borderline noise)
+0c05df8	0.8313	discard	sin/cos hour period 4h -> 3h
+8bfe071	0.8305	discard	sin/cos hour period 4h -> 8h

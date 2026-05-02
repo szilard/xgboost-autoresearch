@@ -1,0 +1,71 @@
+commit	status	description	cv_auc	test_auc_2005s2_full	test_auc_2005s2_4_5	test_auc_2006_full
+000331d	keep	baseline	0.7445	0.7479	0.7454	0.7155
+561bd19	keep	n_estimators 30 -> 200	0.7538	0.7603	0.7540	0.7124
+a78819f	keep	n_estimators 200 -> 500	0.7563	0.7645	0.7566	0.7078
+7e5d217	keep	n_estimators 500 -> 1000	0.7583	0.7684	0.7591	0.7059
+d758137	keep	add DepHour = DepTime // 100	0.7590	0.7679	0.7602	0.7056
+4d4d7ca	keep	Month/DayofMonth/DayOfWeek ordinal int (not categorical)	0.7609	0.7707	0.7600	0.7115
+267d59a	keep	colsample_bytree=0.8	0.7694	0.7797	0.7673	0.7159
+861526d	keep	colsample_bytree 0.8 -> 0.6	0.7739	0.7825	0.7742	0.7183
+ec19fe3	discard	colsample_bytree 0.6 -> 0.4	0.7732	N/A	N/A	N/A
+2267e67	keep	max_depth 6 -> 8	0.7858	0.7964	0.7853	0.7188
+6453372	keep	max_depth 8 -> 10	0.7942	0.8064	0.7942	0.7216
+45caf37	keep	max_depth 10 -> 12	0.7989	0.8115	0.7991	0.7240
+24f9aa1	discard	max_depth 12 -> 14 (over 60s budget: total ~77s)	0.8015	N/A	N/A	N/A
+f97a3ab	discard	subsample=0.8 (regression and over budget)	0.7924	N/A	N/A	N/A
+20184d6	discard	n_estimators 1000 -> 500 (regression but -27s wall)	0.7963	N/A	N/A	N/A
+714702d	discard	add Route=Origin_Dest (regression, way over budget)	0.7866	N/A	N/A	N/A
+c3fff6f	discard	min_child_weight=5 (regression, but -14s wall)	0.7960	N/A	N/A	N/A
+5bd9450	discard	gamma=1 (too aggressive, prunes most splits)	0.7814	N/A	N/A	N/A
+b767358	discard	max_bin=128 (no speedup, slight regression)	0.7963	N/A	N/A	N/A
+d06e3e1	discard	learning_rate 0.1 -> 0.05 (small AUC gain but over 60s budget)	0.7999	N/A	N/A	N/A
+a00566d	keep	add DepMinute = DepTime % 100	0.8115	0.8255	0.8128	0.7302
+8681567	discard	add Dep20Min cat (huge AUC gain but 90s wall, over budget)	0.8287	N/A	N/A	N/A
+6428b80	keep	Dep20Min cat + n_est 1000->500 (compound to fit budget)	0.8268	0.8414	0.8288	0.7398
+bb93222	keep	add SinHour6h, CosHour6h (period 6h)	0.8300	0.8447	0.8325	0.7436
+f162c0c	discard	n_estimators 500 -> 600 (tiny gain, over 60s budget)	0.8308	N/A	N/A	N/A
+663095a	discard	min_child_weight=2 (slight regression, but -6s wall)	0.8287	N/A	N/A	N/A
+4451272	discard	colsample_bytree 0.6 -> 0.7 (no change, edge of budget)	0.8299	N/A	N/A	N/A
+0d2bc62	keep	max_cat_threshold=128	0.8311	0.8463	0.8327	0.7441
+946c337	keep	max_cat_threshold 128 -> 256	0.8314	0.8457	0.8328	0.7436
+1beeac7	keep	subsample=0.95	0.8317	0.8466	0.8338	0.7440
+f09c6c3	discard	min_child_weight=1.5 (regression)	0.8300	N/A	N/A	N/A
+9fb3d33	discard	learning_rate 0.1 -> 0.075 (tiny gain, over budget)	0.8320	N/A	N/A	N/A
+c7ec182	discard	drop DepHour numeric (slight regression)	0.8312	N/A	N/A	N/A
+9ce51f9	discard	add SinMonth, CosMonth (period 12)	0.8300	N/A	N/A	N/A
+1942995	keep	max_cat_threshold 256 -> 512 (borderline noise)	0.8318	0.8463	0.8334	0.7435
+97cff9e	discard	max_depth 14 + n_est 400 (over budget)	0.8320	N/A	N/A	N/A
+87292bd	discard	learning_rate 0.1 -> 0.08 (regression and over budget)	0.8316	N/A	N/A	N/A
+b2716ef	discard	gamma=0.05 (regression)	0.8311	N/A	N/A	N/A
+faa4d6e	discard	max_depth 12 -> 13 (regression and over budget)	0.8314	N/A	N/A	N/A
+50f840a	discard	drop subsample=0.95 (verify: subsample was a real ~+0.0004 gain)	0.8314	N/A	N/A	N/A
+939f948	discard	add colsample_bylevel=0.8 (too much regularization on top of bytree=0.6)	0.8291	N/A	N/A	N/A
+6e606e2	discard	add SinHour12h, CosHour12h harmonic (regression and over budget)	0.8310	N/A	N/A	N/A
+e888898	discard	reg_lambda 1 -> 3 (regression)	0.8306	N/A	N/A	N/A
+18e220c	discard	drop raw DepTime (regression: not redundant)	0.8308	N/A	N/A	N/A
+228bbb1	discard	min_child_weight=0.5 (real +0.0005 but 67s over budget)	0.8323	N/A	N/A	N/A
+b166d32	discard	min_child_weight=0.7 (regression and over budget)	0.8316	N/A	N/A	N/A
+6930e1f	discard	mcw=0.5 + lr=0.12 (compound, no AUC gain, over budget)	0.8317	N/A	N/A	N/A
+0b0b743	discard	depth=14 + n=320 + lr=0.075 compound	0.8312	N/A	N/A	N/A
+b531cf4	discard	colsample_bytree 0.6 -> 0.5	0.8295	N/A	N/A	N/A
+250edc1	discard	grow_policy=lossguide + max_leaves=512 (way over budget)	0.8289	N/A	N/A	N/A
+c06cb75	discard	min_child_weight=0.8 (equal AUC, over budget)	0.8318	N/A	N/A	N/A
+adae2a6	discard	max_delta_step=1	0.8314	N/A	N/A	N/A
+31077cf	discard	add IsLateNight binary (trees already discover from raw)	0.8306	N/A	N/A	N/A
+ff66ab4	discard	Dep20Min -> Dep30Min cat (Dep20Min granularity confirmed best)	0.8307	N/A	N/A	N/A
+0bc4f2c	discard	tree_method=approx (way over budget at 150s)	0.8312	N/A	N/A	N/A
+aba9bfc	discard	min_child_weight=0.6 (over budget)	0.8314	N/A	N/A	N/A
+6c3d6da	discard	colsample_bytree 0.6 -> 0.65 (over budget)	0.8314	N/A	N/A	N/A
+911af92	discard	add CarrierOrigin cat (real +0.0015 but 92s wall, way over budget)	0.8333	N/A	N/A	N/A
+0719ef6	discard	CarrierOrigin + drop max_cat_threshold (over budget, regression)	0.8301	N/A	N/A	N/A
+1db8c24	discard	add CarrierDoW cat (catastrophic regression and over budget)	0.8115	N/A	N/A	N/A
+99aae72	discard	mcw=0.5 re-test (confirms +0.0005 but 67s over budget)	0.8323	N/A	N/A	N/A
+5e730aa	discard	mcw=0.5 + n_est=460 (compound, over budget)	0.8320	N/A	N/A	N/A
+e508514	discard	mcw=0.5 + n_est=420 compound (slight regression in budget)	0.8317	N/A	N/A	N/A
+3591311	discard	objective=binary:hinge (non-probabilistic output breaks AUC)	0.7145	N/A	N/A	N/A
+9eaa185	discard	colsample_bynode=0.8 (regression)	0.8276	N/A	N/A	N/A
+2d9f4e7	discard	drop Dep20Min cat (verifies it provides +0.0113)	0.8205	N/A	N/A	N/A
+69e222a	discard	colsample_bytree 0.6 -> 0.62	0.8314	N/A	N/A	N/A
+c1ad65c	keep	sin/cos hour period 6h -> 4h (borderline noise)	0.8319	0.8469	0.8341	0.7436
+0c05df8	discard	sin/cos hour period 4h -> 3h	0.8313	N/A	N/A	N/A
+8bfe071	discard	sin/cos hour period 4h -> 8h	0.8305	N/A	N/A	N/A
