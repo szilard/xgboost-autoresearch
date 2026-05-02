@@ -10,15 +10,19 @@ train = pd.read_csv(f"{data_dir}/2005-slice1-100k.csv")
 
 cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest"]
 num_cols = ["DepTime", "Distance"]
+ordinal_cats = ["Month", "DayofMonth", "DayOfWeek"]
+nominal_cats = ["UniqueCarrier", "Origin", "Dest"]
 target   = "dep_delayed_15min"
 
 
-cat_levels = {col: sorted(train[col].unique()) for col in cat_cols}
+cat_levels = {col: sorted(train[col].unique()) for col in nominal_cats}
 
 def prepare(df):
     X = df[num_cols + cat_cols].copy()
     X["DepHour"] = (X["DepTime"] // 100).astype("int16")
-    for col in cat_cols:
+    for col in ordinal_cats:
+        X[col] = X[col].str.removeprefix("c-").astype("int16")
+    for col in nominal_cats:
         X[col] = pd.Categorical(
             X[col].where(X[col].isin(cat_levels[col])),
             categories=cat_levels[col],
