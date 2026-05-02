@@ -25,8 +25,8 @@ def prepare(df):
     X["DepMinute"] = (X["DepTime"] % 100).astype("int16")
     X["Dep20Min"] = (X["DepHour"] * 3 + X["DepMinute"] // 20).astype("int16")
     hour_frac = X["DepHour"] + X["DepMinute"] / 60.0
-    X["SinHour6h"] = np.sin(2 * np.pi * hour_frac / 6.0).astype("float32")
-    X["CosHour6h"] = np.cos(2 * np.pi * hour_frac / 6.0).astype("float32")
+    X["SinHour4h"] = np.sin(2 * np.pi * hour_frac / 4.0).astype("float32")
+    X["CosHour4h"] = np.cos(2 * np.pi * hour_frac / 4.0).astype("float32")
     for col in ordinal_cats:
         X[col] = X[col].str.removeprefix("c-").astype("int16")
     for col in nominal_cats:
