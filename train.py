@@ -9,7 +9,7 @@ data_dir = Path(__file__).parent / "data-cache"
 train = pd.read_csv(f"{data_dir}/2005-slice1-100k.csv")
 
 cat_cols = ["UniqueCarrier", "Origin", "Dest", "Dep20Min"]
-num_cols = ["DepTime", "Distance", "DepMinute", "DayofMonthNum", "MonthNum", "DayOfWeekNum"]
+num_cols = ["DepTime", "Distance", "DepMinute", "DayofMonthNum", "MonthNum", "DayOfWeekNum", "SinHour", "CosHour"]
 target   = "dep_delayed_15min"
 
 
@@ -24,6 +24,10 @@ def prepare(df):
     df["DayofMonthNum"] = df["DayofMonth"].str[2:].astype(int)
     df["MonthNum"] = df["Month"].str[2:].astype(int)
     df["DayOfWeekNum"] = df["DayOfWeek"].str[2:].astype(int)
+    import numpy as np
+    hr = df["DepTime"] // 100 + (df["DepTime"] % 100) / 60
+    df["SinHour"] = np.sin(2 * np.pi * hr / 24)
+    df["CosHour"] = np.cos(2 * np.pi * hr / 24)
     X = df[num_cols + cat_cols].copy()
     for col in cat_cols:
         X[col] = pd.Categorical(
@@ -37,7 +41,7 @@ X_train, y_train = prepare(train)
 
 
 model = xgb.XGBClassifier(
-    n_estimators=380,
+    n_estimators=340,
     max_depth=14,
     learning_rate=0.06,
     min_child_weight=2.5,
