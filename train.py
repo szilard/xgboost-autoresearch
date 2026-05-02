@@ -26,8 +26,8 @@ def prepare(df):
     df["DayOfWeekNum"] = df["DayOfWeek"].str[2:].astype(int)
     import numpy as np
     hr = df["DepTime"] // 100 + (df["DepTime"] % 100) / 60
-    df["SinHour"] = np.sin(2 * np.pi * hr / 24)
-    df["CosHour"] = np.cos(2 * np.pi * hr / 24)
+    df["SinHour"] = np.sin(2 * np.pi * hr / 12)
+    df["CosHour"] = np.cos(2 * np.pi * hr / 12)
     X = df[num_cols + cat_cols].copy()
     for col in cat_cols:
         X[col] = pd.Categorical(
