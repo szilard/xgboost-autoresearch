@@ -45,6 +45,7 @@ model = xgb.XGBClassifier(
     max_depth=12,
     learning_rate=0.1,
     colsample_bytree=0.6,
+    subsample=0.95,
     max_cat_threshold=256,
     enable_categorical=True,
     random_state=42,
