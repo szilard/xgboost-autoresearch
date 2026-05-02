@@ -1,0 +1,511 @@
+commit	CV_AUC	status	description
+c6ab6ca	0.7445	keep	baseline (n_estimators=30, max_depth=6, lr=0.1, enable_categorical=True)
+cc94b1a	0.7548	keep	n_estimators 30 -> 300
+e4e6f68	0.7607	keep	n_estimators 300 -> 1000, lr 0.1 -> 0.05
+a84b896	0.7629	keep	n_estimators 1000 -> 2000
+6574d93	0.7490	discard	subsample=0.8, colsample_bytree=0.8 (added regularization, but model is underfit -> hurt)
+0d12282	0.7686	discard	max_depth 6 -> 8 (great AUC but total run 74s > 60s budget)
+6a2339a	0.7665	keep	max_depth 8 + n_estimators 1000 (back off trees to stay in budget)
+dc343ed	0.7702	discard	max_depth 8 -> 10 (great AUC 0.7702 but total run 68s > 60s budget)
+6bb9b96	0.7689	keep	max_depth 8 -> 10 + n_estimators 1000 -> 700 (fit budget)
+bd3a663	0.7699	keep	max_depth 10 -> 12, n_estimators 700 -> 500 (marginal +0.0010, near noise)
+299791e	0.7776	discard	FE: DepHour categorical (great +0.0077 but 76s, over budget)
+514122f	0.7751	keep	FE: DepHour + n_estimators 500 -> 350 (in budget, +0.0052)
+5723626	0.0000	crash	FE: add Route (Origin+Dest) categorical (timeout >90s; high-cardinality blew up runtime)
+8299ce3	0.7743	discard	max_cat_threshold 64 -> 256 (slight regression, slower)
+6ec7c6f	0.7754	keep	depth 12 -> 10, n_estimators 350 -> 600 (with FE; std tighter, +0.0003)
+bdd0bb5	0.7732	discard	lr 0.05 -> 0.03 (model needs more "fit per step", not less)
+96e80f2	0.7800	keep	min_child_weight 1 -> 5 (+0.0046, also faster: fewer tiny leaves)
+db60de3	0.7819	discard	n_estimators 600 -> 1000 (+0.0019 but 76s, over budget)
+afa185e	0.7812	discard	n_estimators 600 -> 800 (+0.0012 but 62s, just over budget)
+b364f6a	0.7803	keep	min_child_weight 5 -> 10 (+0.0003 + faster, frees budget)
+896e218	0.7809	keep	n_estimators 600 -> 800 (with mcw=10, +0.0006, 56s in budget)
+774b1d4	0.7823	keep	depth 10 -> 12, n_est 800 -> 500 (mcw=10 enables this; +0.0014, std tighter)
+0fe4b48	0.7829	keep	n_estimators 500 -> 600 (+0.0006, 57s in budget)
+eddb268	0.7799	discard	gamma 0 -> 0.5 (too aggressive, trees became sparse)
+ac5dbda	0.7829	discard	FE: DepTime (HHMM) -> DepMinutes (uniform) — no change (hist method bins anyway)
+4164968	0.7825	discard	gamma 0 -> 0.1 (slight regression)
+7876953	0.0000	crash	grow_policy=lossguide + max_leaves=256 (timeout >90s)
+dd16d11	0.7818	discard	lr 0.05 -> 0.07 (lr=0.05 confirmed sweet spot)
+2a667af	0.7828	discard	min_child_weight 10 -> 20 (-0.0001, mcw=10 sweet spot)
+7235c1e	0.0000	crash	manual CV with ES, n_est=3000, lr=0.02 (timeout — too many trees)
+0c9afd4	0.7793	discard	manual CV with ES, n_est=1000, lr=0.04 (-0.0036; 10% inner val costs more than ES gains)
+544f528	0.7813	discard	reg_lambda 1 -> 5
+b2b53c5	0.7873	keep	colsample_bytree 1.0 -> 0.8 (alone, +0.0044, BIG win at depth=12/mcw=10)
+0d9466d	0.7850	discard	add subsample=0.8 on top of colsample (subsample still hurts)
+5ca7025	0.7907	keep	colsample_bytree 0.8 -> 0.6 (+0.0034)
+04a554d	0.7869	discard	colsample_bytree 0.6 -> 0.4 (too aggressive)
+3f3176d	0.7904	discard	colsample_bytree 0.6 -> 0.5 (within noise, slightly down)
+6a66da8	0.7908	keep	n_estimators 600 -> 700 (+0.0001, in budget 55s)
+ecc41db	0.7900	discard	add colsample_bylevel=0.8 (-0.0008)
+a2dd1f9	0.7907	discard	mcw 10 -> 5 (no AUC gain + over budget 66s)
+571e3dc	0.7903	discard	add colsample_bynode=0.8
+fa0ca75	0.7911	keep	depth 12->14, n_est 700->450 (+0.0003, fast: mcw+colsample keep trees small)
+3c955b5	0.7924	discard	n_est 450 -> 700 (+0.0013 but 66s, over budget)
+89c8db8	0.7923	keep	n_est 450 -> 600 (+0.0012, 58s in budget)
+ea2d41a	0.7902	discard	mcw 10 -> 20 (mcw=10 still sweet)
+2e9b721	0.7924	keep	depth 14->16, n_est 600->400 (+0.0001)
+deb99da	0.7932	keep	n_est 400 -> 550 (+0.0008, 58s)
+ab4cf1b	0.7917	discard	colsample_bytree 0.6 -> 0.7 (worse, 0.6 still right)
+952c783	0.7926	discard	depth 16->18, n_est 550->400 (depth=16 sweet)
+a8aa4fe	0.7910	discard	FE: add DayOfYear numeric (redundant with Month+DayofMonth)
+e86644c	0.7935	discard	mcw 10 -> 8 (+0.0003 but 62s over budget)
+0c2488e	0.7930	discard	mcw 10 -> 12 (mcw=10 sweet)
+d459a12	0.7894	discard	drop DayofMonth (-0.0038, has real signal)
+84fa9f5	0.8022	keep	FE: DepHour -> DepHalfHour (48 buckets) — BIG WIN +0.0090
+b67d432	0.8042	discard	FE: Dep15Min (96 buckets) — +0.0020 but 60.2s over budget
+558173d	0.8032	keep	FE: Dep15Min + n_est 550 -> 500 (in budget, +0.0010)
+ba1d3bd	0.8007	discard	FE: Dep10Min (144 buckets, too granular)
+145cbc6	0.8038	keep	n_est 500 -> 525 (with Dep15Min, in budget 58s)
+78329ec	0.8047	keep	FE: Dep15Min -> Dep20Min (72 buckets, 58s)
+1136bd3	0.8053	keep	lr 0.05 -> 0.04 (with Dep20Min, +0.0006, std tighter)
+6e6ea09	0.8046	discard	lr 0.04 -> 0.03 (lr=0.04 sweet at this setup)
+902ecce	0.8037	discard	colsample_bytree 0.6 -> 0.5
+f582864	0.8054	discard	max_cat_threshold 64 -> 128 (+0.0001 but 62s over budget)
+2dbc1d9	0.8058	keep	gamma 0 -> 0.01 (+0.0005, 60s tight)
+d06405e	0.8047	discard	gamma 0.01 -> 0.05
+74303e9	0.8059	discard	add DepHour alongside Dep20Min (+0.0001 but 63s over budget)
+4ae1d1d	0.7978	discard	drop DepTime (Dep20Min not enough; sub-bucket position matters)
+889488b	0.8095	discard	FE: add DepMinute (+0.0037 BIG but 61s over budget)
+2c4cdde	0.8089	keep	FE: DepMinute + n_est 525->475 (+0.0031, 56s)
+203edf0	0.8093	keep	n_est 475 -> 500 (+0.0004, 59s)
+0e1f17a	0.8090	discard	FE: Dep20Min -> DepHalfHour with DepMinute
+15436d5	0.8018	discard	DepMinute as cat (-0.0075; numeric ordering matters)
+07d76dc	0.7932	discard	drop UniqueCarrier (-0.0161, essential signal)
+5187366	0.8096	keep	subsample 1.0 -> 0.95 (mild, +0.0003)
+989f6f3	0.8086	discard	subsample 0.95 -> 0.9
+b0b0509	0.8099	discard	depth 16 -> 18 (+0.0003 but 60.6s over budget)
+865dcd5	0.8095	discard	depth 18 + n_est 475 (depth=16 still better at n_est=500)
+26777d8	0.8086	discard	add colsample_bynode=0.8
+e7ad324	0.8087	discard	FE: Dep20Min -> Dep15Min (revisit; Dep20Min still better)
+1de33a3	0.8130	discard	FE: add CarrierOrigin (+0.0034 BIG but 79s way over)
+61607fb	0.8101	keep	FE: CarrierOrigin + n_est 500->350 (in budget, +0.0005)
+2b6d7e3	0.8113	discard	n_est 350->400 (+0.0012 but 66s over budget)
+f68d70b	0.8106	discard	n_est 350->370 (+0.0005 but 62.5s over budget)
+b06430b	0.8120	discard	depth 16->14 + n_est 350->450 (+0.0019 but 67s over budget)
+184689b	0.8106	keep	depth 14, n_est 380 (in budget, +0.0005)
+909ec96	0.8118	discard	n_est 380 -> 420 (+0.0012 but 62s over budget)
+482591d	0.8111	keep	n_est 380 -> 400 (+0.0005, tight 60s)
+e6185bd	0.8094	discard	FE: add CarrierDest (-0.0017 + over budget; redundant w/ CarrierOrigin)
+ddf8f1c	0.8040	discard	drop Origin (CarrierOrigin alone insufficient)
+903022c	0.8095	discard	colsample 0.6 -> 0.5 (0.6 still right)
+a503962	0.8106	discard	subsample 0.95 -> 0.97 (0.95 sweet)
+cc2ef24	0.8095	discard	mcw 10 -> 12
+4f6c832	0.8111	discard	lr 0.04 -> 0.045 (no change to 4 decimals)
+e7bab71	0.7974	discard	FE: add DowHour (-0.0137 big regression)
+34315dd	0.8093	discard	lr 0.04 -> 0.035
+2da69c8	0.8149	keep	FE: DayofMonth as numeric (NOT categorical) — BIG +0.0038
+5bb3e62	0.8180	keep	FE: Month as numeric too — BIG +0.0031, std drops 0.0041->0.0026
+21c5dd3	0.8194	keep	FE: DayOfWeek as numeric too (+0.0014, 51s)
+48b22fb	0.8216	discard	n_est 400 -> 500 (+0.0022 but 63s over budget)
+e3c5888	0.8209	keep	n_est 400 -> 460 (+0.0015, 59s)
+7255aff	0.8224	discard	depth 14->16 (+0.0015 but 66s over budget)
+d7d945f	0.8211	keep	depth 14->16 + n_est 460->400 (+0.0002, 59s)
+de1ebea	0.8213	keep	drop subsample (+0.0002, simpler)
+d8f9b15	0.8212	keep	drop gamma (-0.0001 noise, simpler)
+2f9a16d	0.8222	discard	n_est 400 -> 440 (+0.0010 but 64s over budget)
+000e4c3	0.8218	discard	n_est 400 -> 420 (+0.0006 but 62s over budget)
+34dc1e7	0.8206	discard	max_bin 256 -> 128 (no speedup, slight regression)
+72258ed	0.8102	discard	drop Dep20Min cat (essential for non-monotonic time signal)
+6a8dfdb	0.8206	discard	re-add subsample=0.95 (no longer helping)
+164b565	0.8205	discard	drop CarrierOrigin alone (-0.0007 but 18s freed)
+6f29723	0.8231	keep	drop CarrierOrigin + n_est 400->600 (+0.0019, 60s)
+4cebeda	0.8238	discard	n_est 600 -> 700 (+0.0007 but 67s over)
+394da24	0.8222	discard	lr 0.04 -> 0.035 (lr=0.04 still right)
+d51184f	0.8225	discard	depth 16->14 + n_est 600->700 (depth=16 still right)
+8335713	0.8196	discard	colsample 0.6 -> 0.5
+b652adf	0.8227	discard	re-add gamma=0.01 (no longer helps)
+67bde87	0.8247	discard	mcw 10 -> 8 (+0.0016 but 64s over budget)
+1da9fc9	0.8243	discard	mcw=8 + n_est 600->550 (+0.0012 but 60.5s over)
+70549bc	0.8242	keep	mcw 10->8 + n_est 600->525 (+0.0011, in budget 57s)
+05006a6	0.8242	discard	n_est 525 -> 540 (no improvement)
+64d8263	0.8254	discard	mcw 8 -> 6 (+0.0012 but 64s over)
+9b534b6	0.8248	keep	mcw 8->6 + n_est 525->470 (+0.0006, 59s)
+99e7b57	0.8265	discard	mcw 6->4 + n_est 470->420 (+0.0017 but 63s over)
+e6e8636	0.8260	keep	mcw 6->4 + n_est 470->380 (+0.0012, 58s)
+988f114	0.8263	discard	mcw 4->3 + n_est 380->350 (+0.0003 but 62s over)
+c2b0419	0.8263	discard	n_est 380 -> 400 (+0.0003 but 61s over)
+be61bfe	0.8259	discard	subsample 1.0 -> 0.97
+689c8ad	0.8246	discard	FE: Dep20Min -> Dep15Min recheck
+4ed50d7	0.8246	discard	FE: Dep20Min -> DepHalfHour recheck
+f8cf0ee	0.8234	discard	add colsample_bynode=0.7
+595148a	0.8237	discard	reg_alpha=1 (L1)
+60609d3	0.8245	discard	depth 16->18 + n_est 380->320
+a0b90dc	0.8198	discard	drop DepMinute (-0.0062, essential)
+6b4023f	0.8259	discard	lr 0.04 -> 0.045
+affe428	0.8258	discard	depth 16->14, n_est 380->480
+4bedc6c	0.8268	discard	max_cat_threshold 64 -> 128 (+0.0008 but 62s over)
+fe3f7ce	0.8263	keep	max_cat_threshold=128 + n_est 380->350 (+0.0003, 58s, std tighter)
+fff985d	0.8265	discard	max_cat_threshold 128 -> 192 (+0.0002 but 60.5s over)
+31139c1	0.8265	keep	n_est 350 -> 365 (+0.0002, 60s tight)
+36b7333	0.8267	discard	max_cat_threshold 128 -> 160 (+0.0002 but 61s over)
+603ae8b	0.8255	discard	add Dep20MinNum alongside cat (redundant)
+8f6e987	0.8250	discard	add IsRedeye binary
+ff456bc	0.8257	discard	re-add CarrierOrigin + n_est=300 (over budget, no improvement)
+fcf0044	0.0000	crash	tree_method=approx (timeout)
+be855a6	0.8281	discard	mcw 4->2, n_est 365->320 (+0.0016 but 71s over)
+8e07fdc	0.8268	discard	mcw 4->2, n_est 365->260 (+0.0003 but 61s over)
+575c627	0.8264	discard	mcw 4->2, n_est 365->240 (mcw=4 sweet)
+6f1c1b6	0.8267	discard	mcw 4->3, n_est 365->310 (+0.0002 at 60s borderline)
+c797870	0.8267	keep	lr 0.04 -> 0.045 (+0.0002, 59s)
+6ada8c4	0.8269	keep	lr 0.045 -> 0.05 (+0.0002, 57s)
+c5b4203	0.8269	discard	lr 0.05 -> 0.06 (equal)
+2eccc9d	0.8276	discard	n_est 365 -> 400 (+0.0007 but 63s over)
+be89926	0.8272	discard	n_est 365 -> 380 (+0.0003 but 65s over)
+ba0df9b	0.8260	discard	drop max_cat_threshold=128 (-0.0009, helps)
+30899b7	0.8268	discard	subsample 1.0 -> 0.95
+6c26b07	0.8273	discard	depth 16->14, n_est 365->500 (+0.0004 but 69s over)
+bfc8da9	0.8268	discard	depth 16->14, n_est 365->430
+0a86226	0.8269	discard	colsample 0.6 -> 0.65
+cc2366b	0.8273	discard	lr 0.05 -> 0.055 (+0.0004 but 62s over)
+f7ed658	0.8271	keep	lr 0.05->0.055 + n_est 365->340 (+0.0002, 58s)
+3d22f3e	0.8271	discard	n_est 340 -> 355 (no change)
+b824a92	0.8263	discard	lr 0.06, n_est 310
+2fb5afd	0.8057	discard	add Month/DayofMonth/DayOfWeek as cat alongside num (huge regression)
+f387643	0.8276	discard	colsample 0.6 -> 0.7 (+0.0005 but 61s over)
+1ea408a	0.8273	keep	colsample 0.6->0.7 + n_est 340->320 (+0.0002, 60s)
+bed86d6	0.8277	keep	depth 16->14 + n_est 320->410 (+0.0004, 60s)
+8b48672	0.8281	discard	n_est 410 -> 450 (+0.0004 but 66s over)
+ab687f0	0.8272	discard	lr 0.055 -> 0.05 (lr=0.055 sweet at depth=14)
+c7867db	0.8256	discard	depth 14->12, n_est 410->470
+001600d	0.8277	discard	mcw 4->2 + n_est 410->350 (equal but 66s over)
+210c41f	0.8278	discard	n_est 410 -> 425 (+0.0001 but 61s over)
+85b7fcd	0.8279	keep	lr 0.055 -> 0.06 (+0.0002, 60s)
+a98f076	0.8273	discard	lr 0.06 -> 0.07
+1642e7a	0.8286	discard	mcw 4 -> 3 (+0.0007 but 64s over)
+20026f3	0.8281	keep	mcw 4->3 + n_est 410->370 (+0.0002, 60s)
+d829435	0.8276	discard	mcw 3->2 + n_est 370->320
+d789a54	0.8283	discard	n_est 370 -> 380 (+0.0002 but 61s over)
+062a17c	0.8287	discard	subsample 1.0->0.95 (+0.0006 but 62s over)
+26ed7cd	0.8284	keep	subsample=0.95 + n_est 370->350 (+0.0003, 58s)
+2e82525	0.8286	discard	n_est 350 -> 365 (+0.0002 but 60.3s over)
+1874d8d	0.8277	discard	subsample 0.95 -> 0.92
+ff49ba1	0.8284	discard	depth 14 -> 15 (equal but 63s over)
+220b18b	0.8280	discard	subsample 0.95 -> 0.97
+21045e4	0.8271	discard	colsample 0.7 -> 0.65
+bedd7c3	0.8284	discard	colsample 0.7 -> 0.75 (equal)
+874722a	0.8284	discard	n_est 350 -> 355 (equal)
+6ad57b9	0.8271	discard	drop max_cat_threshold=128 (helping)
+395d764	0.8282	discard	max_cat_threshold 128 -> 256
+8979fdc	0.8281	discard	gamma=0.01
+29bd4e9	0.8277	discard	mcw 3 -> 3.5
+4566bd9	0.8242	discard	fresh combo: depth=12 + n_est=600 + mcw=8 (regression)
+e291bd4	0.8282	discard	lr 0.06 -> 0.065
+310c38e	0.0000	crash	FE: add Route (timeout)
+b129524	0.8275	discard	n_est 350->320 + max_cat_threshold 128->192
+fa4e3f2	0.8260	discard	fresh: n_est=380, mcw=4, colsample=0.65
+2b43c6f	0.8260	discard	max_bin 256->512, n_est 350->240
+a60bfdb	0.8283	discard	mcw 3->2 + n_est 350->300
+f0bc47a	0.8260	discard	depth 14->20, n_est 350->240
+093d795	0.8278	discard	lr 0.06->0.065 + n_est 350->320
+ffc54c7	0.8275	discard	depth 14->16 + n_est 350->290
+e71514e	0.8269	discard	lr 0.08, n_est 280
+56dafb0	0.8259	discard	depth 12, n_est 420, lr 0.05, mcw 4
+325e338	0.8264	discard	max_bin 256->384, n_est 350->280
+16de2a5	0.8280	discard	n_est 350->370, mcw 3->3.5
+ded5a7b	0.8273	discard	n_est 350->320, lr 0.06->0.07
+4d13e70	0.8278	discard	add colsample_bynode=0.9
+9c11615	0.8275	discard	drop max_cat_threshold + colsample 0.7->0.8
+cc1b1c2	0.8269	discard	add IsHoliday binary (-0.0015, MonthNum suffices)
+32b336f	0.8277	discard	depth 14 -> 13
+d4b788e	0.8276	discard	subsample 0.95 -> 0.93
+f1029e0	0.8278	discard	subsample 0.97 + lr 0.055
+c134c36	0.8268	discard	add colsample_bynode=0.85
+a64d501	0.8279	discard	max_cat_threshold 128 -> 96
+6ea1436	0.8283	discard	n_est 350 -> 345
+2c6d39b	0.8281	discard	model random_state 42 -> 0
+c89fe20	0.8284	discard	n_est 350 -> 355 (equal)
+ecba325	0.8283	discard	add colsample_bylevel=0.9
+3e058a6	0.8279	discard	add gamma=0.005
+0aafcb4	0.8275	discard	drop max_cat_threshold + n_est 350->380
+29d48b8	0.8279	discard	mcw 3 -> 3.2
+6f295e5	0.8262	discard	fresh: mcw 2, colsample 0.5, lr 0.04, n_est 400
+d857c63	0.8232	discard	depth 14->20 n_est 350->200 lr 0.06->0.04
+95bdc97	0.8284	discard	lr 0.06 -> 0.058 (equal)
+b56f471	0.8281	discard	lr 0.062 + n_est 345
+24bff6f	0.8284	discard	n_est 350 -> 348 (equal)
+3059f90	0.8278	discard	add colsample_bynode=0.95
+7acf64a	0.8280	discard	mcw 3->2, n_est 350->280
+639b573	0.8284	discard	max_cat_to_onehot=20 (equal)
+6c2cd81	0.8283	discard	subsample 0.95 -> 0.96
+7a5d905	0.8281	discard	subsample 0.95 -> 0.94
+599bb33	0.8255	discard	depth 18, n_est 250, mcw 4
+e09980e	0.8275	discard	max_cat_threshold 128 -> 144
+f418719	0.8282	discard	max_cat_threshold 128 -> 112
+467d630	0.8264	discard	mcw 3 -> 5
+fff6285	0.8290	keep	mcw 3 -> 2.5 (+0.0006, 56s) — broke through plateau!
+e863c66	0.8293	keep	n_est 350 -> 365 (+0.0003, 58s)
+19e1ce6	0.8294	discard	n_est 365 -> 380 (+0.0001 but 61s over)
+a738cfc	0.8294	discard	mcw 2.5 -> 2 (+0.0001 but 61s over)
+6124d7f	0.8290	discard	mcw 2.5 -> 2.7
+8055a25	0.8293	discard	n_est 365 -> 370 (equal)
+6f8fca1	0.8291	discard	mcw 2.5 -> 2.3
+c715af1	0.8286	discard	lr 0.06 -> 0.058
+69971a3	0.8287	discard	lr 0.062 + n_est 350
+366e1cc	0.8286	discard	subsample 0.97 (mcw=2.5)
+65f5bb4	0.8281	discard	colsample 0.7 -> 0.65
+e97dc03	0.8293	discard	colsample 0.7 -> 0.75 (equal)
+211ebfa	0.8285	discard	subsample 0.95 -> 0.93
+2f8c109	0.8285	discard	max_cat_threshold 128 -> 160
+1393245	0.8292	discard	n_est 365 -> 360
+0ff3a41	0.8293	discard	n_est 365 -> 367 (equal)
+8959dcc	0.8288	discard	lr 0.061 + n_est 362
+486e358	0.8287	discard	mcw 2.5 -> 2.6
+3c25b60	0.8289	discard	mcw 2.5 -> 2.4
+56eb07e	0.8278	discard	drop max_cat_threshold (still helps)
+7bad7c8	0.8285	discard	reg_lambda=2
+5b9cd2a	0.8284	discard	reg_lambda 1 -> 0.5
+455380f	0.8293	discard	max_cat_to_onehot=8 (equal)
+b4851df	0.8289	discard	depth 14 -> 15
+5bf8d80	0.8285	discard	lr 0.06 -> 0.059
+4dadf4b	0.8288	discard	lr 0.06 -> 0.061
+b39f0d5	0.8240	discard	max_cat_to_onehot=25 (forces one-hot UniqueCarrier, big regression)
+7084bbb	0.8277	discard	colsample 0.7->0.65 + max_cat_threshold 128->160
+9f51af6	0.8287	discard	subsample 0.97 + n_est 370
+fb01dad	0.8148	discard	add DayofMonth cat alongside num (huge regression)
+65ce87d	0.8294	keep	n_est 365 -> 380 (+0.0001, 60s)
+fab312a	0.8296	discard	n_est 380 -> 395 (+0.0002 but 62s over)
+2229f93	0.8295	discard	n_est 380 -> 385 (+0.0001 but 61s over)
+df17b33	0.8290	discard	lr 0.06->0.058, n_est 380->395
+eadeb3d	0.8290	discard	mcw 2.5->2.6, n_est 380->395
+aeb28d5	0.8286	discard	max_cat_threshold 128 -> 110
+1ca64d3	0.8290	discard	max_cat_threshold 128 -> 140
+0b816d0	0.8290	discard	subsample 0.94 + lr 0.061 + n_est 375
+52a8695	0.8290	discard	colsample 0.7 -> 0.8
+90faed7	0.8305	discard	lr 0.05, mcw 2, n_est 420 (+0.0011 BIG but 73s over)
+ae1697d	0.8295	discard	lr 0.05, mcw 2, n_est 340 (+0.0001 but 61s over)
+fc7cdd3	0.8290	discard	lr 0.05 mcw 2 n_est 320
+4522430	0.8295	discard	lr 0.055, mcw 2, n_est 380
+83a42a1	0.8290	discard	lr 0.055, mcw 2, n_est 350
+8093199	0.8298	discard	lr 0.05, mcw 2, n_est 360 (+0.0004 but 64s over)
+750cc35	0.8296	discard	lr 0.05, mcw 2, n_est 345 (+0.0002 but 62s over)
+71c5b92	0.8294	discard	lr 0.05, mcw 2, n_est 335 (equal)
+98021b3	0.8284	discard	depth 13, lr 0.05, mcw 2, n_est 380
+0b3fc27	0.8281	discard	colsample 0.8, subsample 0.97, n_est 360
+f7ea186	0.8297	discard	n_est 400, colsample 0.75 (+0.0003 but 62s over)
+ece910e	0.8294	discard	colsample 0.7 -> 0.75 (equal)
+2c10896	0.8295	discard	n_est 380 -> 383 (+0.0001 at 60s borderline)
+af88710	0.8292	discard	mcw 2.5 -> 2.4
+9c040fe	0.8293	discard	n_est 380 -> 372
+0311895	0.8294	discard	n_est 380 -> 378 (equal)
+692e39c	0.8290	discard	lr 0.058, n_est 395
+964d05c	0.8304	discard	model random_state 42 -> 43 (+0.0010 but seed-shopping; doesn't generalize)
+f483b1b	0.8297	discard	random_state 43 -> 44 (seed variance ~0.0007, confirms not real)
+fd77488	0.8262	discard	lr 0.05, mcw 2, n_est 420, colsample 0.5 (colsample too aggressive)
+4e0aa32	0.8289	discard	lr 0.05, mcw 2, n_est 420, colsample 0.6
+865dc4f	0.8284	discard	max_delta_step=1
+f261bdb	0.8294	discard	tree_method=hist explicit (already default)
+d15fd4b	0.8290	discard	objective=binary:logitraw
+1907ab6	0.0000	crash	booster=dart (timeout, too slow)
+47adba8	0.8294	discard	n_est 380 -> 378 (equal)
+fea794f	0.8286	discard	drop max_cat_threshold + n_est 420
+88c038e	0.8284	discard	colsample 0.7 -> 0.65
+85e8913	0.8282	discard	drop subsample
+0cce2a6	0.8275	discard	add colsample_bynode=0.85
+7448c32	0.8285	discard	reg_alpha=0.5
+054b940	0.8255	discard	monotone_constraints Distance: 1 (Distance not monotonic w/ delay)
+bcf61ff	0.8289	discard	scale_pos_weight=1.05
+75c821c	0.8290	discard	gamma=0.003
+d49de37	0.8289	discard	base_score=0.6
+75d8ace	0.8291	discard	lr 0.06 -> 0.062
+9194690	0.8294	discard	colsample 0.7 -> 0.72 (equal)
+bb4c650	0.0000	crash	lossguide + max_leaves=512 (timeout)
+0969fde	0.8296	discard	n_est 380 -> 388 (+0.0002 but 62s over)
+1f2684e	0.8293	discard	mcw 2.5 -> 2.55
+a2c6d80	0.8292	discard	mcw 2.5 -> 2.45
+51c9498	0.8294	discard	reg_lambda=0.7 (equal)
+ecdaa2d	0.8286	discard	reg_lambda=1.5
+1490d6b	0.8290	discard	n_est 378, lr 0.061
+8d66409	0.8290	discard	n_est 370, lr 0.062
+8f0c2c8	0.8255	discard	add colsample_bynode=0.7
+95ec92e	0.0000	crash	sampling_method=gradient_based (GPU only)
+95c1b57	0.8288	discard	base_score=0.4
+c41ec53	0.8291	discard	reg_lambda=0.9
+01fbe28	0.8289	discard	max_bin 256 -> 320
+b0ec4d9	0.8304	discard	FE: SinHour, CosHour (+0.0010 BIG but 63s over budget)
+da064d0	0.8301	discard	FE: SinHour, CosHour + n_est 380->360 (+0.0007 but 61s over)
+ecaf7f4	0.8295	keep	FE: SinHour, CosHour + n_est 380->340 (+0.0001, 58s)
+ac82911	0.8298	discard	n_est 340 -> 350 (+0.0003 at 60s borderline)
+a623795	0.8297	keep	lr 0.06 -> 0.062 (with SinHour, +0.0002)
+b67b808	0.8298	keep	lr 0.062 -> 0.065 (+0.0001, std tighter)
+d8da787	0.8299	keep	lr 0.065 -> 0.07 (+0.0001)
+81921c2	0.8302	keep	n_est 340 -> 360 (+0.0003, with lr=0.07)
+4509d4d	0.8305	discard	n_est 360 -> 380 (+0.0003 but 60.5s over)
+1ca77f7	0.8303	discard	n_est 360 -> 370 (+0.0001 but 60.4s over)
+5ef4a74	0.8299	discard	lr 0.07 -> 0.075
+e2e6678	0.8304	discard	mcw 2.5 -> 2 (+0.0002 but 63s over)
+092b8e9	0.8299	discard	mcw 2, n_est 340 (with SinHour, lr=0.07)
+b481008	0.8294	discard	mcw 2.5 -> 3
+d512a17	0.8282	discard	add SinDow, CosDow (DoW not cyclic)
+cb02771	0.8286	discard	add SinMonth, CosMonth
+087971a	0.8301	discard	n_est 360 -> 355
+3e3f9f3	0.8302	discard	n_est 360 -> 365 (equal)
+d715b35	0.8305	keep	Sin/Cos period 24 -> 12 (+0.0003)
+c6ac7d6	0.8304	discard	Sin/Cos period 12 -> 8
+28ea8ea	0.8305	discard	Sin/Cos period 12 -> 16 (equal)
+36c1251	0.8305	discard	n_est 360 -> 365 (equal)
+acd6f01	0.8305	discard	Sin/Cos period 12 -> 14 (equal)
+2b33f3b	0.8311	discard	mcw 2.5 -> 2 (+0.0006 but 62s over)
+4514d8f	0.8307	keep	mcw 2 + n_est 340 (+0.0002, with SinHour 12)
+2f25cbf	0.8309	discard	n_est 340 -> 350 (+0.0002 but 60.4s over)
+235cebf	0.8307	discard	lr 0.07 -> 0.075 (equal)
+a9ddde6	0.8311	keep	subsample 0.95 -> 0.97 (+0.0004, 60s)
+f60e1d3	0.8301	discard	drop subsample (back to 1.0)
+ff7398e	0.8314	keep	subsample 0.97 -> 0.96 (+0.0003, 59s)
+5f3fe1b	0.8310	discard	subsample 0.96 -> 0.93
+02949b1	0.8312	discard	colsample 0.7 -> 0.75
+e10c00a	0.8294	discard	colsample 0.7 -> 0.65
+4cf129e	0.8315	discard	depth 14 -> 15 (+0.0001 but 66s over)
+4be930e	0.8308	discard	gamma=0.005
+eb0403c	0.8315	discard	n_est 340 -> 350 (+0.0001 but 62s over)
+639ece6	0.8314	discard	n_est 340 -> 345 (equal)
+d85ab23	0.8314	discard	mcw 2 -> 1.5 (equal AND 65s over)
+ac36186	0.8311	discard	lr 0.07 -> 0.065
+43616c7	0.8319	keep	Sin/Cos period 12 -> 6 (+0.0005, 59s)
+fa4778c	0.8317	discard	Sin/Cos period 6 -> 4
+473b00c	0.8306	discard	Sin/Cos period 6 -> 5
+94f5de3	0.8320	discard	n_est 340 -> 345 (+0.0001 at 60.0s borderline)
+7b65dae	0.8313	discard	lr 0.07 -> 0.075 (with period 6)
+bde08da	0.8308	discard	mcw 2 -> 2.5 (with period 6)
+aa4aef4	0.8314	discard	subsample 0.96 -> 0.97
+c6b6486	0.8319	discard	colsample 0.7 -> 0.68 (equal)
+6050fa1	0.8312	discard	add SinMin, CosMin
+8d92cd8	0.8315	discard	add SinHour24, CosHour24 alongside period-6
+7538f4c	0.8316	discard	lr 0.07 -> 0.073
+a6f7d67	0.8317	discard	Sin/Cos period 7
+f8cd2ee	0.8317	discard	n_est 340 -> 335
+8177450	0.8306	discard	depth 14->15, n_est 340->300
+1888f4e	0.8311	discard	add colsample_bynode=0.95
+07285cb	0.8288	discard	drop SinHour, CosHour (-0.0031, essential)
+c53ec65	0.8313	discard	add DepHourNum
+df5e5d9	0.8318	discard	n_est 340 -> 337
+65c201d	0.8317	discard	mcw 2 -> 1.8
+9565cfb	0.8310	discard	reg_lambda=0.8
+b682fd4	0.8311	discard	subsample 0.96 -> 0.965
+a506d18	0.8319	discard	colsample 0.7 -> 0.71 (equal)
+0c6836c	0.8310	discard	mcw 2 -> 2.2
+1f2af6e	0.8314	discard	n_est 341, lr 0.069
+d5ec03e	0.8319	discard	n_est 340 -> 343 (equal)
+4c4c608	0.8311	discard	add colsample_bynode=0.97
+afcb0ed	0.8319	discard	max_cat_threshold 128 -> 144 (equal)
+7499621	0.8310	discard	subsample 0.96 -> 0.95
+c2d23ac	0.8318	discard	Sin/Cos period 3
+726df31	0.8314	discard	lr 0.07 -> 0.06
+41fd83d	0.8310	discard	lr 0.07 -> 0.072
+ab7d945	0.8316	discard	n_est 380, lr 0.062 (-0.0003 + 66s over)
+512bb3b	0.8311	discard	n_est 320, lr 0.075
+9c7eb3b	0.8304	discard	Sin/Cos with integer hour (no fractional)
+436f29d	0.8308	discard	add colsample_bylevel=0.95
+0ee0753	0.8318	discard	n_est 340 -> 339
+55525c5	0.8315	discard	n_est 341, lr 0.071
+7fecc62	0.8313	discard	Dep20Min -> Dep30Min
+195419f	0.8296	discard	Dep20Min -> Dep15Min
+de67ee2	0.8323	discard	mcw 2 -> 1.6 (+0.0004 but 63s over)
+c08c313	0.8319	discard	mcw 1.6, n_est 320 (equal)
+ba12264	0.8321	discard	mcw 1.6, n_est 325 (+0.0002 at 60.1s borderline)
+e11c72b	0.8320	keep	mcw 2->1.6 + n_est 340->322 (+0.0001, 60s)
+bccecca	0.8323	discard	mcw 1.6 -> 1.4 (+0.0003 but 62s over)
+876b291	0.8317	discard	mcw 1.4, n_est 300
+cb76c0a	0.8320	discard	mcw 1.4, n_est 310 (equal)
+5e62cf7	0.8320	discard	mcw 1.5, n_est 315 (equal)
+b3d34c4	0.8320	discard	mcw 1.5, n_est 320 (equal but 61s over)
+a203646	0.8315	discard	lr 0.07 -> 0.068
+e7248ce	0.8320	discard	n_est 322 -> 323 (equal but 61s over)
+2befb94	0.8319	discard	n_est 322 -> 321
+2fba959	0.8319	discard	mcw 1.6 -> 1.7
+b325aa9	0.8324	keep	lr 0.07 -> 0.073 (+0.0004, std tighter, with mcw=1.6)
+685a761	0.8320	discard	lr 0.073 -> 0.075
+0cf09ba	0.8323	discard	lr 0.073 -> 0.072
+6ad9245	0.8325	discard	n_est 322 -> 330 (+0.0001 but 61s over)
+8d8b89f	0.8324	discard	n_est 322 -> 326 (equal)
+9180512	0.8324	discard	n_est 322 -> 325 (equal but 60.5s over)
+58e6aab	0.8318	discard	mcw 1.6 -> 1.5 (with lr=0.073)
+100aff6	0.8316	discard	mcw 1.6 -> 1.7
+218d63c	0.8319	discard	subsample 0.96 -> 0.97 (with lr=0.073)
+7a352bc	0.8319	discard	subsample 0.96 -> 0.95
+08f35e6	0.8324	discard	colsample 0.7 -> 0.72 (equal)
+9eec35d	0.8308	discard	drop max_cat_threshold=128
+c284438	0.8317	discard	max_cat_threshold 128 -> 160
+a2b75a6	0.8318	discard	lr 0.073 -> 0.074
+0384750	0.8321	discard	lr 0.073 -> 0.0725
+14d6e4b	0.8323	discard	n_est 322 -> 318
+b577df0	0.8323	discard	n_est 322 -> 320
+c7ca817	0.8320	discard	reg_alpha=0.1
+023db2c	0.8320	discard	depth 14 -> 15 (with lr=0.073) + 66s over
+469cf3a	0.8315	discard	mcw 1.6 -> 1.55
+c547c1d	0.8315	discard	mcw 1.6 -> 1.65
+79bc6e3	0.8316	discard	gamma=0.001
+9f60172	0.8318	discard	subsample 0.97 + n_est 320
+6626bb7	0.8324	discard	colsample 0.7 -> 0.69 (equal)
+b7d580b	0.8324	discard	colsample 0.7 -> 0.71 (equal but 60.2s tight)
+31c8871	0.8320	discard	lr 0.073 -> 0.0735
+0fcc4a7	0.8311	discard	depth 14 -> 13
+9c5bf2b	0.8324	discard	max_leaves=10000 (equal, no effect with depthwise)
+466426b	0.8319	discard	subsample 0.95, colsample 0.71
+5493405	0.8324	discard	n_est 322 -> 324 (equal)
+3e27a49	0.8325	keep	n_est 322 -> 327 (+0.0001, 60s)
+5397bd5	0.8324	discard	lr 0.073 -> 0.072 (with n_est 327)
+3703f56	0.8325	discard	n_est 327 -> 329 (equal but 60.5s over)
+847d67a	0.8325	discard	colsample 0.7 -> 0.69 (equal but 61s over)
+9cd0887	0.8324	discard	n_est 327 -> 326
+835a933	0.8325	discard	n_est 327 -> 328 (equal)
+e3d2075	0.8313	discard	subsample 0.96 -> 0.965
+e4d675a	0.8318	discard	max_bin 256 -> 384
+3d0a7c0	0.8317	discard	max_cat_threshold 128 -> 96
+871b440	0.8325	discard	max_cat_to_onehot=1 (equal)
+2251b1e	0.8324	discard	n_est 327 -> 326 (retest)
+245d58e	0.8325	discard	sketch_eps=0.01 (unused for hist, equal but 61s over)
+e12160a	0.8315	discard	add colsample_bynode=0.99
+28fcaa5	0.8319	discard	reg_lambda=0.95
+3783a6d	0.8316	discard	reg_lambda=1.05
+abeac29	0.8314	discard	add colsample_bylevel=0.99
+c97d963	0.8306	discard	lr 0.085, n_est 270
+efdb7c8	0.8325	discard	n_est 327 -> 331 (equal but 60.8s over)
+eeb16f4	0.8325	discard	max_cat_to_onehot=2 (equal but 60.4s over)
+e56431b	0.8320	discard	n_est 320, lr 0.075
+165e3a4	0.8324	discard	n_est 327 -> 325
+307f795	0.8325	discard	explicit grow_policy=depthwise (default, equal but 60.4s over)
+a8724e0	0.8324	discard	n_est 327 -> 322 (retest)
+63a5236	0.8320	discard	lr 0.073 -> 0.0735
+9206d7b	0.8318	discard	lr 0.073 -> 0.0728
+ee79930	0.8315	discard	add colsample_bynode=0.98
+9bf5c3a	0.8315	discard	mcw 1.6 -> 1.65
+d554132	0.8315	discard	lr 0.073 -> 0.0734
+edc6265	0.8321	discard	scale_pos_weight=0.95
+861230b	0.8300	discard	max_delta_step=0.5
+4f1b717	0.8280	discard	drop colsample_bytree (essential, -0.0045 + 72s over)
+72e2701	0.8322	discard	gamma=0.002
+ae9a9b0	0.8318	discard	scale_pos_weight=1.02
+f1aa3c5	0.8311	discard	lr 0.08, n_est 300
+e9691d1	0.8318	discard	max_bin 256 -> 512
+ac0d719	0.8323	discard	depth 12, n_est 400, lr 0.08
+0e50472	0.8325	discard	colsample_bynode=1.0 (no-op default, equal)
+9274293	0.8316	discard	gamma=0.0005
+4e9e8ac	0.8320	discard	gamma=0.0001
+3bf4cb7	0.8320	discard	reg_lambda=1.1
+c7729e6	0.8321	discard	scale_pos_weight=1.01
+b0e9409	0.8309	discard	drop max_cat_threshold=128 retest
+4a7aa9c	0.8324	discard	n_est 327 -> 325 (re-retest)
+26029d8	0.8321	discard	lr 0.073 -> 0.0725 retest
+bf87a9d	0.8319	discard	mcw 1.6 -> 1.62
+568bb19	0.8324	discard	mcw 1.6 -> 1.58
+7c7681f	0.8317	discard	max_cat_threshold 128 -> 110
+8cf5f5b	0.8318	discard	max_cat_threshold 128 -> 140
+2098d41	0.8325	discard	explicit max_cat_to_onehot=4 (default, equal)
+4512a2f	0.8324	discard	n_est 327 -> 326 (final retest)
+6b6c99c	0.8325	discard	n_est 327 -> 328 (equal)
+afbd769	0.8320	discard	n_est 328, lr 0.0732
+6679b30	0.8317	discard	lr 0.073 -> 0.0731
+6f93712	0.8317	discard	max_cat_threshold 128 -> 124
+61b76e0	0.8320	discard	max_cat_threshold 128 -> 132 (+over budget)
+4cd523f	0.8313	discard	subsample 0.96 -> 0.965 retest
+3de2a50	0.8311	discard	subsample 0.96 -> 0.955
+cd6ddbf	0.8317	discard	n_est 329, lr 0.0728
+b6d1ea9	0.8318	discard	reg_alpha=0.05
+5aa4baa	0.8316	discard	reg_alpha=0.01
+22e784a	0.8318	discard	reg_lambda=1.2
+e94581b	0.8315	discard	reg_lambda=1.3
+ffb7431	0.8325	discard	eval_metric=auc (no effect for our scoring, equal)
+3579f96	0.8325	discard	n_jobs -1 -> 8 (equal)
+46d438c	0.8320	discard	lr 0.073 -> 0.0732
+f4e0f95	0.8324	discard	reg_alpha=0.001
