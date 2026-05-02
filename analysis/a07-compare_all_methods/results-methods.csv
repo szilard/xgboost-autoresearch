@@ -1,10 +1,10 @@
-method, AUC
-Claude FE+xgb HPO, 0.8431
-optuna xgb HPO, 0.8203
-FE + optuna xgb HPO, 0.8309
-autogl ENS, 0.8296
-FE + autogl ENS, 0.8857
-Claude xgb HPO, 0.8319
-logreg, 0.7155
-xgb super basic, 0.7479
-xgb basic, 0.7926
+method, AUC, comments
+Claude FE+xgb HPO, 0.8431, run1 iteration 178 (last under 200) iter 444 is 0.8468
+Claude xgb HPO, 0.8319, remove FE in PR#31 /commit 4472bb6
+FE + optuna xgb HPO, 0.8309,
+optuna xgb HPO, 0.8203,
+FE + autogl ENS, 0.8857,
+autogl ENS, 0.8296,
+xgb basic, 0.7926, after tweaking some basic params analysis/a03-FE_vs_HPO/config1-016eb99-start/train.py
+xgb super basic, 0.7479, starter xgb
+logreg, 0.7155,
