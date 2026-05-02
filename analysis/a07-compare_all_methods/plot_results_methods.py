@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-df = pd.read_csv("results-methods.csv", skipinitialspace=True)
+df = pd.read_csv(Path(__file__).parent / "results-methods.csv", skipinitialspace=True)
 df.columns = df.columns.str.strip()
 df["AUC"] = pd.to_numeric(df["AUC"], errors="coerce")
 df = df.dropna(subset=["AUC"]).sort_values("AUC")
