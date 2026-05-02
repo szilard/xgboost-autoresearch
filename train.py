@@ -11,16 +11,18 @@ train = pd.read_csv(f"{data_dir}/2005-slice1-100k.csv")
 cat_cols = ["Month", "DayofMonth", "DayOfWeek", "UniqueCarrier", "Origin", "Dest"]
 num_cols = ["DepTime", "Distance"]
 ordinal_cats = ["Month", "DayofMonth", "DayOfWeek"]
-nominal_cats = ["UniqueCarrier", "Origin", "Dest"]
+nominal_cats = ["UniqueCarrier", "Origin", "Dest", "Dep20Min"]
 target   = "dep_delayed_15min"
 
 
-cat_levels = {col: sorted(train[col].unique()) for col in nominal_cats}
+cat_levels = {col: sorted(train[col].unique()) for col in ["UniqueCarrier", "Origin", "Dest"]}
+cat_levels["Dep20Min"] = list(range(72))
 
 def prepare(df):
     X = df[num_cols + cat_cols].copy()
     X["DepHour"] = (X["DepTime"] // 100).astype("int16")
     X["DepMinute"] = (X["DepTime"] % 100).astype("int16")
+    X["Dep20Min"] = (X["DepHour"] * 3 + X["DepMinute"] // 20).astype("int16")
     for col in ordinal_cats:
         X[col] = X[col].str.removeprefix("c-").astype("int16")
     for col in nominal_cats:
@@ -35,7 +37,7 @@ X_train, y_train = prepare(train)
 
 
 model = xgb.XGBClassifier(
-    n_estimators=1000,
+    n_estimators=500,
     max_depth=12,
     learning_rate=0.1,
     colsample_bytree=0.6,
