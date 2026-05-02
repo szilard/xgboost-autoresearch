@@ -21,7 +21,7 @@ plt.plot(df.loc[keep, "n"], df.loc[keep, "test_auc_2006_full"], color="#3a8f56",
 plt.plot(df.loc[keep, "n"], df.loc[keep, "test_auc_2006_full"], marker="o", color="#3a8f56", linestyle="none", label="test 2006 full", zorder=2)
 plt.xlabel("n")
 plt.ylabel("AUC")
-plt.ylim(ymin=0.70, ymax=0.86)
+plt.ylim(ymin=0.70, ymax=0.85)
 plt.title("AUC vs n")
 plt.grid(True, color="lightgrey", linewidth=0.5)
 plt.legend()

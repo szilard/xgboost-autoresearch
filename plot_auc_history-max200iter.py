@@ -8,6 +8,8 @@ df.columns = df.columns.str.strip()
 for col in ["cv_auc", "test_auc_2005s2_full", "test_auc_2005s2_4_5", "test_auc_2006_full"]:
     df[col] = pd.to_numeric(df[col], errors="coerce")
 
+df = df[df["n"] <= 200]
+
 plt.figure(figsize=(10, 6))
 keep = df["status"] == "keep"
 plt.plot(df.loc[~keep, "n"], df.loc[~keep, "cv_auc"], marker="o", color="lightgrey", linestyle="none", label="CV discard")
@@ -22,11 +24,11 @@ plt.plot(df.loc[keep, "n"], df.loc[keep, "test_auc_2006_full"], marker="o", colo
 plt.xlabel("n")
 plt.ylabel("AUC")
 plt.ylim(ymin=0.70, ymax=0.86)
-plt.title("AUC vs n")
+plt.title("AUC vs n (first 200 iterations)")
 plt.grid(True, color="lightgrey", linewidth=0.5)
 plt.legend()
 plt.tight_layout()
-plt.savefig("auc_history.png", dpi=150)
+plt.savefig("auc_history-max200iter.png", dpi=150)
 plt.show()
 
 for col in ["cv_auc", "test_auc_2005s2_full", "test_auc_2005s2_4_5", "test_auc_2006_full"]:
