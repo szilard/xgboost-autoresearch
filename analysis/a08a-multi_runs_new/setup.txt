@@ -1,0 +1,26 @@
+## All this to prevent data leakage from previous runs/results 
+## (leakage via Claude memory, looking at previous results files, git history, via web searches etc.)
+
+git checkout v0.5.1
+
+mkdir ~/xgb-newrun-template
+cp * .gitignore ~/xgb-newrun-template
+cp -r data-cache ~/xgb-newrun-template
+cp -r .venv ~/xgb-newrun-template/
+
+cd  ~/xgb-newrun-template
+git init
+git add .
+git commit -am init
+
+
+cd ~
+cp -r xgb-newrun-template xgb-newrun1
+cd xgb-newrun1
+
+HOME=/home/ubuntu/claudehome-newrun1/ claude --dangerously-skip-permissions
+# needs re-authenticate Claude, all history ignored
+
+
+# turn the repo private on github for the duration of the run 
+
