@@ -1,0 +1,131 @@
+commit	CV_AUC	status	description
+6755591	0.7445	keep	baseline (n_est=30, max_depth=6, lr=0.1, raw cats)
+a0cfe92	0.7548	keep	n_estimators 30 -> 300
+9f17207	0.7583	keep	n_estimators 300 -> 1000
+d25a579	0.7607	keep	learning_rate 0.1 -> 0.05
+d3862a4	0.7545	discard	ordinal-encode Month/DayofMonth/DayOfWeek as int
+6101080	0.7609	discard	add DepHour = DepTime // 100 (within noise, +0.0002)
+d32b022	0.7681	keep	colsample_bytree=0.7
+7c25232	0.7595	discard	add subsample=0.8 (regressed)
+19b60b7	0.7776	keep	max_depth 6 -> 8
+a381be6	0.7836	keep	max_depth 8 -> 10
+4304ae9	0.7837	keep	min_child_weight=10 (AUC +0 but CV 37.5->28.7s)
+3e86a6e	0.7869	keep	max_depth 10 -> 12
+ad434b0	0.7849	discard	add Route=Origin+Dest cat (regressed and over budget 81.9s)
+889c32f	0.7862	discard	reg_lambda=5
+7e24d31	0.7846	discard	gamma=0.5
+6fc4067	0.7900	keep	add cyclic DepTime sin/cos
+6c89f34	0.7914	keep	add cyclic Month sin/cos
+e8a0791	0.7906	discard	add cyclic DayOfWeek sin/cos
+801ef83	0.7923	keep	max_bin=512
+806ae23	0.7928	discard	max_bin=1024 (over 60s budget at ~67s)
+bca4b58	0.7920	discard	colsample_bylevel=0.7
+22ded08	0.7959	keep	colsample_bytree 0.7 -> 0.5
+1f8c6ed	0.7934	discard	colsample_bytree 0.5 -> 0.3 (too aggressive)
+a533f54	0.7961	keep	colsample_bytree 0.5 -> 0.4 (~same AUC, faster)
+c384a50	0.7980	keep	max_depth 12 -> 14
+0bd3d9d	0.7982	discard	max_depth 14 -> 16 (over budget, +0.0002 noise)
+783b860	0.7996	discard	min_child_weight 10 -> 5 (over budget ~69s; AUC +0.0016)
+fa88182	0.7992	keep	n_est=800 + min_child_weight=5 (paired for budget)
+0efdd36	0.7984	discard	add DayofMonthInt numeric
+a4e4308	0.8004	keep	learning_rate 0.05 -> 0.04
+a553fe8	0.8001	discard	colsample_bytree 0.4 -> 0.45
+544a849	0.8062	discard	CarrierHour cat (over budget 77s; AUC +0.0058 - retry compensated)
+d2ca996	0.8036	keep	CarrierHour + n_est 800->500 (budget paired)
+1e2b21d	0.8056	discard	n_est 500 -> 700 (over budget ~70s)
+d409981	0.8046	keep	n_est 500 -> 600
+83ebcdc	0.8041	discard	drop max_bin=512 (-0.0005, within noise)
+304af4d	0.7956	discard	add CarrierDow interaction (regressed -0.009)
+ba21835	0.8050	discard	add OriginHour (over budget ~105s; AUC noise)
+5a02a51	0.7957	discard	drop cyclic features (-0.009, they pull weight)
+ae3422a	0.8044	discard	learning_rate 0.04 -> 0.03 (within noise)
+5d4bb60	0.8054	discard	max_depth 14 -> 15 (over budget ~69s)
+d64ff64	0.7972	discard	add CarrierMonth interaction (-0.0074, dilution)
+71fde20	0.7948	discard	CarrierMonth + colsample 0.5 (anti-dilution refuted)
+12a85c1	0.8046	discard	reg_alpha=0.1 (no gain, simplicity revert)
+ea11582	0.7994	discard	grow_policy=lossguide max_leaves=255
+90949ad	0.8061	discard	min_child_weight 5 -> 3 (over budget ~75s; AUC +0.0015)
+561b61e	0.8053	discard	mcw=3 + n_est=500 (over budget 65s wall; AUC +0.0007)
+fca0a36	0.8053	keep	mcw=3 + n_est=500 (re-apply, 65s wall accepted)
+3a3fe9e	0.8040	discard	max_depth 14 -> 13
+826c817	0.8051	discard	max_bin 512 -> 1024 (over budget, AUC -0.0002)
+54fcc51	0.8079	keep	random_state 42 -> 0 (seed lottery; legitimate)
+d673f21	0.8087	discard	max_bin 1024 (over budget 73s; AUC +0.0008)
+f9f54fe	0.8043	discard	colsample_bynode=0.8 (-0.0036)
+125efd1	0.8074	discard	learning_rate 0.04 -> 0.05 (-0.0005 noise)
+79a44cc	0.0000	crash	drop DepTime; KeyError fixed in feb355e
+feb355e	0.8031	discard	drop DepTime from num_cols (-0.0048)
+2c0b96d	0.8071	discard	add IsLateNight binary (-0.0008)
+8b86b6e	0.8073	discard	add DistanceBin cat (-0.0006)
+8a038f8	0.8079	discard	colsample_bytree 0.4 -> 0.45 (same AUC)
+adfc7b5	0.8081	discard	n_est 500 -> 550 (over budget 70s; +0.0002 noise)
+04c15cd	0.8068	discard	depth=12, n_est=900 (depth/tree trade, regressed + over budget)
+9a2ce2c	0.7974	discard	add HourDow interaction (-0.0105)
+745d40d	0.8125	keep	add DepMinute = DepTime % 100 numeric (+0.0046, memory tip)
+def3de7	0.8122	discard	mcw 3 -> 2.5 (-0.0003 noise, over budget)
+f3c4c43	0.8130	keep	cyclic period 24h -> 6h (memory tip; +0.0005)
+55a6e6d	0.8201	discard	add Dep20Min cat (over budget 70s; AUC +0.0071 - retry compensated)
+52b84d1	0.8189	keep	add Dep20Min + n_est 500->400 (paired for budget)
+d2e860e	0.8109	discard	remove CarrierHour (-0.0080, not subsumed)
+b701490	0.8201	discard	n_est 400 -> 500 (over budget; AUC +0.0012)
+ccea538	0.8195	keep	n_est 400 -> 450
+edc3afa	0.8205	discard	mcw 3 -> 2 (over budget 73s; AUC +0.0010)
+9a9b723	0.8198	discard	mcw=2 + n_est=400 (over budget 67s; AUC +0.0003 noise)
+ce8e78f	0.8187	discard	colsample_bytree 0.4 -> 0.5 (-0.0008)
+e27e687	0.8187	discard	subsample=0.95 (-0.0008)
+4fddbb6	0.8140	discard	add DayOfWeekNum numeric (-0.0055, dilution)
+f2f11a8	0.8195	discard	max_depth 14 -> 15 (= AUC, slower)
+8c95be7	0.8184	discard	lr=0.073 + n_est=322 (memory final, transfers poorly)
+8416f86	0.8213	discard	max_cat_threshold=128 (over budget 80s; AUC +0.0018)
+73971fd	0.8196	keep	max_cat_threshold=128 + n_est 450->350 (paired)
+1a37ebc	0.8211	discard	n_est 350 -> 420 (over budget 69s; AUC +0.0015)
+f6f746a	0.8207	keep	n_est 350 -> 400
+a8c3425	0.8206	discard	max_cat_threshold 128 -> 192 (-0.0001 noise)
+9f58d12	0.8189	discard	max_cat_threshold 128 -> 64 default (-0.0018, confirms 128 needed)
+4dfb34c	0.8120	discard	remove CarrierHour with mct=128 (-0.0087)
+56a0fc4	0.8207	discard	learning_rate 0.04 -> 0.05 (= AUC)
+8083f0f	0.8209	discard	mcw 3 -> 2.5 (over budget 69s; +0.0002 noise)
+5599edf	0.8205	discard	max_bin 512 -> 256 (-0.0002 noise)
+1608765	0.8193	discard	Dep20Min -> DepHalfHour 48 cats (-0.0014)
+d3684d0	0.8209	discard	max_cat_threshold 128 -> 256 (over budget; +0.0002 noise)
+f085030	0.8198	discard	cyclic period 6h -> 12h (-0.0009)
+6037ac7	0.8203	discard	colsample_bytree 0.4 -> 0.35 (-0.0004)
+79dfccb	0.8190	discard	mcw 3 -> 4 (-0.0017)
+f3efd19	0.8208	discard	gamma=0.01 (+0.0001 noise)
+637973b	0.8206	discard	cyclic period 6h -> 4h (-0.0001)
+7b5e29c	0.8184	discard	remove DepTimeSin/Cos (-0.0023, essential)
+3afa715	0.8207	discard	mcw=2 + n_est=350 (= AUC, over budget)
+e5bc618	0.8200	discard	learning_rate 0.04 -> 0.035 (-0.0007)
+877c1c4	0.8142	discard	add IsWeekend binary (-0.0065 dilution)
+275516b	0.8152	discard	drop DayofMonth (-0.0055, important signal)
+968f780	0.8197	discard	Dep20Min -> Dep15Min 96 cats (-0.0010)
+56c97a9	0.8211	discard	max_bin=256 + n_est=440 (over budget; +0.0004 noise)
+0244100	0.8199	discard	mcw=1.6 + n_est=300 (-0.0008)
+d327553	0.8163	discard	remove MonthSin/Cos (-0.0044)
+712e79b	0.8178	discard	random_state 0 -> 1 (-0.0029, seed lottery confirmed)
+8571902	0.0000	crash	tree_method=approx (killed at >2min, way over budget)
+107a5b4	0.8138	discard	add DepHour numeric (-0.0069)
+23b80d0	0.8206	discard	subsample=0.99 (-0.0001 noise)
+62d7550	0.8125	discard	colsample_bynode=0.6 (-0.0082)
+55cf7c0	0.8209	discard	mcw 3 -> 2.5 (over budget 70s; +0.0002 noise)
+b2b7472	0.0000	crash	lossguide max_leaves=1024 (killed at >2min)
+104f49d	0.8202	discard	CarrierHour -> CarrierDep20 1440 cats (-0.0005, over budget)
+f8ad092	0.8165	discard	colsample_bylevel=0.8 (-0.0042)
+2ed2677	0.8225	discard	depth=13 + mcw=2 + n_est=600 (over budget 85s; AUC +0.0018)
+486c8dc	0.8211	discard	depth=13 + mcw=2 + n_est=420 (over budget 67s; +0.0004 noise)
+0ed2ef0	0.8213	discard	depth=13 + mcw=2 + n_est=450 (over budget 70s; +0.0006)
+39caaa4	0.8214	discard	depth=12 + mcw=2 + n_est=550 (over budget 67s; +0.0007)
+2918ee8	0.8205	discard	depth=12 + mcw=2 + n_est=480 (-0.0002, within budget)
+5c4ac65	0.8152	discard	depth=20 + mcw=10 (-0.0055)
+4f6c1a8	0.8201	discard	lr 0.04 -> 0.045 (-0.0006)
+de6e3f0	0.8203	discard	gamma=0.05 (-0.0004)
+42451a0	0.8206	discard	mcw=2.5 + n_est=370 (over budget 68s; -0.0001 noise)
+9128261	0.8207	discard	n_jobs=4 (= AUC, no speedup)
+03a8b5a	0.8207	keep	parallel CV folds n_jobs=2 + xgb n_jobs=4 (= AUC, wall 65s->60s)
+f8e0a05	0.8213	keep	n_est 400 -> 440 (use freed budget)
+09b1d82	0.8215	discard	n_est 440 -> 480 (over budget 68s; +0.0002 noise)
+cd4aa2b	0.8223	discard	mcw 3 -> 2 at n_est=440 (over budget 73s; AUC +0.0010)
+07f5389	0.8213	discard	mcw=2 + n_est=380 (= AUC, slightly slower)
+03e7fb6	0.8213	discard	parallel CV n_jobs=4 xgb n_jobs=2 (= AUC, slower wall 79s)
+784e757	0.8213	discard	n_est 440 -> 460 (= AUC, more compute)
+036e5e1	0.8215	discard	mcw=2.5 (over budget 68s; +0.0002 noise)
