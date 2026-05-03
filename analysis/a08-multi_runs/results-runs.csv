@@ -1,3 +1,4 @@
 run, test_AUC, comments
 1, 0.8431, iteration 178 (last under 200) - iter 445 (last kept, stopped manually after 510) would be 0.8468
 2, 0.8469, iter 68 - stopped by Claude after iter 70
+3, 0.8338, iter 124 - stopped by Claude after iter 130
