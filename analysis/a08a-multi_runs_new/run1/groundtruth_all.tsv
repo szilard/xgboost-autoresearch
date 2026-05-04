@@ -1,0 +1,44 @@
+commit	status	description	cv_auc	test_auc_2005s2_full	test_auc_2005s2_4_5	test_auc_2006_full
+0841565	keep	baseline (n_estimators=30, max_depth=6, lr=0.1)	0.7445	0.7479	0.7454	0.7155
+2482599	keep	n_estimators 30 -> 500	0.7563	0.7645	0.7566	0.7078
+a4b9ddb	keep	n_estimators 500 -> 1500	0.7590	0.7698	0.7602	0.7041
+f337119	keep	n_estimators 1500 -> 3000 (saturating, ~60s budget)	0.7601	0.7708	0.7613	0.7007
+c7ec3fb	discard	add subsample=0.8 + colsample_bytree=0.8 (big regression -0.0158)	0.7443	N/A	N/A	N/A
+2c2872d	discard	max_depth 6 -> 4 (under-fit)	0.7501	N/A	N/A	N/A
+14feb9b	keep	add min_child_weight=10	0.7652	0.7742	0.7661	0.6940
+aa0051c	keep	min_child_weight 10 -> 30	0.7718	0.7808	0.7741	0.6945
+8510814	keep	min_child_weight 30 -> 100	0.7774	0.7862	0.7783	0.6998
+94445f7	discard	min_child_weight 100 -> 300 (over-regularized)	0.7678	N/A	N/A	N/A
+866e240	discard	min_child_weight 100 -> 200 (worse, 100 is the optimum)	0.7733	N/A	N/A	N/A
+8e1dac4	keep	learning_rate 0.1 -> 0.05 (marginal)	0.7782	0.7859	0.7792	0.7080
+920dcb2	discard	add gamma=1.0 (too aggressive, prunes nearly all splits)	0.7591	N/A	N/A	N/A
+7cedf23	discard	add subsample=0.9 alone (mild stochastic still hurts)	0.7750	N/A	N/A	N/A
+6a3539e	discard	max_depth 6 -> 8 (over-budget ~68s + gain within noise)	0.7791	N/A	N/A	N/A
+65a132d	discard	add reg_lambda=10 (no effect, identical AUC)	0.7782	N/A	N/A	N/A
+9b1d915	discard	add reg_lambda=50 (slight regression)	0.7772	N/A	N/A	N/A
+6e95741	discard	add DepHour as 7th cat feature (gain +0.0018 but ~71s over budget)	0.7800	N/A	N/A	N/A
+fb8d7ae	discard	replace DepTime (num) with DepHour (cat) - lost minute precision	0.7707	N/A	N/A	N/A
+16195fa	discard	drop DayofMonth (carries real signal)	0.7708	N/A	N/A	N/A
+b77bcd1	keep	add reg_alpha=1.0 (L1, marginal)	0.7785	0.7860	0.7795	0.7087
+7dff7a9	discard	reg_alpha 1.0 -> 5.0 (over-regularized)	0.7768	N/A	N/A	N/A
+fd00862	discard	reg_alpha 1.0 -> 2.0 (slightly worse)	0.7776	N/A	N/A	N/A
+99376e2	discard	learning_rate 0.05 -> 0.07 (lr=0.05 confirmed)	0.7783	N/A	N/A	N/A
+d84baa8	discard	grow_policy='lossguide' (identical AUC, ~68s over budget)	0.7785	N/A	N/A	N/A
+6caea5e	discard	max_cat_to_onehot=12 (no effect)	0.7784	N/A	N/A	N/A
+7bca30c	keep	n_estimators 3000 -> 3500 (marginal)	0.7788	0.7865	0.7800	0.7074
+e31bd75	discard	min_child_weight 100 -> 125 (marginal worse, 100 confirmed)	0.7785	N/A	N/A	N/A
+8fbeebd	discard	add Route=Origin_Dest cat (worse + over-budget 84s)	0.7781	N/A	N/A	N/A
+3f78881	keep	+DepHour cat & n_estimators 3500 -> 2500 (budget swap; new best)	0.7801	0.7884	0.7821	0.7123
+1f6d496	keep	min_child_weight 100 -> 75 (with DepHour, reg optimum shifted; ~63s edge)	0.7808	0.7889	0.7823	0.7123
+4dc5c45	discard	max_cat_threshold 64 -> 32	0.7803	N/A	N/A	N/A
+45a8ab8	discard	max_depth 6 -> 5 (under-fit with new feature set)	0.7782	N/A	N/A	N/A
+01544f2	discard	min_child_weight 75 -> 50 (worse + over-budget)	0.7797	N/A	N/A	N/A
+c9b6bea	discard	add MonthHour interaction (redundant w/ Month+DepHour, over-budget)	0.7776	N/A	N/A	N/A
+3dd8d7a	discard	max_cat_threshold 64 -> 128 (worse)	0.7798	N/A	N/A	N/A
+ee6d936	discard	remove reg_alpha (reg_alpha=1.0 confirmed beneficial)	0.7803	N/A	N/A	N/A
+a6d281e	discard	per-fold early stopping CV (best_iter~1054 on 64k, but 64k training data hurts AUC)	0.7729	N/A	N/A	N/A
+5131572	discard	n_estimators 2500 -> 1500 (worse, n=2500 needed at full data)	0.7796	N/A	N/A	N/A
+2dddfe6	discard	add reg_lambda=5 to current best (within-noise worse)	0.7805	N/A	N/A	N/A
+d43bb98	discard	max_bin 256 -> 128 (slight regression, time unchanged)	0.7797	N/A	N/A	N/A
+79d410f	discard	drop DepTime keep DepHour (-0.0101, minute precision matters)	0.7707	N/A	N/A	N/A
+4b605a9	discard	learning_rate 0.05 -> 0.04 (identical AUC, lr indifferent)	0.7808	N/A	N/A	N/A
