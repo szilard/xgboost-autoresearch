@@ -1,0 +1,2 @@
+run, test_AUC, n_last_keep, n_last, stop_reason
+3, 0.8090, 86, 97, Claude (though asked if more)
