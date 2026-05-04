@@ -1,0 +1,54 @@
+commit	CV_AUC	status	description
+0841565	0.7445	keep	baseline
+2fc7171	0.7548	keep	n_estimators 30 -> 300
+cb1a41e	0.7583	keep	n_estimators 300 -> 1000
+5ff3bf0	0.7693	keep	max_depth 6 -> 10
+37ba671	0.7702	keep	learning_rate 0.1 -> 0.05
+8551218	0.7699	discard	add Hour = DepTime // 100 (redundant with DepTime)
+2f417c5	0.7451	discard	add Route = Origin_Dest (overfit + 98s timeout)
+f453d36	0.7484	discard	subsample=0.5 (under-trained at our lr/depth regime)
+1d77ee2	0.0000	crash	max_depth 10 -> 12 (timeout >70s at n=1000)
+75a453d	0.7799	keep	colsample_bytree=0.8
+d64d813	0.7836	keep	colsample_bytree 0.8 -> 0.7
+ff13c24	0.7841	keep	colsample_bytree 0.7 -> 0.6
+928f537	0.7841	discard	colsample_bytree 0.6 -> 0.5 (no change, plateau)
+e0e835a	0.0000	crash	n_estimators 1000 -> 1500 (timeout >70s)
+95515ca	0.7879	keep	max_depth 10 -> 11
+f36c29d	0.7885	keep	add min_child_weight=5
+c88ddd5	0.7905	keep	max_depth 11 -> 12
+bd0e941	0.0000	crash	max_depth 12 -> 13 (timeout)
+cd34e70	0.7895	discard	add gamma=1 (too aggressive, trees stunted; CV time 10.8s)
+c27c652	0.7907	keep	add gamma=0.3 (also halves CV time)
+271beef	0.7907	discard	n_estimators 1500 (no help; gamma converges trees before 1000)
+b98aba3	0.7923	keep	add max_bin=512
+47d30d7	0.7927	keep	max_bin 512 -> 1024
+04a0faa	0.7922	discard	max_bin 1024 -> 2048
+0915419	0.7946	keep	max_depth 12 -> 13
+c747f4b	0.7966	keep	max_depth 13 -> 14
+910489e	0.7979	keep	max_depth 14 -> 15
+87af334	0.7988	keep	max_depth 15 -> 16
+2d429c8	0.8007	keep	max_depth 16 -> 20
+4d3aa07	0.8016	keep	max_depth -> 0 (unlimited; gamma/mcw bound growth)
+ad32f2c	0.8016	discard	n_estimators 1000 -> 1500 (no help, trees converged)
+c3a6bad	0.8011	discard	gamma 0.3 -> 0.2
+4635872	0.8045	keep	min_child_weight 5 -> 3
+d8661f3	0.8068	keep	drop min_child_weight (default 1 is best)
+6485bf1	0.7945	discard	add colsample_bynode=0.7 (over-reg with bytree=0.6)
+b1c893c	0.0000	crash	colsample_bytree 0.6 -> 0.7 (timeout)
+2e1ff90	0.0000	crash	add subsample=0.9 (timeout)
+be606e9	0.0000	crash	learning_rate 0.05 -> 0.04 (timeout)
+aef88db	0.8061	discard	learning_rate 0.05 -> 0.06
+53ac3fb	0.0000	crash	add DepTime sin/cos (timeout, blows budget)
+5d3e14f	0.7928	discard	target encoding Origin/Dest (-0.014, also 80s total over budget)
+e47da9a	0.0000	crash	n_est=800 + DepTime sin/cos (timeout)
+cf696af	0.8020	discard	early stopping (10% inner val cost > gain)
+d910675	0.8072	keep	gamma 0.3 -> 0.35
+c07b43d	0.8060	discard	gamma 0.35 -> 0.4
+1b48845	0.0000	crash	lr 0.05 -> 0.045 (timeout)
+122c075	0.0000	crash	add subsample=0.95 (timeout)
+f827424	0.8072	discard	n_estimators 1000 -> 800 (identical AUC, no help)
+a7984ab	0.7985	discard	random_state 42 -> 7 (seed sensitivity finding)
+998613d	0.0000	crash	grow_policy=lossguide (timeout)
+a0d1fb5	0.8064	discard	max_bin 1024 -> 768
+670ccff	0.8053	discard	add reg_alpha=0.1
+2953b46	0.8037	discard	reg_lambda 1 -> 2

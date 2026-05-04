@@ -9,6 +9,7 @@ cp -r data-cache ~/xgb-newrun-template
 cp -r .venv ~/xgb-newrun-template/
 
 cd  ~/xgb-newrun-template
+rm README.md
 git init
 git add .
 git commit -am init
@@ -26,5 +27,8 @@ HOME=/home/ubuntu/claudehome-newrun1/ claude --dangerously-skip-permissions
 
 
 # after the run:
-cp train.py results.tsv research-log.md groundtruth_all.tsv auc_history.png ~/xgboost-autoresearch/analysis/a08a-multi_runs_new/run1/
+cp train.py results.tsv research-log.md groundtruth_all.tsv auc_history.png claude-output.txt ~/xgboost-autoresearch/analysis/a08a-multi_runs_new/run1/
 
+
+write a super detailed research log (into research-log-after-details.md) with details about your thinking, what information you got via searches and from where, what FE or HPO you tried, why etc., what
+  worked and what not, why - for every iteration and also in blocks when it makes sense
