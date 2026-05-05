@@ -1,3 +1,4 @@
 run, test_AUC, n_last_keep, n_last, stop_reason
 3, 0.8090, 86, 97, Claude (though asked if more)
 4, 0.8214, 69, 70, Claude (though asked if more)
+5, 0.8510, 204, 211, Claude
