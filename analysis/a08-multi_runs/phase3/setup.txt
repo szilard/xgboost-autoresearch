@@ -1,0 +1,34 @@
+## All this to prevent data leakage from previous runs/results 
+## (leakage via Claude memory, looking at previous results files, git history, via web searches etc.)
+
+git checkout v0.5.1
+
+mkdir ~/xgb-newrun-template
+cp * .gitignore ~/xgb-newrun-template
+cp -r data-cache ~/xgb-newrun-template
+cp -r .venv ~/xgb-newrun-template/
+
+cd  ~/xgb-newrun-template
+rm README.md
+git init
+git add .
+git commit -am init
+
+
+cd ~
+cp -r xgb-newrun-template xgb-newrun1
+cd xgb-newrun1
+
+HOME=/home/ubuntu/claudehome-newrun1/ claude --dangerously-skip-permissions
+# needs re-authenticate Claude, all history ignored
+
+
+# turn the repo private on github for the duration of the run 
+
+
+# after the run:
+cp train.py results.tsv research-log*.md groundtruth_all.tsv auc_history.png claude-output.txt ~/xgboost-autoresearch/analysis/a08-multi_runs/phase3/run5
+
+
+write a super detailed research log (into research-log-after-details.md) with details about your thinking, what information you got via searches and from where, what FE or HPO you tried, why etc., what
+  worked and what not, why - for every iteration and also in blocks when it makes sense

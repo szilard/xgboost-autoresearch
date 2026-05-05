@@ -1,0 +1,212 @@
+commit	CV_AUC	status	description
+7d0b368	0.7445	keep	baseline (n_estimators=30, max_depth=6, lr=0.1)
+74f86c5	0.7534	keep	n_estimators=200, lr=0.05
+235c8ab	0.7556	keep	n_estimators=500, lr=0.03
+72835a1	0.7573	keep	n_estimators=1000, lr=0.02
+43b944b	0.7623	keep	max_depth=8
+fec243b	0.7635	keep	subsample=0.8, colsample_bytree=0.8
+5b860e0	0.7673	keep	add DepHour, DepMinute features
+4be41a7	0.7482	discard	add Route=Origin_Dest categorical (overfit, slow)
+89b6ba9	0.7750	keep	max_depth=10
+9490159	0.7843	keep	min_child_weight=5
+52e8665	0.7871	keep	min_child_weight=10
+adc2a58	0.7875	keep	min_child_weight=20
+5c15f06	0.7840	discard	min_child_weight=50 (too regularized)
+2a06041	0.7899	keep	max_depth=12
+1510f8b	0.7903	keep	max_depth=14
+05d0a8d	0.7928	keep	cyclical encoding for DepHour (sin/cos)
+a2b76e3	0.7919	discard	cyclical encoding for Month, DayOfWeek (redundant w/ cat)
+d496c51	0.7914	discard	add IsWeekend, IsRedeye binaries (redundant w/ existing)
+27a52b4	0.7927	discard	gamma=1 (no effect)
+9385d86	0.7934	keep	max_bin=512
+9dffe08	0.7936	discard	max_bin=1024 (gain ~ noise; keep simpler)
+934524b	0.7872	discard	grow_policy=lossguide max_leaves=128
+36885e9	0.7938	discard	add Carrier_Origin (over 60s budget)
+8ca9f4e	0.7927	discard	depth=12 + n=1300 + lr=0.015
+51f218b	0.7816	discard	HourDOW interaction (hurts)
+585f562	0.7925	discard	reg_lambda=5
+d3e9d53	0.7977	keep	max_cat_to_onehot=32 (one-hot low-card cats)
+1ed04ee	0.7840	discard	max_cat_to_onehot=350 (Origin/Dest one-hot hurts)
+3864acd	0.8002	keep	max_depth=16
+1b60376	0.8017	keep	max_depth=18
+cc0f5ef	0.8026	keep	max_depth=20
+2ba4790	0.8035	keep	max_depth=24
+4d77e18	0.8040	keep	max_depth=32
+4d0ef90	0.8121	discard	mcw=10 (over budget 73.6s but +0.0081)
+43f0c2c	0.8105	discard	mcw=10 + n=800 (over budget 61s)
+281df97	0.8062	discard	mcw=10 + subsample=0.6 (over budget 63s)
+078b95a	0.8092	keep	mcw=10 + n=700
+6d20777	0.8141	discard	mcw=5 + n=600 (over budget 68s)
+95a5464	0.8126	keep	mcw=5 + n=500
+e18ee45	0.8139	discard	mcw=3 + n=400 (over budget 66s)
+5cbc182	0.8026	discard	subsample=0.5 (too aggressive)
+9ff1b1b	0.8134	discard	depth=24 + mcw=5 + n=600 (over budget 62.9s)
+46e415e	0.8043	discard	remove DepTime
+4866e9c	0.8127	discard	max_cat_threshold=256 (over budget 66.7s)
+efea4c2	0.8116	discard	max_bin=256 (-0.001 alone)
+067f44c	0.8124	discard	max_bin=256 + n=550
+2f8be9d	0.8114	discard	colsample_bynode=0.8
+2bd2911	0.8150	discard	depth=24 + mcw=3 + n=500 (over budget 69.5s)
+65e5d80	0.8130	keep	depth=24 + mcw=3 + n=400
+34e104b	0.8247	discard	add CarrierHour interaction (over budget 76s)
+16e83e2	0.8212	discard	+CarrierHour, n=300 (60.4s slightly over)
+423a9a5	0.8185	keep	+CarrierHour, n=250
+c5ca493	0.8203	keep	+CarrierHour, n=280
+5ab2073	0.7935	discard	+CarrierMonth, n=200 (big regression)
+5753050	0.7940	discard	+HourMonth, n=240 (big regression)
+0ec3d9c	0.8205	discard	mcw=2 + n=240 (over budget 64s)
+8e52c33	0.8245	keep	lr=0.03
+d561952	0.8262	keep	lr=0.05
+0ee22d1	0.8257	discard	lr=0.08 (slight reg)
+c27f6e6	0.8277	keep	n=350
+59ee415	0.8279	keep	n=380
+cc2175c	0.8278	discard	lr=0.06 (flat)
+abbc36b	0.8284	discard	mcw=2 + n=320 (over budget 61s)
+ed730f3	0.8281	keep	mcw=2 + n=300
+4cfa775	0.8279	discard	+DistBand (over budget 60.3s, no gain)
+a57d904	0.8275	discard	remove DepHour_sin/cos
+f5ac6d2	0.8107	discard	remove DepMinute (huge regression)
+e7e637c	0.7996	discard	+CarrierDOW, n=240 (regression)
+e5e1ba8	0.8140	discard	OriginHour replace (over budget, high-card)
+769f79e	0.8275	discard	max_delta_step=1
+f539a45	0.8275	discard	mcw=2 n=320 max_bin=256
+c7d578d	0.8264	discard	mcw=1 n=240 (over budget 70.6s)
+b204d78	0.8293	discard	colsample_bytree=1.0 (over budget 66.8s)
+7422131	0.8284	discard	cs=1.0 n=260 (over budget 62.1s)
+c61722c	0.8280	discard	cs=1.0 n=240 (flat)
+f143b25	0.8273	discard	depth=20 + n=340
+3bf68b9	0.8252	discard	num_parallel_tree=2 n=150 (over budget 79s)
+4cc5b84	0.8273	discard	cs=0.9 n=280 max_bin=256
+92413f2	0.8281	discard	+DepMin (over budget 65s, flat)
+840930b	0.8263	discard	mcw=4 n=380
+2218b0e	0.8284	discard	random_state=0 (60.1s, noise)
+a456784	0.0000	crash	gradient_based sampling (GPU only)
+8755fa5	0.8259	discard	subsample=0.7
+ec11548	0.8259	discard	+CarrierDistBand n=240
+06ff1f1	0.8008	discard	shallow d=8 n=1300 (regime fails)
+13f8458	0.8279	discard	cs=0.85 n=290
+1f3f1ff	0.8276	discard	mcw=2.5
+df45363	0.8267	discard	lr=0.06 n=280
+4f4a33a	0.8004	discard	remove max_cat_to_onehot
+6a398bc	0.8279	discard	depth=22 n=320 (60.4s over)
+aab9f8d	0.7833	discard	HourDOW replace CarrierHour
+4f48cb9	0.8283	keep	subsample=1.0 n=240
+71bb8a9	0.8285	keep	n=250
+4b02c2c	0.8286	keep	n=255
+fce7651	0.8287	keep	lr=0.06
+a4c8f37	0.8293	keep	lr=0.07
+89e8ca5	0.8286	discard	lr=0.08
+22185d1	0.8301	keep	n=290
+e347372	0.8303	keep	n=310
+e0361c9	0.8305	keep	n=320
+047781e	0.8305	discard	n=325 (flat)
+5f7c8cd	0.8295	discard	mcw=3 n=360
+1ab6550	0.8302	discard	cs=0.9 n=300
+d577475	0.8298	discard	cs=1.0 n=275
+5437602	0.8297	discard	lr=0.075
+6008a73	0.8297	discard	depth=28 n=300
+fbd5932	0.8299	discard	max_bin=768 n=305
+ed02728	0.8033	discard	+CarrierDOW (still fails)
+883d97d	0.8299	discard	lr=0.065 (60.9s over)
+e2dad92	0.8292	discard	feature_weights CarrierHour 2x
+bb321be	0.8300	discard	depth=20 n=360
+5ab4ca7	0.8294	discard	reg_alpha=0.1
+c02f7d6	0.8306	keep	reg_lambda=0.5
+8adeb3d	0.8304	discard	reg_lambda=0.2
+5eb1a65	0.8308	keep	n=330
+e33524d	0.8308	discard	n=345 (flat)
+7e6e98d	0.8302	discard	subsample=0.95
+027313e	0.8299	discard	cs=0.75
+24248f1	0.8309	keep	max_depth=23
+2b74397	0.8304	discard	max_depth=22
+7df1589	0.8309	discard	n=340 (flat)
+e221c22	0.8305	discard	lr=0.072
+5beb1d1	0.8113	discard	max_cat_to_onehot=20 (Carrier needed in one-hot)
+8014115	0.8296	discard	cs=1.0 n=290
+66b66bf	0.8308	discard	+DepHourFrac (62s over)
+db73191	0.8309	discard	n=335 (flat)
+0ae2e11	0.8295	discard	mcw=1 n=240 (over budget)
+none    	0.8262	discard	lossguide max_leaves=1024 (over budget)
+4f728d0	0.8293	discard	mcw=3 n=350
+3ace08b	0.8309	discard	feature_weights Dist 3x (flat)
+none    	0.8306	discard	tree_method=approx (way over budget)
+b5f09b7	0.8309	discard	lr=0.073 (flat)
+1bdf276	0.8301	discard	remove UniqueCarrier
+d5ba711	0.8280	discard	remove DayofMonth
+0c476a3	0.8305	discard	+DistBucket
+8a9aaa3	0.8289	discard	reg_lambda=2
+7372022	0.8310	keep	sub=0.95 cs=0.85
+d6ffea9	0.8310	discard	n=340 (flat)
+7085bf2	0.8303	discard	sub=0.9 cs=0.9
+7bb5858	0.8309	discard	lr=0.075
+20191f7	0.8306	discard	depth=24 with new sub/cs
+f4e7803	0.8304	discard	sub=1.0 cs=0.85
+317e142	0.8302	discard	sub=0.95 cs=0.8
+fe809cd	0.8310	discard	n=345 (flat)
+aabf5cd	0.8303	discard	max_bin=384
+ce2a09b	0.8310	discard	mcw=1.5 n=300 (62.6s over)
+5c92401	0.8303	discard	gamma=0.05
+e0b468d	0.8304	discard	colsample_bylevel=0.85
+b14cb27	0.8195	discard	CarrierHour6 (coarser, lost info)
+89c3d9f	0.8283	discard	+CarrierHour6 multi-grain
+c04f637	0.8314	discard	max_cat_threshold=128 (60.9s over)
+aad0e3d	0.8313	discard	max_cat_threshold=128 n=320 (60.8s over)
+b21413f	0.8311	keep	max_cat_threshold=128 n=300
+512842b	0.8312	keep	n=310
+2c61a8c	0.8312	discard	n=315 (60s flat)
+978ed8e	0.8317	keep	lr=0.075
+7f5cbe3	0.8312	discard	lr=0.08
+264e3be	0.8317	discard	n=320 (flat)
+17a4227	0.8316	discard	max_cat_threshold=192 n=305
+857837f	0.8308	discard	max_cat_threshold=96
+4afd8ee	0.8303	discard	depth=24 (with new setup)
+b4f8931	0.8317	discard	n=315 (flat)
+35b84b6	0.8302	discard	mcw=3 with new setup
+786e73f	0.8304	discard	sub=1.0 with new setup
+498db40	0.8317	discard	cs=0.9 (flat)
+24f25af	0.8313	discard	max_cat_threshold=160
+7d10f59	0.8306	discard	objective=binary:logitraw
+45c978b	0.8316	discard	scale_pos_weight=1.05
+62ce7c4	0.8311	discard	max_bin=1024 (over budget)
+6dc27e9	0.8311	discard	max_bin=640
+2d3f5bd	0.8299	discard	+DepHour_sq
+3113e7c	0.8273	discard	remove Month
+d30b5a2	0.8330	keep	remove DayOfWeek (simplification win!)
+6b8ad9d	0.8324	discard	also remove DayofMonth
+135593c	0.8332	keep	remove DepHour_sin/cos
+dbdc215	0.8327	discard	remove DepHour numeric
+4de3bbd	0.8332	discard	n=330 (flat)
+0c954da	0.8332	discard	lr=0.08 (flat)
+98ef9a0	0.8336	keep	remove UniqueCarrier
+1b5db66	0.8305	discard	remove DayofMonth
+8d51beb	0.8337	keep	n=340
+2fb8f97	0.8338	keep	n=360
+0ef5f89	0.8339	discard	n=380 (60s boundary)
+c178e72	0.8336	discard	depth=22 with new optimum
+b23367b	0.8336	discard	lr=0.08 with simpler
+9ea306f	0.8320	discard	mcw=3
+cce059d	0.8336	discard	max_cat_threshold=160 with simpler
+e43b394	0.8179	discard	remove DepMinute (still critical)
+051152e	0.8077	discard	+HourDOW with simpler (still fails)
+7fa590e	0.8336	discard	lr=0.07 (60.8s over)
+7954ecf	0.8335	discard	reg_lambda=0.3
+e24aa60	0.8295	discard	remove DepTime (still hurts)
+3cb8eed	0.8337	discard	depth=25 n=340
+e803503	0.8338	discard	cs=0.8 (flat)
+63688dd	0.8336	discard	max_cat_threshold=256 n=320 (over)
+5d20812	0.8212	discard	remove Dest
+d9c3734	0.8336	discard	depth=22 n=370
+e7bdd97	0.8328	discard	sub=0.92
+f07b9b2	0.8328	discard	max_bin=400
+9599a00	0.8335	discard	lr=0.077
+none    	0.8337	discard	lossguide max_leaves=4096 (158s over)
+0248d0b	0.8340	keep	lr=0.073
+7b03834	0.8339	discard	lr=0.072 (over budget)
+09ba14c	0.8341	keep	lr=0.074
+cea8299	0.8335	discard	lr=0.076
+8a250fd	0.8341	discard	n=370 (60.1s flat)
+4e682da	0.8330	discard	sub=0.93
+6ebe0ad	0.8338	discard	max_cat_threshold=144 (over)
+f4afdb6	0.8335	discard	random_state=2025
+e1f69c4	0.8341	discard	max_cat_to_onehot=64 (flat, equivalent)
+17da4ce	0.8341	discard	sub=1.0 (60.6s over)

@@ -1,0 +1,4 @@
+run, test_AUC, n_last_keep, n_last, stop_reason, comments
+1, 0.7889, 31, 43, Claude (though asked if more), not valid because of forgotten README 
+2, 0.8197, 44, 53, Claude (though asked if more), not valid because of forgotten README 
+3, 0.8090, 86, 97, Claude (though asked if more)

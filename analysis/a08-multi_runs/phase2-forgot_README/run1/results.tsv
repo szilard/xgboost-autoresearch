@@ -1,0 +1,44 @@
+commit	CV_AUC	status	description
+0841565	0.7445	keep	baseline (n_estimators=30, max_depth=6, lr=0.1)
+2482599	0.7563	keep	n_estimators 30 -> 500
+a4b9ddb	0.7590	keep	n_estimators 500 -> 1500
+f337119	0.7601	keep	n_estimators 1500 -> 3000 (saturating, ~60s budget)
+c7ec3fb	0.7443	discard	add subsample=0.8 + colsample_bytree=0.8 (big regression -0.0158)
+2c2872d	0.7501	discard	max_depth 6 -> 4 (under-fit)
+14feb9b	0.7652	keep	add min_child_weight=10
+aa0051c	0.7718	keep	min_child_weight 10 -> 30
+8510814	0.7774	keep	min_child_weight 30 -> 100
+94445f7	0.7678	discard	min_child_weight 100 -> 300 (over-regularized)
+866e240	0.7733	discard	min_child_weight 100 -> 200 (worse, 100 is the optimum)
+8e1dac4	0.7782	keep	learning_rate 0.1 -> 0.05 (marginal)
+920dcb2	0.7591	discard	add gamma=1.0 (too aggressive, prunes nearly all splits)
+7cedf23	0.7750	discard	add subsample=0.9 alone (mild stochastic still hurts)
+6a3539e	0.7791	discard	max_depth 6 -> 8 (over-budget ~68s + gain within noise)
+65a132d	0.7782	discard	add reg_lambda=10 (no effect, identical AUC)
+9b1d915	0.7772	discard	add reg_lambda=50 (slight regression)
+6e95741	0.7800	discard	add DepHour as 7th cat feature (gain +0.0018 but ~71s over budget)
+fb8d7ae	0.7707	discard	replace DepTime (num) with DepHour (cat) - lost minute precision
+16195fa	0.7708	discard	drop DayofMonth (carries real signal)
+b77bcd1	0.7785	keep	add reg_alpha=1.0 (L1, marginal)
+7dff7a9	0.7768	discard	reg_alpha 1.0 -> 5.0 (over-regularized)
+fd00862	0.7776	discard	reg_alpha 1.0 -> 2.0 (slightly worse)
+99376e2	0.7783	discard	learning_rate 0.05 -> 0.07 (lr=0.05 confirmed)
+d84baa8	0.7785	discard	grow_policy='lossguide' (identical AUC, ~68s over budget)
+6caea5e	0.7784	discard	max_cat_to_onehot=12 (no effect)
+7bca30c	0.7788	keep	n_estimators 3000 -> 3500 (marginal)
+e31bd75	0.7785	discard	min_child_weight 100 -> 125 (marginal worse, 100 confirmed)
+8fbeebd	0.7781	discard	add Route=Origin_Dest cat (worse + over-budget 84s)
+3f78881	0.7801	keep	+DepHour cat & n_estimators 3500 -> 2500 (budget swap; new best)
+1f6d496	0.7808	keep	min_child_weight 100 -> 75 (with DepHour, reg optimum shifted; ~63s edge)
+4dc5c45	0.7803	discard	max_cat_threshold 64 -> 32
+45a8ab8	0.7782	discard	max_depth 6 -> 5 (under-fit with new feature set)
+01544f2	0.7797	discard	min_child_weight 75 -> 50 (worse + over-budget)
+c9b6bea	0.7776	discard	add MonthHour interaction (redundant w/ Month+DepHour, over-budget)
+3dd8d7a	0.7798	discard	max_cat_threshold 64 -> 128 (worse)
+ee6d936	0.7803	discard	remove reg_alpha (reg_alpha=1.0 confirmed beneficial)
+a6d281e	0.7729	discard	per-fold early stopping CV (best_iter~1054 on 64k, but 64k training data hurts AUC)
+5131572	0.7796	discard	n_estimators 2500 -> 1500 (worse, n=2500 needed at full data)
+2dddfe6	0.7805	discard	add reg_lambda=5 to current best (within-noise worse)
+d43bb98	0.7797	discard	max_bin 256 -> 128 (slight regression, time unchanged)
+79d410f	0.7707	discard	drop DepTime keep DepHour (-0.0101, minute precision matters)
+4b605a9	0.7808	discard	learning_rate 0.05 -> 0.04 (identical AUC, lr indifferent)
