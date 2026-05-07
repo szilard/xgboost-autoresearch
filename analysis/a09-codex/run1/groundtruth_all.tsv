@@ -1,0 +1,37 @@
+commit	status	description	cv_auc	test_auc_2005s2_full	test_auc_2005s2_4_5	test_auc_2006_full
+7d0b368	keep	baseline	0.7445	0.7479	0.7454	0.7155
+4c2aa50	keep	regularized 120 trees lower learning rate sampled rows and columns	0.7497	0.7522	0.7499	0.7182
+f37a992	keep	220 trees learning rate 0.035 from regularized baseline	0.7511	0.7542	0.7521	0.7188
+dbc1fa8	keep	depth 6 with 220 lower-rate regularized trees	0.7557	0.7588	0.7562	0.7193
+9765533	keep	depth 7 probe with same lower-rate sampled setup	0.7599	0.7633	0.7608	0.7196
+0e16eec	keep	depth 8 edge probe with regularized sampled booster	0.7643	0.7679	0.7649	0.7197
+a0f8e7c	keep	depth 9 probe continuing interaction-depth gains	0.7676	0.7725	0.7687	0.7202
+d723a6b	keep	depth 10 boundary probe still improves	0.7718	0.7773	0.7731	0.7207
+414cbb1	discard	min_child_weight 1 at depth 10	0.7675	N/A	N/A	N/A
+6097c86	keep	min_child_weight 5 prunes depth 10 leaves	0.7738	0.7793	0.7745	0.7209
+16ca59b	keep	min_child_weight 8 stronger pruning at depth 10	0.7751	0.7799	0.7762	0.7215
+abbf167	keep	min_child_weight 12 stronger pruning	0.7757	0.7806	0.7764	0.7233
+b14ad5b	discard	min_child_weight 20 over-prunes depth 10	0.7749	N/A	N/A	N/A
+69a4b9a	discard	gamma 0.05 added to min_child_weight 12	0.7755	N/A	N/A	N/A
+8f590da	discard	subsample 1.0 with colsample 0.85	0.7752	N/A	N/A	N/A
+4e236f2	discard	subsample 0.75 stronger row sampling	0.7751	N/A	N/A	N/A
+4c4d0ae	discard	colsample_bytree 1.0 all columns	0.7712	N/A	N/A	N/A
+d1daf26	keep	colsample_bytree 0.70 stronger column sampling	0.7776	0.7826	0.7783	0.7235
+8ed423e	keep	colsample_bytree 0.55 stronger feature randomness	0.7791	0.7849	0.7804	0.7243
+1cf4f3f	discard	colsample_bytree 0.40 too aggressive	0.7774	N/A	N/A	N/A
+69d863f	discard	colsample_bytree 0.50 tied 0.55 no improvement	0.7791	N/A	N/A	N/A
+91942f9	discard	DepHour and DepMinutes derived from DepTime	0.7771	N/A	N/A	N/A
+8600faf	discard	categorical DepHour feature	0.7776	N/A	N/A	N/A
+04ceb60	discard	Origin_Dest route categorical interaction	0.7756	N/A	N/A	N/A
+92f6aee	keep	400 trees learning rate 0.02 with tuned regularization	0.7794	0.7849	0.7808	0.7254
+81b0471	keep	600 trees learning rate 0.015 smoother schedule	0.7802	0.7860	0.7814	0.7254
+7338924	keep	800 trees learning rate 0.012 smoother schedule	0.7813	0.7870	0.7826	0.7257
+1b7f12e	keep	1000 trees learning rate 0.01 smoother schedule	0.7817	0.7876	0.7833	0.7258
+191ca6d	discard	1200 trees learning rate 0.008 slower no improvement	0.7816	N/A	N/A	N/A
+92276bc	keep	depth 11 with 1000-tree smoother schedule	0.7843	0.7910	0.7859	0.7265
+32281af	keep	depth 12 with 1000-tree smoother schedule	0.7860	0.7934	0.7877	0.7273
+a20ccac	keep	depth 13 boundary still improves within timeout	0.7875	0.7953	0.7891	0.7280
+757d2a4	crash	depth 14 exceeded 60 second timeout	0.0000	N/A	N/A	N/A
+deb23fa	discard	min_child_weight 18 at depth 13 over-prunes	0.7849	N/A	N/A	N/A
+020d67e	crash	min_child_weight 8 at depth 13 exceeded timeout	0.0000	N/A	N/A	N/A
+2d4bca0	discard	max_cat_to_onehot 32 categorical split handling	0.7833	N/A	N/A	N/A

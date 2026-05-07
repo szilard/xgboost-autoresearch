@@ -1,0 +1,14 @@
+CODEX_HOME=/home/ubuntu/codexhome-run1 codex --yolo
+
+run1:
+
+Reasoning Level for gpt-5.5 
+
+  1. Low                         Fast responses with lighter reasoning
+› 2. Medium (default) (current)  Balances speed and reasoning depth for everyday tasks
+  3. High                        Greater reasoning depth for complex problems
+  4. Extra high                  Extra high reasoning depth for complex problems
+
+
+run2:
+    TODO: High

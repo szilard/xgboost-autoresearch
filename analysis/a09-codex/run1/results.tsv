@@ -1,0 +1,37 @@
+commit	CV_AUC	status	description
+7d0b368	0.7445	keep	baseline
+4c2aa50	0.7497	keep	regularized 120 trees lower learning rate sampled rows and columns
+f37a992	0.7511	keep	220 trees learning rate 0.035 from regularized baseline
+dbc1fa8	0.7557	keep	depth 6 with 220 lower-rate regularized trees
+9765533	0.7599	keep	depth 7 probe with same lower-rate sampled setup
+0e16eec	0.7643	keep	depth 8 edge probe with regularized sampled booster
+a0f8e7c	0.7676	keep	depth 9 probe continuing interaction-depth gains
+d723a6b	0.7718	keep	depth 10 boundary probe still improves
+414cbb1	0.7675	discard	min_child_weight 1 at depth 10
+6097c86	0.7738	keep	min_child_weight 5 prunes depth 10 leaves
+16ca59b	0.7751	keep	min_child_weight 8 stronger pruning at depth 10
+abbf167	0.7757	keep	min_child_weight 12 stronger pruning
+b14ad5b	0.7749	discard	min_child_weight 20 over-prunes depth 10
+69a4b9a	0.7755	discard	gamma 0.05 added to min_child_weight 12
+8f590da	0.7752	discard	subsample 1.0 with colsample 0.85
+4e236f2	0.7751	discard	subsample 0.75 stronger row sampling
+4c4d0ae	0.7712	discard	colsample_bytree 1.0 all columns
+d1daf26	0.7776	keep	colsample_bytree 0.70 stronger column sampling
+8ed423e	0.7791	keep	colsample_bytree 0.55 stronger feature randomness
+1cf4f3f	0.7774	discard	colsample_bytree 0.40 too aggressive
+69d863f	0.7791	discard	colsample_bytree 0.50 tied 0.55 no improvement
+91942f9	0.7771	discard	DepHour and DepMinutes derived from DepTime
+8600faf	0.7776	discard	categorical DepHour feature
+04ceb60	0.7756	discard	Origin_Dest route categorical interaction
+92f6aee	0.7794	keep	400 trees learning rate 0.02 with tuned regularization
+81b0471	0.7802	keep	600 trees learning rate 0.015 smoother schedule
+7338924	0.7813	keep	800 trees learning rate 0.012 smoother schedule
+1b7f12e	0.7817	keep	1000 trees learning rate 0.01 smoother schedule
+191ca6d	0.7816	discard	1200 trees learning rate 0.008 slower no improvement
+92276bc	0.7843	keep	depth 11 with 1000-tree smoother schedule
+32281af	0.7860	keep	depth 12 with 1000-tree smoother schedule
+a20ccac	0.7875	keep	depth 13 boundary still improves within timeout
+757d2a4	0.0000	crash	depth 14 exceeded 60 second timeout
+deb23fa	0.7849	discard	min_child_weight 18 at depth 13 over-prunes
+020d67e	0.0000	crash	min_child_weight 8 at depth 13 exceeded timeout
+2d4bca0	0.7833	discard	max_cat_to_onehot 32 categorical split handling
