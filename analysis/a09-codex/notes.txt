@@ -11,4 +11,5 @@ Reasoning Level for gpt-5.5
 
 
 run2:
-    TODO: High
+    
+    gpt-5.5  reasoning xhigh

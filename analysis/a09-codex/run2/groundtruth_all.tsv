@@ -1,0 +1,92 @@
+commit	status	description	cv_auc	test_auc_2005s2_full	test_auc_2005s2_4_5	test_auc_2006_full
+7d0b368	keep	baseline	0.7445	0.7479	0.7454	0.7155
+ba8f26d	keep	200 trees depth 4 lower learning rate with row and column sampling	0.7487	0.7514	0.7498	0.7181
+2ec6b62	keep	400 trees depth 4 learning rate 0.03 with same regularization	0.7496	0.7518	0.7508	0.7184
+d84eab8	keep	depth 5 with min child weight 10 on the 400 tree schedule	0.7579	0.7599	0.7590	0.7196
+49206b8	keep	depth 6 with min child weight 20 on the 400 tree schedule	0.7657	0.7683	0.7671	0.7207
+23da8fc	keep	depth 7 with min child weight 40 on the 400 tree schedule	0.7691	0.7731	0.7707	0.7211
+dfd242a	keep	depth 7 with min child weight relaxed to 20	0.7702	0.7741	0.7716	0.7208
+922a158	discard	depth 7 with min child weight relaxed further to 10	0.7686	N/A	N/A	N/A
+408922b	keep	depth 7 with min child weight 15	0.7704	0.7737	0.7713	0.7209
+9566bf1	keep	depth 8 with min child weight 30	0.7736	0.7776	0.7749	0.7209
+1a8092b	discard	depth 9 with min child weight 60	0.7722	N/A	N/A	N/A
+bbaf29f	discard	max_cat_to_onehot 32 for low-cardinality categoricals	0.7620	N/A	N/A	N/A
+06ab09b	discard	max_cat_threshold 256 for larger categorical partitions	0.7735	N/A	N/A	N/A
+8e13809	discard	gamma 0.1 split loss regularization	0.7736	N/A	N/A	N/A
+f02d374	keep	add departure hour minute minutes and cyclic time features	0.7784	0.7837	0.7803	0.7261
+09c2a1c	keep	remove raw DepTime after adding engineered time features	0.7787	0.7840	0.7806	0.7261
+ed3e2f1	discard	add calendar numeric cyclic and weekend features	0.7784	N/A	N/A	N/A
+93377f1	discard	add Origin_Dest route categorical interaction	0.7783	N/A	N/A	N/A
+1bdc8a4	discard	depth 7 min child weight 15 with time features	0.7742	N/A	N/A	N/A
+8031221	discard	max_bin 512 on time-feature model	0.7783	N/A	N/A	N/A
+a81641c	keep	600 trees learning rate 0.02 on time-feature model	0.7795	0.7846	0.7813	0.7266
+6ff2d6c	keep	800 trees learning rate 0.015 on time-feature model	0.7797	0.7847	0.7815	0.7269
+63104e6	keep	1000 trees learning rate 0.012 on time-feature model	0.7799	0.7852	0.7817	0.7271
+f2efbc1	discard	min child weight 40 on 1000 tree schedule	0.7784	N/A	N/A	N/A
+066e231	keep	min child weight 20 on 1000 tree schedule	0.7805	0.7856	0.7826	0.7267
+bedc3db	keep	min child weight 15 on 1000 tree schedule	0.7808	0.7859	0.7821	0.7266
+ccde93f	discard	min child weight 10 on 1000 tree schedule	0.7797	N/A	N/A	N/A
+1315f01	discard	min child weight 12 on 1000 tree schedule	0.7802	N/A	N/A	N/A
+a370e42	keep	min child weight 18 on 1000 tree schedule	0.7809	0.7857	0.7825	0.7266
+d10606c	discard	min child weight 17 on 1000 tree schedule	0.7806	N/A	N/A	N/A
+a3b746f	discard	min child weight 19 on 1000 tree schedule	0.7808	N/A	N/A	N/A
+ce7470c	discard	colsample_bytree 1.0	0.7792	N/A	N/A	N/A
+b4e34e4	keep	colsample_bytree 0.75	0.7811	0.7867	0.7830	0.7276
+86087a4	keep	colsample_bytree 0.65	0.7819	0.7875	0.7837	0.7288
+d0c6fb5	discard	colsample_bytree 0.55	0.7816	N/A	N/A	N/A
+3b5621f	discard	colsample_bytree 0.60	0.7819	N/A	N/A	N/A
+a5e1541	discard	colsample_bytree 0.70	0.7816	N/A	N/A	N/A
+2a91b2c	discard	subsample 0.75	0.7812	N/A	N/A	N/A
+e1cbaf9	discard	subsample 0.95	0.7818	N/A	N/A	N/A
+d9d5c93	keep	subsample 0.90	0.7821	0.7876	0.7840	0.7290
+64b2866	discard	subsample 0.88	0.7818	N/A	N/A	N/A
+1b4c93d	discard	lossguide max leaves 128 too slow	0.7859	N/A	N/A	N/A
+70f193c	discard	lossguide max leaves 64	0.7769	N/A	N/A	N/A
+9610702	keep	lossguide max leaves 96	0.7825	0.7872	0.7841	0.7295
+03d5217	keep	850 trees learning rate 0.014 lossguide max leaves 112	0.7840	0.7891	0.7856	0.7300
+007f281	keep	750 trees learning rate 0.016 lossguide max leaves 128	0.7855	0.7907	0.7872	0.7299
+a1c2b6b	keep	650 trees learning rate 0.0185 lossguide max leaves 144	0.7872	0.7925	0.7889	0.7301
+65a84fa	keep	550 trees learning rate 0.022 lossguide max leaves 160	0.7885	0.7945	0.7905	0.7309
+a28fa57	keep	450 trees learning rate 0.027 lossguide max leaves 192	0.7906	0.7964	0.7919	0.7315
+a18be2e	keep	350 trees learning rate 0.034 lossguide max leaves 256	0.7918	0.7987	0.7930	0.7320
+2d47dfd	keep	250 trees learning rate 0.048 lossguide max leaves 384	0.7939	0.8023	0.7950	0.7319
+6085269	discard	200 trees learning rate 0.06 lossguide max leaves 512	0.7939	N/A	N/A	N/A
+75d7f37	keep	300 trees learning rate 0.04 lossguide max leaves 384	0.7943	0.8022	0.7962	0.7333
+38316c9	keep	350 trees learning rate 0.034 lossguide max leaves 384	0.7946	0.8030	0.7965	0.7326
+568aca6	crash	400 trees learning rate 0.03 lossguide max leaves 384 timeout	0.0000	N/A	N/A	N/A
+e86b1ac	keep	375 trees learning rate 0.032 lossguide max leaves 384	0.7952	0.8029	0.7963	0.7328
+a290479	keep	390 trees learning rate 0.031 lossguide max leaves 384	0.7958	0.8031	0.7967	0.7327
+37f0f3e	discard	395 trees learning rate 0.0305 lossguide max leaves 384	0.7953	N/A	N/A	N/A
+6489367	discard	min child weight 25 on high leaf lossguide	0.7927	N/A	N/A	N/A
+7d563ed	keep	min child weight 12 on high leaf lossguide	0.7964	0.8043	0.7978	0.7328
+57c3219	discard	min child weight 8 on high leaf lossguide	0.7957	N/A	N/A	N/A
+dd71459	discard	gamma 0.05 on high leaf lossguide	0.7964	N/A	N/A	N/A
+7f28f86	discard	reg_lambda 0.5 on high leaf lossguide	0.7959	N/A	N/A	N/A
+8482685	discard	reg_lambda 2.0 on high leaf lossguide	0.7952	N/A	N/A	N/A
+942a0cf	discard	colsample_bynode 0.8 on high leaf lossguide	0.7944	N/A	N/A	N/A
+7247d86	crash	distance log and sqrt transforms timeout	0.0000	N/A	N/A	N/A
+1070d81	discard	385 trees learning rate 0.0315 lossguide max leaves 384	0.7961	N/A	N/A	N/A
+431f9f7	crash	max_cat_threshold 256 timeout on high leaf lossguide	0.0000	N/A	N/A	N/A
+c7e711e	discard	max_cat_threshold 32 on high leaf lossguide	0.7962	N/A	N/A	N/A
+6e3f9c3	keep	330 trees learning rate 0.0365 lossguide max leaves 448	0.7966	0.8045	0.7980	0.7327
+918f195	keep	300 trees learning rate 0.04 lossguide max leaves 512	0.7973	0.8060	0.7988	0.7333
+a80412e	keep	250 trees learning rate 0.048 lossguide max leaves 640	0.7979	0.8069	0.7986	0.7330
+a2d1397	discard	200 trees learning rate 0.06 lossguide max leaves 768	0.7962	N/A	N/A	N/A
+c4573f5	keep	275 trees learning rate 0.044 lossguide max leaves 640	0.7983	0.8072	0.7999	0.7336
+a79aed2	keep	250 trees learning rate 0.048 lossguide max leaves 704	0.7984	0.8073	0.7996	0.7335
+6239b57	discard	230 trees learning rate 0.052 lossguide max leaves 768	0.7976	N/A	N/A	N/A
+00d0b0f	keep	260 trees learning rate 0.0465 lossguide max leaves 704	0.7989	0.8074	0.8000	0.7326
+d0aca0e	crash	265 trees learning rate 0.0455 lossguide max leaves 704 timeout	0.0000	N/A	N/A	N/A
+76302ee	crash	min child weight 10 on 704-leaf lossguide timeout	0.0000	N/A	N/A	N/A
+7ce5a0d	discard	min child weight 14 on 704-leaf lossguide	0.7973	N/A	N/A	N/A
+2a70be4	discard	max depth 16 cap on 704-leaf lossguide	0.7968	N/A	N/A	N/A
+55e5e9d	discard	max_bin 128 on 704-leaf lossguide	0.7973	N/A	N/A	N/A
+3d49c0c	crash	colsample_bytree 0.60 on 704-leaf lossguide timeout	0.0000	N/A	N/A	N/A
+d50b33c	crash	subsample 0.95 on 704-leaf lossguide timeout	0.0000	N/A	N/A	N/A
+91ebdef	discard	max leaves 672 on 260 tree schedule	0.7979	N/A	N/A	N/A
+07012cc	discard	250 trees learning rate 0.048 lossguide max leaves 736	0.7987	N/A	N/A	N/A
+e223999	discard	255 trees learning rate 0.0472 lossguide max leaves 704	0.7980	N/A	N/A	N/A
+540e89b	crash	remove DepMinute timeout	0.0000	N/A	N/A	N/A
+d8044af	discard	learning rate 0.048 on 260 tree 704 leaf model	0.7988	N/A	N/A	N/A
+ce5cf47	discard	learning rate 0.045 on 260 tree 704 leaf model	0.7983	N/A	N/A	N/A
+3db368e	discard	learning rate 0.047 on 260 tree 704 leaf model	0.7979	N/A	N/A	N/A
