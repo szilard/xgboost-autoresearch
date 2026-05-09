@@ -1,0 +1,132 @@
+commit	CV_AUC	status	description
+7d0b368	0.7445	keep	baseline unchanged starter model
+826568d	0.7513	keep	120 trees lower learning rate explicit hist auc metric
+f76c3b0	0.7517	keep	200 trees at 0.03 learning rate
+8fc0379	0.7462	discard	reduce max_depth to 4
+cc49859	0.7552	keep	increase max_depth to 8
+11f1073	0.7595	keep	increase max_depth to 10
+3c01149	0.7628	keep	increase max_depth to 12
+45c7db5	0.7657	keep	increase max_depth to 14
+77ade59	0.7731	keep	add min_child_weight 5 to deep trees
+6c34e12	0.7747	keep	raise min_child_weight to 10
+4aa4e92	0.7727	discard	raise min_child_weight to 20
+7637437	0.7746	discard	max_cat_to_onehot 16 for small categoricals
+2ed0c2d	0.7745	discard	max_cat_threshold 32 for categorical regularization
+0fac8f8	0.7804	keep	add departure time derived numeric and cyclic features
+841d3a5	0.7793	discard	add high-cardinality route categorical feature
+60714b8	0.7802	discard	add cyclic calendar and weekend features
+7ed1b2a	0.7818	keep	raise max_depth to 16 with time features
+819cae3	0.7825	keep	raise max_depth to 18 with time features
+97192af	0.7827	keep	raise max_depth to 20 with time features
+ce852e8	0.7807	discard	raise min_child_weight to 15
+8f4d69d	0.7831	keep	300 trees at 0.02 learning rate
+9869075	0.7838	keep	add subsample 0.9
+e9844a0	0.7826	discard	lower subsample to 0.8
+b768081	0.7840	keep	light subsample 0.95
+798390e	0.7870	keep	add colsample_bytree 0.9
+847e7a3	0.7897	keep	lower colsample_bytree to 0.8
+89c886f	0.7907	keep	lower colsample_bytree to 0.7
+a15efee	0.7935	keep	lower colsample_bytree to 0.6
+3642af5	0.7926	discard	lower colsample_bytree to 0.5
+31a6b74	0.7935	discard	colsample_bytree 0.55 tied best
+4766104	0.7919	discard	colsample_bytree 0.65
+cb64df2	0.7931	discard	add colsample_bynode 0.9
+badf2cc	0.7935	discard	add gamma 0.1 split regularization
+81514b9	0.7920	discard	raise reg_lambda to 2
+9f82898	0.7893	discard	grow_policy lossguide max_leaves 512
+172aec3	0.7921	discard	remove cyclic departure time features
+3c09a6b	0.7938	keep	lower reg_lambda to 0.5
+9f9a739	0.7939	keep	lower reg_lambda to 0.25
+5274663	0.7945	keep	remove reg_lambda
+35a3c3c	0.7947	keep	raise max_depth to 22 with no l2
+c231b8f	0.7950	keep	raise max_depth to 24 with no l2
+ce57e9a	0.7945	discard	max_bin 512
+00ba05f	0.7945	discard	max_bin 128
+88d1710	0.7946	discard	raise max_depth to 26
+d81c3a3	0.7935	discard	add log and sqrt distance transforms
+ef147ce	0.7937	discard	add 3-hour departure period categorical
+7b45d65	0.7957	keep	400 trees at 0.015 learning rate
+df5ce5b	0.7958	keep	500 trees at 0.012 learning rate
+2b7c718	0.7969	keep	600 trees at 0.01 learning rate
+dbb8154	0.7970	keep	700 trees at 0.0085 learning rate
+0efcc89	0.7974	keep	700 trees at 0.009 learning rate
+f67e930	0.7986	keep	700 trees at 0.0095 learning rate
+eb524e5	0.7992	keep	700 trees at 0.01 learning rate
+47dcfbe	0.8003	keep	700 trees at 0.011 learning rate
+6ef12b1	0.8012	keep	700 trees at 0.012 learning rate
+71510ad	0.8024	keep	700 trees at 0.013 learning rate
+d423a3e	0.8029	keep	700 trees at 0.014 learning rate
+0d7e7d8	0.8037	keep	700 trees at 0.015 learning rate
+6fbd86b	0.8042	keep	700 trees at 0.016 learning rate
+31eed32	0.8046	keep	700 trees at 0.017 learning rate
+293d2eb	0.8050	keep	700 trees at 0.018 learning rate
+89e4b20	0.8053	keep	700 trees at 0.019 learning rate
+77fe758	0.8057	keep	700 trees at 0.02 learning rate
+18875f1	0.8061	keep	700 trees at 0.022 learning rate
+ca7ade5	0.8065	keep	700 trees at 0.024 learning rate
+0f89874	0.8069	keep	700 trees at 0.026 learning rate
+e4e996f	0.8069	discard	700 trees at 0.028 learning rate tied best
+5d04a51	0.8068	discard	700 trees at 0.027 learning rate
+7a30d08	0.8077	keep	lower min_child_weight to 8 at eta peak
+b23af85	0.8088	keep	lower min_child_weight to 6
+6c8f200	0.0000	crash	min_child_weight 4 timed out
+36fbc5f	0.8084	discard	650 trees at 0.028 learning rate
+b4dc670	0.8079	discard	650 trees at 0.03 learning rate
+90817d6	0.8084	discard	reduce max_depth to 22 at best settings
+9825fb5	0.8088	discard	colsample_bytree 0.55 tied best
+60424a9	0.8082	discard	remove row subsampling
+8634ad3	0.8082	discard	lower subsample to 0.9
+9661382	0.8201	keep	max_cat_to_onehot 32
+633d32a	0.8112	discard	max_cat_to_onehot 24
+86bf145	0.7996	discard	max_cat_to_onehot 512
+0cde539	0.8205	keep	max_cat_threshold 128
+4f9c89e	0.8206	discard	max_cat_threshold 256 too slow
+5cdb54d	0.8210	keep	max_cat_threshold 192
+65bcc64	0.8206	discard	max_cat_threshold 224
+4b59664	0.8205	discard	max_cat_threshold 208
+4db273f	0.8206	discard	max_cat_threshold 176
+0e2522e	0.8208	discard	learning_rate 0.028 after categorical retune
+c1043d5	0.8210	discard	learning_rate 0.025 tied best
+9a47a2e	0.8217	discard	min_child_weight 5 too slow
+4348ec4	0.8213	keep	min_child_weight 5 with 650 trees at 0.028
+288a65a	0.8220	keep	min_child_weight 5 with 650 trees at 0.029
+64e6baf	0.8212	discard	min_child_weight 5 with 650 trees at 0.03
+0eb7d08	0.8214	discard	min_child_weight 5 with 650 trees at 0.0295
+6844416	0.8214	discard	max_cat_threshold 224 after schedule retune
+8d046f2	0.8224	discard	colsample_bytree 0.65 too slow
+caee7f9	0.8224	discard	colsample_bytree 0.625 too slow
+f657d61	0.8220	discard	625 trees 0.03 eta colsample 0.625 tied best
+7f25d47	0.8222	keep	625 trees 0.031 eta colsample 0.625
+aa69176	0.8216	discard	625 trees 0.032 eta colsample 0.625
+d50ebcf	0.8221	discard	625 trees 0.0315 eta colsample 0.625
+ee795c9	0.8219	discard	600 trees 0.033 eta colsample 0.65
+9f7fc42	0.8221	discard	add reg_alpha 0.1
+e6d7405	0.8233	discard	min_child_weight 4 with 600 trees too slow
+5e7303b	0.8233	keep	min_child_weight 4 with 575 trees at 0.0345
+8099ed5	0.8226	discard	min_child_weight 4 with 575 trees at 0.0355
+782cb30	0.8230	discard	min_child_weight 4 with 575 trees at 0.034
+680e55a	0.8227	discard	min_child_weight 4 with 550 trees at 0.036
+731dacd	0.8230	discard	max_cat_threshold 224 with child_weight 4
+7c2f90a	0.8224	discard	subsample 0.9 with child_weight 4
+cf33d9a	0.8233	discard	colsample_bytree 0.65 tied best
+c1ce7cb	0.8233	discard	max_depth 26 tied best too slow
+4e88375	0.8238	keep	add categorical departure hour
+0c48fdb	0.8236	discard	add categorical departure quarter
+f0f408c	0.8238	discard	remove raw departure hour tied best
+11631fa	0.8229	discard	remove raw departure time
+0f11483	0.8234	discard	gamma 0.05 split-loss regularization
+ad96f34	0.8240	keep	learning_rate 0.0348 with DepHourCat
+8f82f0f	0.8237	discard	585 trees at learning_rate 0.0342
+08a837d	0.8233	discard	learning_rate 0.0351
+a04c88b	0.8234	discard	learning_rate 0.0347
+06f30d9	0.8234	discard	colsample_bylevel 0.9
+3712049	0.8158	discard	lossguide growth with max_leaves 512
+b40ee6d	0.8231	discard	max_depth 23
+5ae4698	0.8236	discard	distance quantile bins
+3edc009	0.8047	discard	carrier weekday categorical interaction
+aa6a093	0.8235	discard	570 trees at learning_rate 0.035
+422eacb	0.8241	discard	subsample 0.975 over runtime cap
+63834f3	0.8238	discard	subsample 0.97 over runtime cap
+5eef80d	0.8238	discard	subsample 0.965 over runtime cap
+2137b2e	0.8240	discard	colsample_bytree 0.6 over runtime cap
+e5726e3	0.8241	discard	570 trees with subsample 0.975 over runtime cap

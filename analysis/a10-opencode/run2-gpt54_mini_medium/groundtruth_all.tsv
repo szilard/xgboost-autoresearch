@@ -1,0 +1,67 @@
+commit	status	description	cv_auc	test_auc_2005s2_full	test_auc_2005s2_4_5	test_auc_2006_full
+7d0b368	crash	baseline run blocked: missing pandas	0.0000	N/A	N/A	N/A
+7d0b368	keep	baseline with .venv	0.7445	0.7479	0.7454	0.7155
+7d0b368	keep	more trees, lower lr, subsample, colsample, stronger regularization	0.7494	0.7479	0.7454	0.7155
+7d0b368	keep	add cyclical encodings for Month, DayOfWeek, and DepTime	0.7495	0.7479	0.7454	0.7155
+7d0b368	keep	native xgb.train with fold-specific early stopping	0.7555	0.7479	0.7454	0.7155
+7d0b368	keep	lossguide growth with max_leaves=64	0.7685	0.7479	0.7454	0.7155
+7d0b368	keep	drop raw DepTime and keep cyclic time features	0.7692	0.7479	0.7454	0.7155
+7d0b368	discard	drop raw Month and DayOfWeek categories	0.7690	N/A	N/A	N/A
+7d0b368	keep	raise max_cat_to_onehot to 32 with lossguide	0.7819	0.7479	0.7454	0.7155
+7d0b368	discard	reduce max_leaves to 48	0.7781	N/A	N/A	N/A
+7d0b368	discard	raise max_cat_to_onehot to 64	0.7819	N/A	N/A	N/A
+7d0b368	discard	raise max_cat_threshold to 128	0.7812	N/A	N/A	N/A
+7d0b368	discard	add colsample_bynode=0.8	0.7816	N/A	N/A	N/A
+7d0b368	discard	lower min_child_weight to 3	0.7793	N/A	N/A	N/A
+7d0b368	crash	add route and carrier-route feature interactions (timed out)	0.0000	N/A	N/A	N/A
+7d0b368	discard	faster boosting schedule with higher eta and fewer rounds	0.7801	N/A	N/A	N/A
+7d0b368	discard	middle-ground boosting schedule with eta=0.04	0.7810	N/A	N/A	N/A
+7d0b368	discard	interaction constraints separating time and location features	0.7465	N/A	N/A	N/A
+7d0b368	keep	increase max_bin to 512	0.7827	0.7479	0.7454	0.7155
+7d0b368	keep	increase max_bin to 1024	0.7834	0.7479	0.7454	0.7155
+7d0b368	discard	increase max_bin to 2048	0.7834	N/A	N/A	N/A
+7d0b368	crash	increase max_leaves to 96 (timed out)	0.0000	N/A	N/A	N/A
+7d0b368	keep	increase max_leaves to 80	0.7873	0.7479	0.7454	0.7155
+7d0b368	crash	increase max_leaves to 88 (timed out)	0.0000	N/A	N/A	N/A
+7d0b368	crash	increase max_leaves to 84 (timed out)	0.0000	N/A	N/A	N/A
+7d0b368	discard	raise max_cat_to_onehot to 48	0.7873	N/A	N/A	N/A
+7d0b368	discard	raise gamma to 0.2	0.7873	N/A	N/A	N/A
+7d0b368	discard	increase subsample and colsample_bytree to 0.9	0.7869	N/A	N/A	N/A
+7d0b368	discard	increase subsample and colsample_bytree to 0.85	0.7861	N/A	N/A	N/A
+7d0b368	keep	lower lambda to 1.0 and alpha to 0.0	0.7874	0.7479	0.7454	0.7155
+7d0b368	discard	lower lambda to 0.5	0.7873	N/A	N/A	N/A
+7d0b368	discard	lower min_child_weight to 4	0.7855	N/A	N/A	N/A
+7d0b368	discard	set eta to 0.035 with shorter boosting schedule	0.7870	N/A	N/A	N/A
+7d0b368	discard	set eta to 0.032 with a slightly shorter boosting schedule	0.7873	N/A	N/A	N/A
+7d0b368	discard	set alpha to 0.02	0.7873	N/A	N/A	N/A
+7d0b368	discard	drop gamma to 0.0	0.7874	N/A	N/A	N/A
+7d0b368	keep	increase max_leaves to 82	0.7878	0.7479	0.7454	0.7155
+7d0b368	discard	increase max_leaves to 83	0.7877	N/A	N/A	N/A
+7d0b368	discard	increase max_bin to 1536	0.7874	N/A	N/A	N/A
+7d0b368	crash	try DART booster regularization (timed out)	0.0000	N/A	N/A	N/A
+7d0b368	discard	switch to depthwise max_depth=8	0.7877	N/A	N/A	N/A
+7d0b368	keep	switch to depthwise max_depth=9	0.7926	0.7479	0.7454	0.7155
+7d0b368	keep	switch to depthwise max_depth=10	0.7955	0.7479	0.7454	0.7155
+7d0b368	keep	switch to depthwise max_depth=11	0.7987	0.7479	0.7454	0.7155
+7d0b368	crash	switch to depthwise max_depth=12 (timed out)	0.0000	N/A	N/A	N/A
+7d0b368	keep	depthwise max_depth=12 with shorter boosting schedule	0.7978	0.7479	0.7454	0.7155
+7d0b368	keep	depthwise max_depth=13 with shorter boosting schedule	0.7999	0.7479	0.7454	0.7155
+7d0b368	keep	depthwise max_depth=14 with shorter boosting schedule	0.8002	0.7479	0.7454	0.7155
+7d0b368	keep	depthwise max_depth=15 with shorter boosting schedule	0.8025	0.7479	0.7454	0.7155
+7d0b368	keep	depthwise max_depth=16 with shorter boosting schedule	0.8027	0.7479	0.7454	0.7155
+7d0b368	keep	depthwise max_depth=17 with shorter boosting schedule	0.8034	0.7479	0.7454	0.7155
+7d0b368	keep	depthwise max_depth=18 with shorter boosting schedule	0.8041	0.7479	0.7454	0.7155
+7d0b368	discard	depthwise max_depth=19 with shorter boosting schedule	0.8041	N/A	N/A	N/A
+7d0b368	discard	depthwise max_depth=20 with shorter boosting schedule	0.8039	N/A	N/A	N/A
+7d0b368	crash	depthwise max_depth=18 with eta=0.028 timed out	0.0000	N/A	N/A	N/A
+7d0b368	discard	depthwise max_depth=18 with max_bin=2048	0.8037	N/A	N/A	N/A
+7d0b368	discard	depthwise max_depth=18 with gamma=0.0	0.8038	N/A	N/A	N/A
+7d0b368	keep	depthwise max_depth=18 with longer boosting schedule	0.8042	0.7479	0.7454	0.7155
+7d0b368	crash	depthwise max_depth=18 with num_boost_round=1800 timed out	0.0000	N/A	N/A	N/A
+7d0b368	discard	depthwise max_depth=18 with num_boost_round=1600	0.8042	N/A	N/A	N/A
+7d0b368	discard	depthwise max_depth=18 with gamma=0.05	0.8038	N/A	N/A	N/A
+7d0b368	crash	depthwise max_depth=19 with longer boosting schedule timed out	0.0000	N/A	N/A	N/A
+7d0b368	crash	depthwise max_depth=18 with min_child_weight=6 timed out	0.0000	N/A	N/A	N/A
+7d0b368	discard	depthwise max_depth=18 with min_child_weight=6 and shorter schedule	0.8035	N/A	N/A	N/A
+7d0b368	crash	depthwise max_depth=18 with lambda=1.5 timed out	0.0000	N/A	N/A	N/A
+7d0b368	discard	depthwise max_depth=18 with lambda=1.5 and shorter schedule	0.8031	N/A	N/A	N/A

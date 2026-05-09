@@ -1,0 +1,61 @@
+commit	CV_AUC	status	description
+7d0b368	0.7445	keep	baseline
+d9c5c9e	0.7568	keep	more rounds lower learning rate with sampling and child-weight regularization
+0971248	0.7586	keep	extend conservative boosting schedule to 300 rounds at 0.03 learning rate
+426dd6c	0.7592	keep	slower extended boosting with 500 rounds at 0.02 learning rate
+76d4a44	0.7614	keep	longer low-rate boosting with 800 rounds at 0.015 learning rate
+2844201	0.7614	discard	1200 rounds at 0.01 learning rate tied best but slower
+9dff1dd	0.7559	discard	shallower depth 5 trees reduced interaction capacity
+5e50bb0	0.7696	keep	depth 7 with stronger child-weight regularization
+3746f13	0.7746	keep	depth 8 with min_child_weight 20 for constrained higher-order interactions
+c063231	0.7754	keep	depth 9 with min_child_weight 40 for very deep constrained interactions
+cda04be	0.7626	discard	max_cat_to_onehot 64 hurt categorical partitioning
+408ee25	0.7751	discard	max_cat_threshold 128 slightly underperformed default
+fa6b2e3	0.7754	discard	max_cat_threshold 32 tied best without improving simplicity
+a57f0de	0.7753	discard	departure hour and minutes features did not improve raw DepTime
+bdc49a3	0.7746	discard	stronger 0.75 row and column sampling underperformed
+5d76b9b	0.7752	discard	lighter 0.95 row and column sampling underperformed
+2ae42f3	0.7749	discard	reg_lambda 5 over-regularized leaf weights
+55f7beb	0.7755	keep	reg_lambda 0.5 slightly improved leaf weight flexibility
+eba944b	0.7757	keep	reg_lambda 0 further improved supported leaf weights
+d610e9c	0.7756	discard	gamma 0.1 slightly reduced deep split flexibility
+15a0f69	0.7757	discard	lossguide with 512 leaves tied best but was much slower
+2bc3828	0.7760	keep	max_bin 512 improved histogram split resolution
+ae1b2c3	0.7762	keep	max_bin 1024 further improved histogram split resolution
+97e92b6	0.7764	keep	max_bin 2048 improved histogram resolution at acceptable runtime
+95bce1f	0.7764	discard	max_bin 4096 tied 2048 without improvement
+9b6922a	0.7724	discard	depth 10 with min_child_weight 80 over-constrained trees
+9001593	0.7777	keep	depth 10 with min_child_weight 40 improved interaction capacity
+e4fdacb	0.7787	keep	depth 11 with min_child_weight 40 improved further
+bef667f	0.7795	keep	depth 12 with min_child_weight 40 improved further
+ca42c5c	0.7798	keep	depth 13 with min_child_weight 40 improved slightly
+9d3e816	0.7800	keep	depth 14 with min_child_weight 40 reached 0.7800
+ae01d40	0.7800	discard	depth 15 tied depth 14 with extra complexity
+fa28534	0.7822	keep	min_child_weight 30 at depth 14 improved supported leaves
+206181a	0.7834	keep	min_child_weight 25 at depth 14 improved near runtime cap
+bba5906	0.7831	discard	700 rounds at 0.017 was faster but lower AUC
+6c8284d	0.7829	discard	max_bin 1024 underperformed 2048 at depth 14
+b916663	0.0000	crash	route categorical interaction timed out before CV result
+8ea18eb	0.0000	crash	numeric calendar features timed out before CV result
+0d89941	0.7833	discard	750 rounds at 0.016 was slightly lower than 800 at 0.015
+65d556c	0.7830	discard	depth 13 with min_child_weight 25 underperformed depth 14
+1736b5d	0.7815	discard	colsample_bynode 0.8 disrupted useful interactions
+7e90b07	0.0000	crash	colsample_bytree 1.0 timed out before CV result
+6cf99c2	0.7825	discard	subsample 0.8 underperformed 0.85
+14ef49e	0.7834	discard	max_delta_step 1 tied best without improvement
+818d803	0.0000	crash	min_child_weight 23 timed out before CV result
+439dad3	0.7837	keep	learning_rate 0.016 improved 800-round deep model
+b78c4ac	0.7840	keep	learning_rate 0.017 improved further at runtime boundary
+355862a	0.7836	discard	learning_rate 0.018 overshot local optimum
+c52a0f5	0.7840	discard	learning_rate 0.0175 tied simpler 0.017
+3434060	0.7835	discard	min_child_weight 27 underperformed 25 at learning_rate 0.017
+fa7622d	0.7838	discard	learning_rate 0.0172 underperformed 0.017
+0c1251b	0.7837	discard	780 rounds at 0.0174 underperformed 800 at 0.017
+1fe0af2	0.7840	discard	min_child_weight 24 tied 25 without improving AUC
+b04ea1a	0.7844	keep	subsample 0.875 improved row exposure balance
+4d79cc8	0.7847	keep	subsample 0.9 improved row exposure further
+73a2c7a	0.7845	discard	subsample 0.925 fell below 0.9
+34ae542	0.0000	crash	colsample_bytree 0.875 timed out before CV result
+93c044d	0.7847	discard	colsample_bytree 0.825 tied 0.85 without improvement
+244616f	0.7847	discard	learning_rate 0.0175 tied 0.017 under subsample 0.9
+9778fb3	0.0000	crash	subsample 0.9125 timed out before CV result

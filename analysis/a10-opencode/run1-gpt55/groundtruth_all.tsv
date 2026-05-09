@@ -1,0 +1,61 @@
+commit	status	description	cv_auc	test_auc_2005s2_full	test_auc_2005s2_4_5	test_auc_2006_full
+7d0b368	keep	baseline	0.7445	0.7479	0.7454	0.7155
+d9c5c9e	keep	more rounds lower learning rate with sampling and child-weight regularization	0.7568	0.7601	0.7574	0.7189
+0971248	keep	extend conservative boosting schedule to 300 rounds at 0.03 learning rate	0.7586	0.7612	0.7589	0.7200
+426dd6c	keep	slower extended boosting with 500 rounds at 0.02 learning rate	0.7592	0.7626	0.7602	0.7199
+76d4a44	keep	longer low-rate boosting with 800 rounds at 0.015 learning rate	0.7614	0.7642	0.7623	0.7197
+2844201	discard	1200 rounds at 0.01 learning rate tied best but slower	0.7614	N/A	N/A	N/A
+9dff1dd	discard	shallower depth 5 trees reduced interaction capacity	0.7559	N/A	N/A	N/A
+5e50bb0	keep	depth 7 with stronger child-weight regularization	0.7696	0.7728	0.7708	0.7203
+3746f13	keep	depth 8 with min_child_weight 20 for constrained higher-order interactions	0.7746	0.7790	0.7759	0.7215
+c063231	keep	depth 9 with min_child_weight 40 for very deep constrained interactions	0.7754	0.7801	0.7766	0.7222
+cda04be	discard	max_cat_to_onehot 64 hurt categorical partitioning	0.7626	N/A	N/A	N/A
+408ee25	discard	max_cat_threshold 128 slightly underperformed default	0.7751	N/A	N/A	N/A
+fa6b2e3	discard	max_cat_threshold 32 tied best without improving simplicity	0.7754	N/A	N/A	N/A
+a57f0de	discard	departure hour and minutes features did not improve raw DepTime	0.7753	N/A	N/A	N/A
+bdc49a3	discard	stronger 0.75 row and column sampling underperformed	0.7746	N/A	N/A	N/A
+5d76b9b	discard	lighter 0.95 row and column sampling underperformed	0.7752	N/A	N/A	N/A
+2ae42f3	discard	reg_lambda 5 over-regularized leaf weights	0.7749	N/A	N/A	N/A
+55f7beb	keep	reg_lambda 0.5 slightly improved leaf weight flexibility	0.7755	0.7802	0.7766	0.7219
+eba944b	keep	reg_lambda 0 further improved supported leaf weights	0.7757	0.7803	0.7768	0.7223
+d610e9c	discard	gamma 0.1 slightly reduced deep split flexibility	0.7756	N/A	N/A	N/A
+15a0f69	discard	lossguide with 512 leaves tied best but was much slower	0.7757	N/A	N/A	N/A
+2bc3828	keep	max_bin 512 improved histogram split resolution	0.7760	0.7805	0.7769	0.7224
+ae1b2c3	keep	max_bin 1024 further improved histogram split resolution	0.7762	0.7808	0.7770	0.7233
+97e92b6	keep	max_bin 2048 improved histogram resolution at acceptable runtime	0.7764	0.7812	0.7775	0.7233
+95bce1f	discard	max_bin 4096 tied 2048 without improvement	0.7764	N/A	N/A	N/A
+9b6922a	discard	depth 10 with min_child_weight 80 over-constrained trees	0.7724	N/A	N/A	N/A
+9001593	keep	depth 10 with min_child_weight 40 improved interaction capacity	0.7777	0.7831	0.7789	0.7236
+e4fdacb	keep	depth 11 with min_child_weight 40 improved further	0.7787	0.7844	0.7799	0.7240
+bef667f	keep	depth 12 with min_child_weight 40 improved further	0.7795	0.7851	0.7806	0.7237
+ca42c5c	keep	depth 13 with min_child_weight 40 improved slightly	0.7798	0.7857	0.7810	0.7240
+9d3e816	keep	depth 14 with min_child_weight 40 reached 0.7800	0.7800	0.7862	0.7811	0.7243
+ae01d40	discard	depth 15 tied depth 14 with extra complexity	0.7800	N/A	N/A	N/A
+fa28534	keep	min_child_weight 30 at depth 14 improved supported leaves	0.7822	0.7889	0.7837	0.7247
+206181a	keep	min_child_weight 25 at depth 14 improved near runtime cap	0.7834	0.7898	0.7845	0.7241
+bba5906	discard	700 rounds at 0.017 was faster but lower AUC	0.7831	N/A	N/A	N/A
+6c8284d	discard	max_bin 1024 underperformed 2048 at depth 14	0.7829	N/A	N/A	N/A
+b916663	crash	route categorical interaction timed out before CV result	0.0000	N/A	N/A	N/A
+8ea18eb	crash	numeric calendar features timed out before CV result	0.0000	N/A	N/A	N/A
+0d89941	discard	750 rounds at 0.016 was slightly lower than 800 at 0.015	0.7833	N/A	N/A	N/A
+65d556c	discard	depth 13 with min_child_weight 25 underperformed depth 14	0.7830	N/A	N/A	N/A
+1736b5d	discard	colsample_bynode 0.8 disrupted useful interactions	0.7815	N/A	N/A	N/A
+7e90b07	crash	colsample_bytree 1.0 timed out before CV result	0.0000	N/A	N/A	N/A
+6cf99c2	discard	subsample 0.8 underperformed 0.85	0.7825	N/A	N/A	N/A
+14ef49e	discard	max_delta_step 1 tied best without improvement	0.7834	N/A	N/A	N/A
+818d803	crash	min_child_weight 23 timed out before CV result	0.0000	N/A	N/A	N/A
+439dad3	keep	learning_rate 0.016 improved 800-round deep model	0.7837	0.7902	0.7850	0.7239
+b78c4ac	keep	learning_rate 0.017 improved further at runtime boundary	0.7840	0.7906	0.7850	0.7235
+355862a	discard	learning_rate 0.018 overshot local optimum	0.7836	N/A	N/A	N/A
+c52a0f5	discard	learning_rate 0.0175 tied simpler 0.017	0.7840	N/A	N/A	N/A
+3434060	discard	min_child_weight 27 underperformed 25 at learning_rate 0.017	0.7835	N/A	N/A	N/A
+fa7622d	discard	learning_rate 0.0172 underperformed 0.017	0.7838	N/A	N/A	N/A
+0c1251b	discard	780 rounds at 0.0174 underperformed 800 at 0.017	0.7837	N/A	N/A	N/A
+1fe0af2	discard	min_child_weight 24 tied 25 without improving AUC	0.7840	N/A	N/A	N/A
+b04ea1a	keep	subsample 0.875 improved row exposure balance	0.7844	0.7910	0.7854	0.7238
+4d79cc8	keep	subsample 0.9 improved row exposure further	0.7847	0.7918	0.7857	0.7239
+73a2c7a	discard	subsample 0.925 fell below 0.9	0.7845	N/A	N/A	N/A
+34ae542	crash	colsample_bytree 0.875 timed out before CV result	0.0000	N/A	N/A	N/A
+93c044d	discard	colsample_bytree 0.825 tied 0.85 without improvement	0.7847	N/A	N/A	N/A
+244616f	discard	learning_rate 0.0175 tied 0.017 under subsample 0.9	0.7847	N/A	N/A	N/A
+9778fb3	crash	subsample 0.9125 timed out before CV result	0.0000	N/A	N/A	N/A
